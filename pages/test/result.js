@@ -16,6 +16,11 @@ window.onload = loadPage;
       url:"../../img/action.svg"
   },*/
 
+
+function retest(){
+    location.replace("./index.html");
+}
+
 function showResult(){
     const result = getResultFromURL();
     showGenreInfo(result);
