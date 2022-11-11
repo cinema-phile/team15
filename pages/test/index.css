@@ -6,6 +6,21 @@
     background-color: var(--color-green-300);
 }
 
+.php{
+    position: relative;
+}
+
+.php form{
+    opacity: 0%;
+    position: absolute;
+    height: inherit;
+    top:0;
+}
+
+.php input{
+    height: 100%
+}
+
 .btn-optional{
     border:solid 2px var(--color-green-300);
     color:var(--color-green-300);

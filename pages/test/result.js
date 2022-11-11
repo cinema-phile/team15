@@ -1,5 +1,6 @@
 const genreBlock=document.querySelector(".genre");
 const listBlock=document.querySelector(".list");
+const btnBlock=document.querySelector(".btn");
 
 function loadPage(){
     showResult();
@@ -26,7 +27,8 @@ function getResultFromURL(){
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const genre = urlParams.get('genre')
+    const genre = urlParams.get('genre');
+    btnBlock.querySelector("input").value=genre;
     return genre;
 
 }
