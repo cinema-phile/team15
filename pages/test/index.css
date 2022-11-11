@@ -29,7 +29,7 @@
 }
 
 .test-qna{
-    display: none;
+    display: flex;
     height:46rem;
     border: 2px solid var(--color-green-100);
     border-radius: var(--border-radius-regular);
@@ -38,7 +38,7 @@
     justify-content: space-between;
 }
 .qna-status {
-    display: none;
+    display: block;
     height:1.8rem;
     margin-bottom:5.2rem;
     border: 2px solid var(--color-green-100);
@@ -78,3 +78,72 @@
     background-color: var(--color-green-200);
 }
 
+.result{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid var(--color-green-100);
+    border-radius: var(--border-radius-regular);
+}
+
+.genre{
+
+    height:35rem;
+    padding:3rem 14.5rem;
+
+}
+
+.list{
+    padding: 3.3rem 10rem 4.4rem;
+    margin:2rem 0;
+
+}
+
+.genre-img{
+    width: 15rem;
+    height: 15rem;
+    border: 2px solid var(--color-green-100);
+    border-radius: 50%;
+}
+
+.genre-img img{
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.genre-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.text-main{
+    margin-bottom:2rem;
+}
+
+.item{
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.line{
+    color:var(--color-green-300);
+   background-color:var(--color-green-300);
+   height: 2.5rem;
+   width: 0.2rem;
+}
+
+.list-title{
+    margin-bottom: 3.6rem;
+}
+
+.movie-title{
+    color:var(--color-white);
+    background-color:var(--color-green-300);
+    padding:0.8rem 1rem;
+    border-radius: 1.5rem;
+}
