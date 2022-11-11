@@ -1,20 +1,23 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="loginStyle.css">
-    <title>log-in</title>
+    <link rel="stylesheet" href="../../index.css">
+    <link rel="stylesheet" href="../../styles/signupStyle.css">
+    <title>sign up</title>
 </head>
 <body>
     <div id="contents">
         <header>
-            <h1 class="title">LOG IN</h1>
+            <h1 class="title">SIGN UP</h1>
         </header>
         <section class="input">
+            <div class="inputBox">
+                <p class="inputTxt">USER NAME</p>
+                <input type="text" id="id_input" spellcheck="false"> 
+            </div>
             <div class="inputBox">
                 <p class="inputTxt">ID</p>
                 <input type="text" id="id_input" spellcheck="false"> 
@@ -23,10 +26,13 @@
                 <p class="inputTxt">PASSWORD</p>
                 <input type="text" id="pw_input" spellcheck="false">
             </div>
+            <div class="inputBox">
+                <p class="inputTxt">PASSWORD CONFIRM</p>
+                <input type="text" id="pw_confirm" spellcheck="false">
+            </div>
         </section>
         <section class="buttons">
-            <button class="btn">LOG IN</button>
-            <button class="btn">SIGN UP</button>
+            <button class="btn">SUBMIT</button>
         </section>
     </div>
 </body>
