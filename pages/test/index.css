@@ -1,0 +1,80 @@
+.title{
+    color : var(--color-green-300);
+}
+
+.btn-main{
+    background-color: var(--color-green-300);
+}
+
+.btn-optional{
+    border:solid 2px var(--color-green-300);
+    color:var(--color-green-300);
+}
+
+.start-block{
+    height:48rem;
+    padding: 5.4rem 14.5rem;
+    margin-bottom: 3rem;
+    border:solid 2px var(--color-green-300);
+    border-radius: var(--border-radius-regular);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.test-title__main{
+    margin-bottom: 2.2rem;
+}
+
+.test-qna{
+    display: none;
+    height:46rem;
+    border: 2px solid var(--color-green-100);
+    border-radius: var(--border-radius-regular);
+    padding: 4rem 3.6rem;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.qna-status {
+    display: none;
+    height:1.8rem;
+    margin-bottom:5.2rem;
+    border: 2px solid var(--color-green-100);
+    border-radius: var(--border-radius-regular);
+}
+
+.status-bar{
+    height:100%;
+    background-color: var(--color-green-300);
+    border-radius: var(--border-radius-regular);
+}
+
+.qna-block{
+    text-align: start;
+}
+
+.test-qna .btn{
+    height:25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.qna-num{
+    margin-bottom:0.54rem;
+}
+
+.btn-choice{
+    width: var(--width-medium);
+    border:2px solid var(--color-green-100);
+    color:var(--color-white);
+    background-color: var(--color-green-100);
+}
+
+
+.btn-choice:hover{
+    background-color: var(--color-green-200);
+}
+
