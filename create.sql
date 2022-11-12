@@ -6,12 +6,11 @@ create table users (
 		userid varchar(20) not null primary key,
 		password varchar(40) not null,
 		name varchar(15) not null,
-		typeid int default 1,
 		profile int not null
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 3
+-- # 2
 -- movie Table Structure
 --
 create table movie (
@@ -30,7 +29,7 @@ create table movie (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 4
+-- # 3
 -- people Table Structure
 --
 create table people (
@@ -39,12 +38,13 @@ create table people (
 		people_nm_en varchar(255),
 		rep_role_nm varchar(10),
 		filmo_names varchar(255),
+		film_total int default 0,
 		sex varchar(10),
 		profile varchar(500)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 5
+-- # 4
 -- characters Table Structure
 --
 create table characters (
@@ -58,7 +58,7 @@ create table characters (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 2
+-- # 5
 -- test Table Structure
 --
 create table test (
@@ -70,10 +70,6 @@ create table test (
 		foreign key (recom_director) references people (people_cd),
 		foreign key (recom_movie) references movie (movie_cd)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
-
-ALTER TABLE users
-  ADD CONSTRAINT FOREIGN KEY (typeid) REFERENCES test (typeid);
-COMMIT;
 
 -- --------------------------------------------------------
 -- # 6
