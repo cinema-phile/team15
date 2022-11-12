@@ -15,6 +15,8 @@ select cast_nm from characters where sex='남자' and character_id IN (select ch
 -- *'전체보기'*
 -- 배역에 대한 랭킹 결과 조회 (조건 없음)
 select cast_nm from characters where character_id IN (select character_id from character_ranking order by vote desc);
+-- 배역에 대한 랭킹 결과 TOP3
+select cast_nm from characters where character_id IN (select character_id from character_ranking order by vote desc) limit 3;
 
 
 -- ** VOTE 페이지 ** --
