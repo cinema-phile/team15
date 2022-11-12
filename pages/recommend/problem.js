@@ -1,10 +1,24 @@
-const startBlock=document.querySelector(".test-start");
 const qnaBlock=document.querySelector(".test-qna");
 const statusBlock = document.querySelector(".qna-status");
-let genre = {"스릴러/액션":0, "코미디":0, "로맨스":0, "드라마":0,
-"SF/판타지":0,"애니메이션":0, "다큐멘터리":0, "호러":0}
+let genre = {"스릴러/액션":0, "코미디":0, "로맨스":0, "드라마":0,"SF/판타지":0,"애니메이션":0, "다큐멘터리":0, "호러":0}
+
+
+function loadPage(){
+    showQuestion(0);
+}
+
+window.onload = loadPage;
+
+
+function moveResultPage(genre) {
+    location.replace(`./result.html?genre=${genre}`);
+}
 
 function showQuestion(qIdx){
+    console.log("show Question")
+    // console.log(qIdx, qnaList.length)
+
+
     console.log("goNext",qIdx, qnaList[qIdx]);
     let qNum = qnaBlock.querySelector(".qna-num");
     let qQuestion = qnaBlock.querySelector(".qna-question");
@@ -20,9 +34,14 @@ function showQuestion(qIdx){
 function updateProgressBar(qIdx){
     let status = statusBlock.querySelector('.status-bar');
     status.style.width =(100/qnaList.length) * (qIdx+1)  + '%';
-    console.log(status,(100/qnaList.length) * (qIdx+1))
+    //console.log(status,(100/qnaList.length) * (qIdx+1))
 }
 
+function getKeyFromMaxValue(obj) {
+    const result = Object.keys(obj).reduce((a, b) => obj[a] > obj[b] ? a : b);
+    // console.log(result);
+    return result;
+  }
 
 
 function showChoices(qIdx,ans){
@@ -31,7 +50,7 @@ function showChoices(qIdx,ans){
 
     for(let i in ans){
         // addAnswer(qnaList[qIdx].a[i].answer, qIdx);
-        console.log(ans[i].answer);
+        //console.log(ans[i].answer);
         let choice = document.createElement("button");
         choice.classList.add("btn-choice");
         choiceBlock.appendChild(choice);
@@ -47,19 +66,14 @@ function showChoices(qIdx,ans){
                     btns[i].style.display = "none";
                 }
                 console.log(genre);
+                if (qIdx+1 == qnaList.length){
+                    const res = getKeyFromMaxValue(genre)
+                    moveResultPage(res);
+                    return;
+                }
 
                 showQuestion(++qIdx);
               },450)
         });
     }
-}
-
-
-// 장르 테스트 버튼 클릭 시 테스트 문항으로 넘어가는 함수
-function start(){
-    // console.log(startBlock);
-    startBlock.style.display="none";
-    qnaBlock.style.display="flex";
-    statusBlock.style.display="block"
-    showQuestion(0);
 }
