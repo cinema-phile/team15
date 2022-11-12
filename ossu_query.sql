@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- # 1
 -- 로그인 & 회원가입 페이지 (완료)
---
+-- INSERT 1, SELECT 2
 
 -- 회원가입 : user input (userid, password, name)
 insert into users (userid, password, name, profile) values (?, ?, ?, ?);
@@ -15,7 +15,7 @@ select EXISTS (select * from users where userid = ? and password = ?);
 -- --------------------------------------------------------
 -- # 2
 -- 메인페이지 - 영화 TOP5 watch_movie table에서 movie_cd 제일 많은 영화
---
+-- SELECT 2, ROLLUP
 
 -- 영화 TOP5 (유저들이 가장 많이 본 영화)
 select m.movie_cd, m.movie_nm, m.imgUrl, cntMovie from movie m JOIN ( 
@@ -34,7 +34,7 @@ select * from (
 -- --------------------------------------------------------
 -- # 3
 -- 메인페이지 - 검색 결과 (영화)
---
+-- SELECT 8
 
 -- 영화명으로 검색
 select movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, ?);
@@ -90,7 +90,7 @@ select * from (
 -- --------------------------------------------------------
 -- # 4
 -- 메인페이지 - 검색 결과 (영화인)
---
+-- SELECT 2
 
 -- 영화인 이름으로 검색
 select people_cd, people_nm, rep_role_nm, sex, profile from people where INSTR(people_nm, ?);
@@ -101,7 +101,7 @@ select people_cd, people_nm, rep_role_nm, sex, profile from people where INSTR(p
 -- --------------------------------------------------------
 -- # 5
 -- 메인페이지 - 영화인 상세정보 (FILMOGRAPHY)
---
+-- SELECT 5, UPDATE 1, INSERT 1, DELETE 1
 
 -- 영화인 상세정보 출력
 select people_nm, people_nm_en, sex, profile from people where people_cd = ?;
@@ -125,6 +125,16 @@ select movie_cd, imgUrl from movie where movie_nm = ?;
 select cast_nm from characters where movie_cd = ? and people_cd = ?
 
 -- 나의 팬 지수 : 유저가 봤다고 표시한 배우 참여 작품수 / 배우의 총 작품수 (film_total)
+create procedure team15.calcMyFanRatio()
+begin
+    declare i int default 1;
+    while (i <= (select film_total from people where people_cd = ?)) do 
+        select substring_index(substring_index(filmo_names, '|', i), '|', -1) from people where people_cd = ?;
+        set i = i + 1;
+    end while;
+
+    
+end
 -- -> 즐겨찾기 테이블 -> people_cd 같은 row들을 다 카운트하는 문으로??
 
 -- 평균 팬 지수
@@ -139,12 +149,13 @@ delete from star_people where userid = ? and people_cd = ?;
 -- --------------------------------------------------------
 -- # 5
 -- 메인페이지 - 영화 상세정보 (FILM)
---
+-- SELECT 3, INSERT 1, DELETE 1
 
 -- 영화 상세정보 & 배역 정보 출력
 select m.*, c.cast_nm, p.people_nm, p.profile, p.sex
-from characters as c left join movie as m on m.movie_cd = c.movie_cd
-                     left join people as p on c.people_cd = p.people_cd
+from characters as c
+left join movie as m on m.movie_cd = c.movie_cd
+left join people as p on c.people_cd = p.people_cd
 where c.movie_cd = ?;
 
 -- 해당 유저가 봤는지 안 봤는지 -> 봤으면 1 보지 않았으면 0
@@ -168,5 +179,60 @@ delete from watch_movie where userid = ? and movie_cd = ?;
 
 -- --------------------------------------------------------
 -- # 6
--- 커뮤니티
---
+-- 커뮤니티 : 자유게시판
+-- 
+
+-- 게시글 목록 출력 (최신순 정렬)
+select f.boardid_free, f.title, f.content, f.timestamps, u.name, u.profile, c.content, c.like_no, c.hate
+from board_free as f
+left join users as u on f.userid = u.userid
+left join comment_free as c on f.boardid_free = c.boardid_free
+where (
+    c.commentid_free = (
+        select r.best from (
+            select b.commentid_free as best, max(b.diff) 
+            from (
+                select commentid_free, (a.like_no - a.hate) as diff
+                from comment_free as a
+            ) b
+        ) r
+    )
+) order by f.timestamps desc;
+
+-- 게시글 작성
+insert into board_free (userid, title, content) values (?, ?, ?);
+
+-- 게시글 수정
+update board_free set title = ?, content = ? where boardid_free = ?;
+
+-- 게시글 삭제
+delete from board_free where boardid_free = ?;
+
+-- 게시글 상세 출력
+select f.boardid_free, f.title, f.content, f.timestamps, u.name, u.profile
+from board_free as f
+inner join users as u on f.userid = u.userid
+
+-- Best 댓글 2개 출력
+select c.userid, c.content, c.like_no, c.hate from comment_free as c join (
+    select commentid_free, (a.like_no - a.hate) as diff
+    from comment_free as age
+) b on c.commentid_free = b.comment_free order by b.diff desc limit 2;
+
+-- 최신 댓글 순 정렬
+select * from comment_free order by timestamps desc;
+
+-- 댓글 작성
+insert into comment_free (boardid_free, userid, content) values (?, ?, ?);
+
+-- 댓글 수정
+update comment_free set content = ? where commentid_free = ?;
+
+-- 댓글 삭제
+delete from comment_free where commentid_free = ?;
+
+-- 좋아요
+update comment_free set like_no = (like_no + 1) where commentid_free = ?;
+
+-- 싫어요
+update comment_free set hate = (hate + 1) where commentid_free = ?;
