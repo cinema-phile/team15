@@ -17,8 +17,19 @@ select EXISTS (select * from users where userid = ? and password = ?);
 -- 메인페이지 - 영화 TOP5 watch_movie table에서 movie_cd 제일 많은 영화
 --
 
--- 영화 TOP5
-select * from movie 
+-- 영화 TOP5 (유저들이 가장 많이 본 영화)
+select m.movie_cd, m.movie_nm, m.imgUrl, cntMovie from movie m JOIN ( 
+    select movie_cd, count(movie_cd) as 'cntMovie'
+    from watch_movie
+    group by movie_cd
+) c on m.movie_cd = c.movie_cd order by c.cntMovie desc limit 5;
+
+-- 가장 최신에 개봉한 영화
+select * from (
+    select movie_cd, movie_nm, imgUrl, open_dt
+    from movie
+    group by open_dt with rollup
+) a order by a.open_dt desc limit 5;
 
 -- --------------------------------------------------------
 -- # 3
@@ -26,27 +37,55 @@ select * from movie
 --
 
 -- 영화명으로 검색
-select movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, '%{$title}%');
+select movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, ?);
 
 -- 영화명 + 장르로 검색 (장르 단일 선택)
-select movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, '%{$title}%') and INSTR(genre, '%{$genre}%');
+select movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, ?) and INSTR(genre, ?);
 
 -- 영화명 + 장르로 검색 (장르 복수 선택)
-select movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, '%{$title}%') and INSTR(genre, '%{$genre}%') or INSTR(genre, '%{$genre}%');
+select movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, ?) and INSTR(genre, ?) or INSTR(genre, ?);
 
 
 -- 영화명으로 검색 (연도순 정렬)
-select movie_cd, movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, '%{$title}%') group by open_yr with drill down;
+select * from (
+    select movie_cd, movie_nm, open_yr, imgUrl
+    from movie
+    where INSTR(movie_nm, ?)
+    group by open_yr with rollup
+) a order by a.open_yr desc;
 
 -- 영화명 + 장르로 검색 (장르 단일 선택) (연도순 정렬)
-select movie_cd, movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, '%{$title}%') and INSTR(genre, '%{$genre}%') group by open_yr with drill down;
+select * from (
+    select movie_cd, movie_nm, open_yr, imgUrl
+    from movie
+    where INSTR(movie_nm, ?) and INSTR(genre, ?)
+    group by open_yr with rollup
+) a order by a.open_yr desc;
 
 -- 영화명 + 장르로 검색 (장르 복수 선택) (연도순 정렬)
-select movie_cd, movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, '%{$title}%') and INSTR(genre, '%{$genre}%') or INSTR(genre, '%{$genre}%') group by open_yr with drill down;
+select * from (
+    select movie_cd, movie_nm, open_yr, imgUrl
+    from movie
+    where INSTR(movie_nm, ?) and INSTR(genre, ?) or INSTR(genre, ?)
+    group by open_yr with rollup
+) a order by a.open_yr desc;
 
 
--- (관람 등급)
+-- 영화명 + 관람 등급 검색 (관람 등급 단일 선택) (연도순 정렬)
+select * from (
+    select movie_cd, movie_nm, open_yr, imgUrl
+    from movie
+    where INSTR(movie_nm, ?) and INSTR(age, ?)
+    group by open_yr with rollup
+) a order by a.open_yr desc;
 
+-- 영화명 + 관람 등급 검색 (관람 등급 복수 선택) (연도순 정렬)
+select * from (
+    select movie_cd, movie_nm, open_yr, imgUrl
+    from movie
+    where INSTR(movie_nm, ?) and INSTR(age, ?) or INSTR(age, ?)
+    group by open_yr with rollup
+) a order by a.open_yr desc;
 
 -- --------------------------------------------------------
 -- # 4
@@ -54,10 +93,10 @@ select movie_cd, movie_nm, open_yr, imgUrl from movie where INSTR(movie_nm, '%{$
 --
 
 -- 영화인 이름으로 검색
-select people_cd, people_nm, rep_role_nm, sex, profile from people where INSTR(people_nm, '%{$name}%');
+select people_cd, people_nm, rep_role_nm, sex, profile from people where INSTR(people_nm, ?);
 
 -- 영화인 이름 + 영화배우 옵션으로 검색
-select people_cd, people_nm, rep_role_nm, sex, profile from people where INSTR(people_nm, '%{$name}%') and INSTR(rep_role_nm, '%{$role}%');
+select people_cd, people_nm, rep_role_nm, sex, profile from people where INSTR(people_nm, ?) and INSTR(rep_role_nm, ?);
 
 -- --------------------------------------------------------
 -- # 5
@@ -71,7 +110,10 @@ select people_nm, people_nm_en, sex, profile from people where people_cd = ?;
 select substring_index(substring_index(filmo_names, '|', ?), '|', -1) from people where people_cd = ?;
 -- ex) select substring_index(substring_index(filmo_names, '|', 4), '|', -1) from people where people_cd = 10000433; -> 4번째 작품 파싱되어 추출
 -- => 전에 파싱한 작품 이름이랑 다음에 파싱한 작품 이름이 같을 경우 break로 빠져 나오기
--- => 이 값을 영화인 테이블에 update해서 column에 film_total로 저장해둘까요?? ㅇㅇ
+-- => 이 값을 영화인 테이블에 update해서 column에 film_total로 저장해둘까요?? 저장하기로!! -> DB 반영 완료
+
+-- film_total 값 업데이트
+update people set film_total = ? where people_cd = ?;
 
 -- 영화인 필모가 DB에 있는지 조회 -> 있으면 0 없으면 1 반환
 select if (EXISTS (select movie_cd from movie where movie_nm = ?), true, false);
@@ -83,10 +125,7 @@ select movie_cd, imgUrl from movie where movie_nm = ?;
 select cast_nm from characters where movie_cd = ? and people_cd = ?
 
 -- 나의 팬 지수 : 유저가 봤다고 표시한 배우 참여 작품수 / 배우의 총 작품수 (film_total)
-select count(
-    select * from watch_movie where movie_cd = ?;
-) as watchedCnt from watch_movie where userid = ?;
--- -> 즐겨찾기 테이블 -> people_cd 같은 row들을 다 카운트하는 문으로
+-- -> 즐겨찾기 테이블 -> people_cd 같은 row들을 다 카운트하는 문으로??
 
 -- 평균 팬 지수
 
@@ -102,12 +141,32 @@ delete from star_people where userid = ? and people_cd = ?;
 -- 메인페이지 - 영화 상세정보 (FILM)
 --
 
--- 영화 상세정보 출력 (movie_cd, movie_nm, genre, runtime, age, stroy, open_yr, open_dt, nation, rate, directors, imgUrl)
-select * from movie where movie_cd = ?;
+-- 영화 상세정보 & 배역 정보 출력
+select m.*, c.cast_nm, p.people_nm, p.profile, p.sex
+from characters as c left join movie as m on m.movie_cd = c.movie_cd
+                     left join people as p on c.people_cd = p.people_cd
+where c.movie_cd = ?;
 
--- 해당 유저가 봤는지 안 봤는지
+-- 해당 유저가 봤는지 안 봤는지 -> 봤으면 1 보지 않았으면 0
 select EXISTS (select * from watch_movie where userid = ? and movie_cd = ?);
 
--- 출연 배우 출력 (characters, people table join -> cast_nm, people_nm, profile, sex)
-select c.cast_nm, p.people_nm, p.profile, p.sex from characters as c join people as p on c.people_cd = p.people_cd where c.movie_cd = ?;
+-- 영화 관람 퍼센티지 계산 : 관람한 유저 수(cntMovie), 총 유저 수(cntMovie)
+select cntMovie, cntUser from ( 
+    select movie_cd, count(movie_cd) as 'cntMovie'
+    from watch_movie
+    group by movie_cd
+) c, (
+    select count(*) as 'cntUser'
+    from users
+) u where c.movie_cd = ?;
 
+-- 본 영화로 등록
+insert into watch_movie (userid, movie_cd) values (?, ?);
+
+-- 본 영화 삭제
+delete from watch_movie where userid = ? and movie_cd = ?;
+
+-- --------------------------------------------------------
+-- # 6
+-- 커뮤니티
+--
