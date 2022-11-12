@@ -64,6 +64,7 @@ create table characters (
 create table test (
 		typeid int not null auto_increment primary key,
 		type_nm varchar(40) not null,
+		type_title varchar(40) not null,
 		type_content varchar(400) not null,
 		recom_director varchar(11),
 		recom_movie varchar(11),
