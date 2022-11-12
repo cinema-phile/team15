@@ -14,20 +14,26 @@
         <header>
             <h1 class="title">LOG IN</h1>
         </header>
-        <section class="input">
-            <div class="inputBox">
-                <p class="inputTxt" style="display: none;">ID</p>
-                <input type="text" id="id_input" spellcheck="false" placeholder="ID"> 
-            </div>
-            <div class="inputBox">
-                <p class="inputTxt" style="display: none;">PASSWORD</p>
-                <input type="text" id="pw_input" spellcheck="false" placeholder="PASSWORD">
-            </div>
-        </section>
-        <section class="buttons">
-            <button class="btn">LOG IN</button>
-            <button class="btn">SIGN UP</button>
-        </section>
+        <form action="./php/login.php" method="get">
+            <section class="input">
+                <div class="inputBox">
+                    <p class="inputTxt" style="display: none;">ID</p>
+                    <input type="text" id="id_input" spellcheck="false" placeholder="ID"> 
+                </div>
+                <div class="inputBox">
+                    <p class="inputTxt" style="display: none;">PASSWORD</p>
+                    <input type="text" id="pw_input" spellcheck="false" placeholder="PASSWORD">
+                </div>
+            </section>
+            <section class="buttons">
+                <button class="btn">LOG IN</button>
+            </section>
+        </form>
+        <form action="./pages/signUp/SignUp.html" method="get">
+            <section class="buttons">
+                <button class="btn" type="submit">SIGN UP</button>
+            </section>
+        </form>  
     </div>
 </body>
 </html>

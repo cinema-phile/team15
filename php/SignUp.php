@@ -32,7 +32,7 @@
             </div>
         </section>
         <section class="buttons">
-            <input type="submit" class="btn" value="SUBMIT"</input>
+            <input type="submit" class="btn" value="SUBMIT">
         </section></form>
     </div>
     <script src="signUp.js" charset="utf-8"></script>
