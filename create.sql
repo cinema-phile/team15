@@ -39,6 +39,7 @@ create table people (
 		people_nm_en varchar(255),
 		rep_role_nm varchar(10),
 		filmo_names varchar(255),
+		film_total int default 0,
 		sex varchar(10),
 		profile varchar(500)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
