@@ -73,6 +73,17 @@ create table test (
 
 -- --------------------------------------------------------
 -- # 6
+-- test_result Table Structure(test-user Mapping Table)
+--
+create table test_result (
+userid varchar(20) not null primary key,
+typeid int not null,
+foreign key (userid) references users (userid),
+foreign key (typeid) references test (typeid)
+) ENGINE=InnoDB default CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+-- # 7
 -- star Table Structure
 --
 create table star_movie (
@@ -92,7 +103,7 @@ create table star_people (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 7
+-- # 8
 -- watch_movie Table Structure
 --
 create table watch_movie (
@@ -104,7 +115,7 @@ create table watch_movie (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 8
+-- # 9
 -- character_ranking Table Structure
 --
 create table character_ranking (
@@ -115,7 +126,7 @@ create table character_ranking (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 9
+-- # 10
 -- board_information Table Structure
 --
 create table board_information (
@@ -129,7 +140,7 @@ create table board_information (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 10
+-- # 11
 -- comment_information Table Structure
 --
 create table comment_information (
@@ -145,7 +156,7 @@ create table comment_information (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 11
+-- # 12
 -- board_free Table Structure
 --
 create table board_free (
@@ -159,7 +170,7 @@ create table board_free (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 12
+-- # 13
 -- comment_free Table Structure
 --
 create table comment_free (
