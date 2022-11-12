@@ -76,3 +76,24 @@ section{
     background-color: var(--color-white);
     margin-bottom: 3rem;
 }
+
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 0.8rem;
+    width: 72rem;
+    height: 6rem;
+    margin: 4.8rem auto 7rem auto;
+}
+.eachMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-blue-200);
+    height: 100%;
+    color: var(--color-gray-600);
+}
+.eachMenu:hover {
+    background-color: var(--color-blue-400);
+}
