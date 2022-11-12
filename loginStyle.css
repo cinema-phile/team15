@@ -7,17 +7,19 @@
 }
 .input {
     width: 72rem;
+    /*
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
     margin-top: 8rem;
 }
 .inputBox {
     border: 2px solid var(--color-gray-350);
     padding: 0;
-    width: 35rem;
+    width: 100%;
     height: 11rem;
     border-radius: var(--border-radius-regular);
+    margin-bottom: 1.5rem;
 }
 #pw_input,#id_input {
     border: none;
