@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 
 $id = $_POST["id_input"];
 $name = $_POST["name_input"];
@@ -21,6 +22,7 @@ $conn = mysqli_connect("localhost", "team15", "team15", "team15");
 
 if (mysqli_connect_errno()) {
     echo "<script>alert('Sign up fail');</script>";
+    exit();
 } else {
     $insert_sql = "insert into users (userid, password, name, profile) values (?, ?, ?, ?)";
     $duplicate_sql = "select EXISTS (select * from users where userid = ?)";
@@ -34,9 +36,13 @@ if (mysqli_connect_errno()) {
             while(mysqli_stmt_fetch($stmt)) {
                 $duplicated = $res;
             }
+        } else {
+            echo "<script>alert('Sign up fail');</script>";
+            exit();
         }
     } else {
         echo "<script>alert('Sign up fail');</script>";
+        exit();
     }
     mysqli_stmt_close($stmt);
 
@@ -52,16 +58,19 @@ if (mysqli_connect_errno()) {
                 exit();
             } else {
                 echo "<script>alert('Sign up fail');</script>";
+                exit();
             }
         } else {
             echo "<script>alert('Sign up fail');</script>";
+            exit();
         }
     } else {
         echo "<script>alert('Duplicated id');</script>";
+        exit();
     }
 
     # close connection
-    # mysqli_stmt_close($stmt);
+    mysqli_stmt_close($stmt);
     mysqli_close($conn);
 }
 
