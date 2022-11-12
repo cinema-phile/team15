@@ -13,27 +13,29 @@
         <header>
             <h1 class="title">SIGN UP</h1>
         </header>
-        <section class="input">
-            <div class="inputBox">
-                <p class="inputTxt">USER NAME</p>
-                <input type="text" id="id_input" spellcheck="false"> 
-            </div>
-            <div class="inputBox">
-                <p class="inputTxt">ID</p>
-                <input type="text" id="id_input" spellcheck="false"> 
-            </div>
-            <div class="inputBox">
-                <p class="inputTxt">PASSWORD</p>
-                <input type="text" id="pw_input" spellcheck="false">
-            </div>
-            <div class="inputBox">
-                <p class="inputTxt">PASSWORD CONFIRM</p>
-                <input type="text" id="pw_confirm" spellcheck="false">
-            </div>
-        </section>
-        <section class="buttons">
-            <button class="btn">SUBMIT</button>
-        </section>
+        <form action="../../php/singup.php" method="get">
+            <section class="input">
+                <div class="inputBox">
+                    <p class="inputTxt">USER NAME</p>
+                    <input type="text" id="id_input" name="name_input" spellcheck="false"> 
+                </div>
+                <div class="inputBox">
+                    <p class="inputTxt">ID</p>
+                    <input type="text" id="id_input" name="id_input" spellcheck="false"> 
+                </div>
+                <div class="inputBox">
+                    <p class="inputTxt">PASSWORD</p>
+                    <input type="text" id="pw_input" name="pw_input" spellcheck="false">
+                </div>
+                <div class="inputBox">
+                    <p class="inputTxt">PASSWORD CONFIRM</p>
+                    <input type="text" id="pw_confirm" name="pw_confirm" spellcheck="false">
+                </div>
+            </section>
+            <section class="buttons">
+                <button class="btn" type="submit">SUBMIT</button>
+            </section>
+        </form>
     </div>
 </body>
 </html>
