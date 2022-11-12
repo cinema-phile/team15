@@ -13,29 +13,27 @@
         <header>
             <h1 class="title">SIGN UP</h1>
         </header>
-        <form action="../../php/singup.php" method="get">
-            <section class="input">
-                <div class="inputBox">
-                    <p class="inputTxt">USER NAME</p>
-                    <input type="text" id="id_input" name="name_input" spellcheck="false"> 
-                </div>
-                <div class="inputBox">
-                    <p class="inputTxt">ID</p>
-                    <input type="text" id="id_input" name="id_input" spellcheck="false"> 
-                </div>
-                <div class="inputBox">
-                    <p class="inputTxt">PASSWORD</p>
-                    <input type="text" id="pw_input" name="pw_input" spellcheck="false">
-                </div>
-                <div class="inputBox">
-                    <p class="inputTxt">PASSWORD CONFIRM</p>
-                    <input type="text" id="pw_confirm" name="pw_confirm" spellcheck="false">
-                </div>
-            </section>
-            <section class="buttons">
-                <button class="btn" type="submit">SUBMIT</button>
-            </section>
-        </form>
+        <section class="input">
+            <div class="inputBox">
+                <p class="inputTxt" style="display: none;">USER NAME</p>
+                <input type="text" id="id_input" spellcheck="false" placeholder="USER NAME"> 
+            </div>
+            <div class="inputBox">
+                <p class="inputTxt" style="display: none;">ID</p>
+                <input type="text" id="id_input" spellcheck="false" placeholder="ID"> 
+            </div>
+            <div class="inputBox">
+                <p class="inputTxt" style="display: none;">PASSWORD</p>
+                <input type="text" id="pw_input" spellcheck="false" placeholder="PASSWORD">
+            </div>
+            <div class="inputBox">
+                <p class="inputTxt" style="display: none;">PASSWORD CONFIRM</p>
+                <input type="text" id="pw_confirm" spellcheck="false" placeholder="PASSWORD CONFIRM">
+            </div>
+        </section>
+        <section class="buttons">
+            <button class="btn">SUBMIT</button>
+        </section>
     </div>
 </body>
 </html>
