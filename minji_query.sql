@@ -91,3 +91,21 @@ delete from test_result where userid=?;
 -- ** 회원 정보 페이지(My page) ** --
 -- 회원의 테스트 결과 유형 이름 출력
 select type_title from test where typeid=(select typeid from test_result where userid=?);
+-- 관심 영화 모아보기 개수 출력
+select count(*) from star_movie where userid=?;
+-- 관심 배우 모아보기 개수 출력
+select count(*) from star_people where userid=?;
+-- 관람 내역 (영화) 개수 출력
+select count(*) from watch_movie where userid=?;
+-- 최근 관람 영화명 출력
+select movie_nm from movie where movie_cd=(select movie_cd from watch_movie where userid=? order by timestamps desc limit 1);
+
+-- 관심 표시한 영화 모아보기 (영화명, 영화 포스터, 감독명/개봉일/장르)
+select movie_nm, imgUrl, directors, open_yr, genre from movie where movie_cd IN (select movie_cd from star_movie where userid=?);
+-- 관람 영화 목록 모아보기 (영화명, 영화 포스터, 감독명/개봉일/장르)
+select movie_nm, imgUrl, directors, open_yr, genre from movie where movie_cd IN (select movie_cd from watch_movie where userid=?);
+-- 관심 표시한 배우 모아보기 (배우 사진, 배우 이름, 필모 리스트)
+select people_nm, filmo_names, profile from people where people_cd IN (select people_cd from star_people where userid=?);
+
+-- 회원 정보 수정 (비밀번호, 이름 변경 가능)
+update users set password=?, name=? where userid=?;
