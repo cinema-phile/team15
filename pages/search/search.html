@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../index.css">
-    <link rel="stylesheet" href="../../styles/searchStyle.css">
+    <link rel="stylesheet" href="searchStyle.css">
     <title>SEARCH</title>
 </head>
 <body>
@@ -21,7 +21,7 @@
             <a href="../mypage/index.html"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
         <section class="search">
-            <select name="category" class="category">
+            <select name="category" class="category" id="category" onchange="showCondition(this)">
                 <option value="film">영화</option>
                 <option value="person">영화인</option>
             </select>
@@ -29,12 +29,16 @@
             <button class="submit" type="submit">검색</button>
         </section>
         <section class="conditionField">
-            <select name="condition" class="condition">
+            <select name="condition" class="condition" id="condition" onchange="show(this)">
                 <option value="genre">장르</option>
                 <option value="rate">관람등급</option>
                 <option value="year">개봉연도</option>
             </select>
-            <div class="conditions">
+            <div class="conditions" id="person">
+                <label><input type="checkbox" value="director">영화감독</label>
+                <label><input type="checkbox" value="actor">영화배우</label>
+            </div>
+            <div class="conditions" id="genre">
                 <label><input type="checkbox" value="thriller/action">스릴러/액션</label>
                 <label><input type="checkbox" value="comedy">코미디</label>
                 <label><input type="checkbox" value="romance">로맨스</label>
@@ -45,6 +49,19 @@
                 <label><input type="checkbox" value="horror">호러</label>
                 <label><input type="checkbox" value="etc">기타</label>
             </div>
+            <div class="conditions" id="rate">
+                <label><input type="checkbox" value="all">전체관람가</label>
+                <label><input type="checkbox" value="12">12세이상 관람가</label>
+                <label><input type="checkbox" value="15">15세이상 관람가</label>
+                <label><input type="checkbox" value="18">청소년관람불가</label>
+            </div>
+            <div class="conditions" id="year">
+                <label><input type="checkbox" value="2018">2018</label>
+                <label><input type="checkbox" value="2019">2019</label>
+                <label><input type="checkbox" value="2020">2020</label>
+                <label><input type="checkbox" value="2021">2021</label>
+                <label><input type="checkbox" value="2022">2022</label>
+            </div>
         </section>
         <!--
         <section class="filmInfo">
@@ -52,5 +69,6 @@
         </section>
         -->
     </div>
+    <script src="search.js" charset="utf-8"></script>
     </body>
 </html>

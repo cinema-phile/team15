@@ -114,9 +114,10 @@ input[type="checkbox"] {
 .resultList {
     width: 100%;
     margin: 6.4rem auto 8rem auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 3.6rem;
+    row-gap: 7.2rem;
 }
 .individual {
     display: flex;
@@ -131,6 +132,17 @@ input[type="checkbox"] {
     width: 11rem;
     height: 11rem;
     background-color: var(--color-blue-200);
+}
+.pic {
+    width: 11rem;
+    height: 11rem;
+    background-color: var(--color-blue-200);
+    border-radius: 100%;
+}
+#pic {
+    width: 11rem;
+    height: 11rem;
+    border-radius: 100%;
 }
 .tag {
     width: 2.5rem;
@@ -147,22 +159,44 @@ input[type="checkbox"] {
     font-size: var(--font-small);
     font-weight: var(--weight-bold);
     margin-top: 1rem;
+    width: 11rem;
+    height: 4.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
-.year {
+.year, .role {
   color: var(--color-gray-400);
   font-size: var(--font-micro);
-  margin-top: 1rem;
+  margin-top: 0.4rem;
+  width: 11rem;
+}
+.personName {
+    color: var(--color-gray-600);
+    font-size: var(--font-small);
+    font-weight: var(--weight-bold);
+    margin-top: 1rem;
+    width: 11rem;
+    height: 2.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 #span {
     color: var(--color-blue-400); font-size: var(--font-semi-regular)
 }
-
-#genre {
+#rate, #year, #person, #genre {
     display: none;
 }
-#rate {
+.conditions {
     display: none;
 }
-#year {
-    display: none;
+#person {
+    width: 100%;
+}
+.subcondition {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
