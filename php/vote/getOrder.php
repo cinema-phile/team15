@@ -49,6 +49,15 @@ function getMovieTitle($conn, $id){
     return $row['movie_nm'];
 }
 
+
+function getActorImg($conn,$id){
+    $sql="select profile from people where people_cd=(select people_cd from characters where character_id=(select character_id from character_ranking where character_id=".$id."));";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    // echo '<h1>'.$row['vote'].'</h1>';
+    return $row['movie_nm'];
+}
+
 # DB Connection
 $conn = mysqli_connect("localhost", "team15", "team15", "team15");
 

@@ -16,39 +16,59 @@
 
 
     <?php
+        
+        header('Content-Type: text/html; charset=utf-8');
+
+        
+        
         $id = $_POST['id'];
-        $sql = "select * from characters where character_id=".$id.";";
+        echo ".$id.";
         # DB Connection
         $conn = mysqli_connect("localhost", "team15", "team15", "team15");
+
 
         if (mysqli_connect_errno()) {
             echo "<script>alert('Log in fail');</script>";
             exit();
         } else {
-            $result = mysqli_query( $conn, $sql );
+            $sql1 = "select * from characters where character_id=".$id.";";
+            $result = mysqli_query($conn, $sql1);
+            $row = mysqli_fetch_array($result);
+            $movie_id = $row["movie_cd"];
+            $name=$row["cast_nm"];
+
+
+            $sql2="select * from movie where movie_cd=".$movie_id.";";
+            $result = mysqli_query($conn, $sql2);
+            $row = mysqli_fetch_array($result);
+            $detail=$row["story"];
+            $movieTitle=$row["movie_nm"];
+
+
+            echo '<section class="vote-block">';
+            echo '<img  src="../../img/profile-150.svg" />';
+            echo '<div class="profile-info">';
+            echo    '<span class = "profile-name">'.$name.'</span>';
+            echo    '<span class = "profile-movie">'.$movieTitle.'</span>';
+            echo '</div>';
+            echo '<div class = "profile-description">';
+            echo    '<span>'.$detail.'</span>';
+            echo '</div>';
+            echo '</section>';
+
+            echo '<section class = "btn-block">';
+            echo '<form action="updateVote.php" method="post">';
+            echo '   <button class="filter-btn" type="submit" name="id" value='.$id.'>투표하기</button>';
+            echo '</form>';
+            echo '<button>다시 시작하기</button>';
+            echo '</section>';
+
         }
         mysqli_close($conn);
 
     
     
         ?>
-    ?>
-    <section class="vote-block">
-        <img  src="../../img/profile-150.svg" />
-        <div class="profile-info">
-            <span class = "profile-name">구준표</span>
-            <span class = "profile-movie">꽃보다 남자</span>
-        </div>
-        <div class = "profile-description">
-            <span>남주인공으로, 원작의 도묘지 츠카사 포지션이자 F4의 리더. 남주인공으로, 원작의 도묘지 츠카사 포지션이자 F4의 리더. 남주인공으로, 원작의 도묘지 츠카사 포지션이자 F4의 리더. 
-                대한민국의 대표재벌 신화그룹의 후계자이다. 원작의 도묘지 츠카사와 마찬가지로 천상천하 유아독존의 전형적인 재벌2세 타입.</span>
-        </div>
-    </section>
-    <section class = "btn-block">
-        <form action="../../php/vote/makeVote.php" method="post">
-            <button class="filter-btn" type="submit" name="id" value =1>결과 저장하기</button>
-        </form>
-        <button>다시 시작하기</button>
-    </section>
+
 </body>
 </html>
