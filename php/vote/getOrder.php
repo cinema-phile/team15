@@ -41,6 +41,14 @@ function getVoteNum( $conn, $id) {
 }
 
 
+function getMovieTitle($conn, $id){
+    $sql ="select movie_nm from movie where movie_cd=(select movie_cd from characters a inner join  character_ranking b on a.character_id=b.character_id where a.character_id=".$id.");";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    // echo '<h1>'.$row['vote'].'</h1>';
+    return $row['movie_nm'];
+}
+
 # DB Connection
 $conn = mysqli_connect("localhost", "team15", "team15", "team15");
 
@@ -131,6 +139,7 @@ if (mysqli_connect_errno()) {
         $rank=$row["rank() over (order by vote desc)"]; // 등수
         // $voteNum=getVoteNum($conn, $id);
         $voteNum = getVoteNum($conn, $id);
+        $movieTitle= getMovieTitle($conn, $id);
 
 
         echo  '<li class="rank-content">';
@@ -139,12 +148,12 @@ if (mysqli_connect_errno()) {
         echo      '<img  src="../../img/profile-50.svg" />';
         echo        '<div>';
         echo            '<span class = "profile-name">'.$name.'</span>';
-        echo            '<span class = "profile-movie">꽃보다 남자</span>';
+        echo            '<span class = "profile-movie">'.$movieTitle.'</span>';
         echo        '</div>';  
         echo   '</div>';
         echo    '<div class = "rank-vote">'.$voteNum.'</div>';
-        echo '<form action="../../php/vote/makeVote.php" method="post">';
-        echo    '<button class="rank-btn" name ="id" value='.$id.'  type="submit">투표하기</button>';
+        echo '<form action="makeVote.php" method="post">';
+        echo    '<button class="rank-btn" name ="id" value='.$id.' >투표하기</button>';
         echo '</form>';
         echo    '</li>';
 
