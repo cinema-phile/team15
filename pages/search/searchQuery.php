@@ -14,10 +14,10 @@
             <p>SEARCH</p>
         </header>
         <section class="menu">
-            <a href="../search/index.html"><h4 class="eachMenu">SEARCH</h4></a>
+            <a href="../search/search.php"><h4 class="eachMenu">SEARCH</h4></a>
             <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
             <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
-            <a href="../community/index.html"><h4 class="eachMenu">COMMUNITY</h4></a>
+            <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
             <a href="../mypage/index.html"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
         
@@ -109,8 +109,8 @@ if ($category == "film") {
 
             else if ($check == "전체" || $check == "청소년" || $check == "12" || $check == "15") {
                 $sql3 = "select * from (
-                    select movie_cd, movie_nm, open_yr, imgUrl, movie_cd
-                    from movie
+                    select movie_cd, movie_nm, open_yr, imgUrl
+                    from movie m
                     where INSTR(movie_nm, ?) and INSTR(age, ?)
                     group by open_yr with rollup
                 ) a order by a.open_yr desc;";
