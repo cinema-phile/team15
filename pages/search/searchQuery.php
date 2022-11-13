@@ -68,12 +68,12 @@ if ($category == "film") {
                 if ($res = mysqli_stmt_get_result($stmt)) {
                     while ($newArray = mysqli_fetch_array($res)) {
                         echo '
-                        <div class="individual" onclick="post('.$newArray["movie_cd"].');">
+                        <div class="individual");">
                             <div class="poster">
                                 <img src="'.$newArray["imgUrl"].'" width=110px height=110px>
                             </div>
                             <div class="resultText">
-                                <p class="movieName">'.$newArray["movie_cd"].'</p>
+                                <p class="movieName">'.$newArray["movie_nm"].'</p>
                                 <p class="year">'.$newArray["open_yr"].'</p>
                             </div>
                         </div>';
