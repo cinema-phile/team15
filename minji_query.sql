@@ -1,23 +1,34 @@
 -- ** LEADER BOARD 페이지 **
 
 -- *'여성' 버튼 선택*
--- '여성' 배역에 대한 랭킹 결과 조회
+-- '여성' 배역 (순위, 배역명) 랭킹 결과 조회
 select rank() over (order by vote desc), cast_nm from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='여자';
--- '여성' 배역에 대한 랭킹 TOP3 결과 조회
+-- '여성' 배역 (순위, 배역명) 랭킹 TOP3 결과 조회
 select rank() over (order by vote desc), cast_nm from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='여자' limit 3;
+-- '여성' 배역 (순위, 배역명, character_id) 랭킹 결과 조회
+select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='여자';
+-- '여성' 배역 (순위, 배역명, character_id) 랭킹 TOP3 결과 조회
+select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='여자' limit 3;
 
 -- *'남성' 버튼 선택*
--- '남성' 배역에 대한 랭킹 결과 조회
+-- '남성' 배역 (순위, 배역명) 랭킹 결과 조회
 select rank() over (order by vote desc), cast_nm from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='남자';
--- '남성' 배역에 대한 랭킹 TOP3 결과 조회
+-- '남성' 배역 (순위, 배역명) 랭킹 TOP3 결과 조회
 select rank() over (order by vote desc), cast_nm from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='남자' limit 3;
+-- '남성' 배역 (순위, 배역명, character_id) 랭킹 결과 조회
+select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='남자';
+-- '남성' 배역 (순위, 배역명, character_id) 랭킹 TOP3 결과 조회
+select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='남자' limit 3;
 
--- *'전체보기'*
--- 배역에 대한 랭킹 결과 조회 (조건 없음)
+-- *'전체보기'* (조건 없음)
+-- 배역 (순위, 배역명) 랭킹 결과 조회
 select rank() over (order by vote desc), cast_nm from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='';
--- 배역에 대한 랭킹 결과 TOP3
+-- 배역 (순위, 배역명) 랭킹 TOP3 결과 조회
 select rank() over (order by vote desc), cast_nm from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' limit 3;
-
+-- 배역 (순위, 배역명, character_id) 랭킹 결과 조회
+select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='';
+-- 배역 (순위, 배역명, character_id) 랭킹 TOP3 결과 조회
+select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' limit 3;
 
 -- ** VOTE 페이지 ** --
 -- '응원하기' 버튼 누르면, 투표
