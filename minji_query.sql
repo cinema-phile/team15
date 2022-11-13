@@ -30,9 +30,27 @@ select rank() over (order by vote desc), cast_nm, a.character_id from characters
 -- 배역 (순위, 배역명, character_id) 랭킹 TOP3 결과 조회
 select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' limit 3;
 
+-- 배역 득표수 조회
+select vote from character_ranking where character_id=?;
+
+-- 배역 작품명 조회
+-- 방법 #1
+select movie_nm from movie where movie_cd=(select movie_cd from characters where character_id=(select character_id from character_ranking where character_id=?));
+-- 방법 #2
+select movie_nm from movie where movie_cd=(select movie_cd from characters a inner join character_ranking b on a.character_id=b.character_id where a.character_id=?);
+
+-- 배역을 맡은 배우 이미지 조회
+-- 방법 #1
+select profile from people where people_cd=(select people_cd from characters where character_id=(select character_id from character_ranking where character_id=?));
+-- 방법 #2
+select profile from people where people_cd=(select people_cd from characters a inner join character_ranking b on a.character_id=b.character_id where a.character_id=?);
+
+
+
 -- ** VOTE 페이지 ** --
 -- '응원하기' 버튼 누르면, 투표
 update character_ranking set vote=vote+1 where character_id=?;
+
 
 
 -- ** TEST 페이지 ** --
@@ -67,6 +85,7 @@ insert into test_result values (? , (select typeid from test where type_nm=? lim
 
 -- 'TEST 다시하기' 버튼 눌렀을때
 delete from test_result where userid=?;
+
 
 
 -- ** 회원 정보 페이지(My page) ** --
