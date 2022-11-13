@@ -109,3 +109,26 @@ select people_nm, filmo_names, profile from people where people_cd IN (select pe
 
 -- 회원 정보 수정 (비밀번호, 이름 변경 가능)
 update users set password=?, name=? where userid=?;
+
+
+
+-- 영화 '관심' 표시/해제
+SELECT EXISTS (SELECT * FROM star_movie WHERE userid=?);
+-- * SELECT EXISTS문의 return값이 true라면,
+delete from star_movie where userid=? and movie_cd=?;
+-- * SELECT EXISTS문의 return 값이 false라면, 
+insert into star_movie(userid, movie_cd) values (?, ?);
+
+-- 영화 '관람' 표시/해제
+SELECT EXISTS (SELECT * FROM watch_movie WHERE userid=?);
+-- * SELECT EXISTS문의 return값이 true라면,
+delete from watch_movie where userid=? and movie_cd=?;
+-- * SELECT EXISTS문의 return 값이 false라면, 
+insert into watch_movie(userid,movie_cd) values (?, ?);
+
+-- 배우 '관심' 표시/해제
+SELECT EXISTS (SELECT * FROM star_people WHERE userid=?);
+-- * SELECT EXISTS문의 return값이 true라면,
+delete from star_people where userid=? and people_cd=?;
+-- * SELECT EXISTS문의 return 값이 false라면, 
+insert into star_people(userid, people_cd) values (?, ?); 
