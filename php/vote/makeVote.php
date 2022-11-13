@@ -23,7 +23,7 @@ if (mysqli_connect_errno()) {
     echo "<script>alert('Log in fail');</script>";
     exit();
 } else {
-    $sql = "update character_ranking set vote=vote+1 where character_id=?";
+   // $sql = "update character_ranking set vote=vote+1 where character_id=?";
     echo "id : ".$id." ,"
 }
     /*# prepare statement
