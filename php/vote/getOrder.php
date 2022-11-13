@@ -126,7 +126,7 @@ if (mysqli_connect_errno()) {
         echo   '</div>';
         echo    '<div class = "rank-vote"> 1,2389 </div>';
         echo '<form action="../../php/vote/makeVote.php" method="post">';
-        echo    '<button class="rank-btn" name ="id" value=1  type="submot">투표하기</button>';
+        echo    '<button class="rank-btn" name ="id" value=1  type="submit">투표하기</button>';
         echo '</form>';
         echo    '</li>';
 
