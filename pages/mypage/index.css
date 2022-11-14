@@ -125,3 +125,52 @@ text-align: center;
 .eachMenu:hover {
     background-color: var(--color-red-200);
 }
+
+
+.info-block{
+    height:72rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:6.4rem 11.5rem;
+}
+
+form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.info-profile{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height:33rem;
+}
+.info-block div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4.3rem;
+
+}
+form div label{
+    font-size: var(--font-semi-regular);
+    color:var(--color-gray-400);
+    margin-bottom:4rem;
+
+}
+
+form div input{
+    width:49rem;
+    font-size:var(--font-regular);
+    font-weight: var(--weight-bold);
+    color:var(--color-gray-600);
+    padding: 0.5rem 0;
+    border:none;
+    border-bottom: 2px solid var(--color-gray-400);
+}

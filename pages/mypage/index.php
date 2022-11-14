@@ -35,7 +35,7 @@ include ("../../php/mypage/showInfo.php");
                 </div>
             </div>
 
-            <img src="../../img/arrow-red.svg">
+            <img src="../../img/arrow-red.svg" onclick="window.location.href='../../pages/mypage/info.php'">
         </section>
 
         <main class="interest-block">
@@ -71,6 +71,10 @@ include ("../../php/mypage/showInfo.php");
                 <p>보러가기</p>
             </div>
         </section>
+        <div class = "btn-block">
+                    <button type="submit">로그 아웃</button>
+                <button>회원 탈퇴</button>
+            </div>
 
     </body>
 </html>

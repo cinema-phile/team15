@@ -260,6 +260,8 @@
             exit();
         } else {
                 $name=getUserInfo($conn, $id)["name"];
+                $userid=getUserInfo($conn, $id)["userid"];
+                $password=getUserInfo($conn, $id)["password"];
                 $preferGenre =getUserGenre($conn,$id)?getUserGenre($conn,$id):"영화";
                 $movieCnt = getMovieCount($conn, $id);
                 $peopleCnt = getPeopleCount($conn, $id);
