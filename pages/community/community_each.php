@@ -77,7 +77,7 @@ if (mysqli_connect_errno()) {
     mysqli_stmt_close($stmt);
 
     # 베댓 2개 출력 쿼리
-    $sql = "select c.userid, c.content, c.like_no, c.hate from comment as c join (
+    $sql = "select c.commentid, c.userid, c.content, c.like_no, c.hate from comment as c join (
                 select commentid, (a.like_no - a.hate) as diff
                 from comment as a
                 where a.boardid = ?
@@ -94,10 +94,11 @@ if (mysqli_connect_errno()) {
 
             # run the query
             if(mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_bind_result($stmt, $c_user, $c_content, $like, $hate);
+                mysqli_stmt_bind_result($stmt, $id, $c_user, $c_content, $like, $hate);
     
                 while(mysqli_stmt_fetch($stmt)) {
                     array_push($best_comment, [
+                        "c_id" => $id,
                         "c_user" => $c_user,
                         "c_content" => $c_content,
                         "like" => $like,
@@ -189,8 +190,6 @@ if (mysqli_connect_errno()) {
                     </div>
                     <p class="nickName"><?=$res['writer']?></p>  
                 </div>
-
-
                 
                 <div class="each_eachPostTop">
                     <h3 class="eachPostTitle"><?=$res['title']?></h3>
@@ -206,16 +205,18 @@ if (mysqli_connect_errno()) {
                     <div class="bestRepl_each">
                         <div class="text"><?=$best_comment[$i]['c_content']?></div>
                         <div class="replCount_2">
-                            <label for="hiddenBtn" class="thumb">
-                            <input type="submit" id="hiddenBtn">     
-                            <div class="thumbUp_2"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
-                            <div class="thumbNum"><?=$best_comment[$i]['like']?></div>
-                            </label>
-                            <label for="hiddenBtn" class="thumb">
-                            <input type="submit" id="hiddenBtn"> 
-                            <div class="thumbDown_2"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
-                            <div class="thumbNum"><?=$best_comment[$i]['hate']?></div>
-                            </label>
+                            <div onclick="location.href='../../php/community/updateLike.php?boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
+                                <label for="hiddenBtn" class="thumb">
+                                    <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
+                                    <div class="thumbNum"><?=$best_comment[$i]['like']?></div>
+                                </label>
+                            </div>
+                            <div onclick="location.href='../../php/community/updateHate.php?boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
+                                <label for="hiddenBtn" class="thumb">
+                                    <div class="thumbDown_2" type="submit"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
+                                    <div class="thumbNum"><?=$best_comment[$i]['hate']?></div>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <?php
@@ -230,16 +231,18 @@ if (mysqli_connect_errno()) {
                         <div class="repl_each">
                             <div class="text"><?=$comment[$i]['c_content']?></div>
                             <div class="replCount_2">
-                                <label for="hiddenBtn" class="thumb">
-                                <input type="submit" id="hiddenBtn">     
-                                <div class="thumbUp_2"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
+                            <div onclick="location.href='../../php/community/updateLike.php?boardid=<?=$boardid?>&commentid=<?=$comment[$i]['c_id']?>'">
+                                <label for="hiddenBtn" class="thumb"> 
+                                <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
                                 <div class="thumbNum"><?=$comment[$i]['c_like']?></div>
                                 </label>
+                            </div>
+                            <div onclick="location.href='../../php/community/updateHate.php?boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
                                 <label for="hiddenBtn" class="thumb">
-                                <input type="submit" id="hiddenBtn"> 
-                                <div class="thumbDown_2"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
+                                <div class="thumbDown_2" type="submit"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
                                 <div class="thumbNum"><?=$comment[$i]['c_hate']?></div>
                                 </label>
+                            </div>
                             </div>
                         </div>
                         <?php
