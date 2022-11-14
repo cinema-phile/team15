@@ -1,3 +1,11 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+
+if (!session_id()) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,21 +33,20 @@
                 
                 <div class="eachPost">
                     <div class="eachProfile">
-                    <div class="profileImg">
-                        <!-- <img src=""> -->
+                        <div class="profileImg">
+                            <!-- <img src=""> -->
+                        </div>
+                        <p class="nickName"><?=$_SESSION['userName']?></p>  
                     </div>
-                    <p class="nickName">닉네임</p>  
-                </div>
-                    <div class="titleField">
-                        <h4 class="postTitle">제목</h4>
-                        <input class="titleInput">
-                    </div>
-                    <input class="newPostContents">
-                    
-                    <button class="button" onclick="location.href='community_free.html'">작성 완료</button>
-                    </div>
-
-
+                    <form action="../../php/community/submitPost.php?type=<?=$_GET['type']?>" method="post">
+                        <div class="titleField">
+                            <h4 class="postTitle">제목</h4>
+                            <input class="titleInput" name="titleInput">
+                        </div>
+                        <input class="newPostContents" name="postContent">
+                        
+                        <button class="button" type=submit>작성 완료</button>
+                    </form>
                 </div>
             </div>
 
