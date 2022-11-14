@@ -1,3 +1,10 @@
+<?php
+
+include ("../../php/test/showResult.php");
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +34,8 @@
                 <img src="../../img/horror.svg"/>
             </div>
             <div class="genre-text">
-                <span class="title3 text-main"></span>
-                <span class="title5"></span>
+                <span class="title3 text-main"><?php echo $typeTitle; ?></span>
+                <span class="title5"><?php echo $typeContent; ?></span>
 
             </div>
            
@@ -36,11 +43,18 @@
 
          <section class="result list">
             <p class="title3 list-title">탕탕! 취향 저격</p>
-         </section>
+            <div class="item">
+                <span class="title4"><?php echo $directorFirstName; ?></span> 
+                <div class="title4 line"></div>
+                <span class="title5 movie-title">쏘우</span>
+                <span class="title5 movie-title">컨저링</span>
+                <span class="title5 movie-title">인시디어스</span>
+            </div>   
+        </section>
          <div class="btn">
             <button class="btn-main php">결과 저장하기
-                <form method="get"  action="submit.php">
-                    <input class="btn-main input" type="submit" name="genre" id="genre" value="" /><br/>-->
+                <form method="get"  action="../../php/test/saveResult.php">
+                    <input class="btn-main input" type="submit" name="genre" id="genre" value="" /><br/>
                 </form>
             </button>
 
@@ -49,7 +63,7 @@
         </div>
 
     </div>
-    <script src="./genreData.js" charset="utf-8"></script>
-    <script src="./result.js" charset="utf-8"></script>
+    <!--<script src="./genreData.js" charset="utf-8"></script>
+    <script src="./result.js" charset="utf-8"></script>-->
 </body>
 </html>
