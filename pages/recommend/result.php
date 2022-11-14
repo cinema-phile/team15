@@ -44,7 +44,14 @@ include ("../../php/test/showResult.php");
          <section class="result list">
             <p class="title3 list-title">탕탕! 취향 저격</p>
             <div class="item">
-                <span class="title4"><?php echo $directorFirstName; ?></span> 
+                <span class="title4"><?php echo $typeDirectors[0]; ?></span> 
+                <div class="title4 line"></div>
+                <span class="title5 movie-title">쏘우</span>
+                <span class="title5 movie-title">컨저링</span>
+                <span class="title5 movie-title">인시디어스</span>
+            </div>   
+            <div class="item">
+                <span class="title4"><?php echo $typeDirectors[1]; ?></span> 
                 <div class="title4 line"></div>
                 <span class="title5 movie-title">쏘우</span>
                 <span class="title5 movie-title">컨저링</span>
@@ -59,7 +66,7 @@ include ("../../php/test/showResult.php");
             </button>
 
        
-            <button class="btn-optional" onclick="js:retest()">다시 검사하기</button>
+            <button class="btn-optional" onclick="location.href='../../pages/recommend/index.html'">다시 검사하기</button>
         </div>
 
     </div>
