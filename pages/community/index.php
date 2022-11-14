@@ -47,7 +47,7 @@ if (mysqli_connect_errno()) {
             from board as f
             inner join users as u on f.userid = u.userid
             where type = 'free'
-            order by f.timestamps desc";
+            order by f.boardid desc";
 
     # prepare statement
     if($stmt = mysqli_prepare($conn, $sql)) {
