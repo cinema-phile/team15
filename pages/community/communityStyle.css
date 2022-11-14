@@ -70,6 +70,7 @@
     width: 100%;
     height: max-content;
     padding: 3rem;
+    background-color: var(--color-white)
 }
 .eachProfile {
     display: grid;

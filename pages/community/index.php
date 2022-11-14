@@ -197,7 +197,7 @@ if (mysqli_connect_errno()) {
             <?php
             for ($i=0; $i < count($res); $i++) {
                 if($res[$i]['writerId'] == $userId) {
-                    $url = "community_myPost.html?boardid=".$res[$i]['boardid'];
+                    $url = "community_myPost.php?boardid=".$res[$i]['boardid'];
                 } else {
                     $url = "community_each.php?boardid=".$res[$i]['boardid'];
                 }

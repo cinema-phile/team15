@@ -6,6 +6,7 @@ if (!session_id()) {
 }
 
 $comment = $_POST["comment"];
+$isMine = $_GET['isMine'];
 
 if ($comment == NULL) {
     echo "<script>alert('댓글을 작성해 주세요');</script>";
@@ -19,14 +20,18 @@ if (mysqli_connect_errno()) {
     echo "<script>alert('Connection fail');</script>";
     exit();
 } else {
-    $sql = "insert into comment (boardid, userid, content) values (?, ?, ?);";
+    $sql = "insert into comment (boardid, userid, content) values (?, ?, ?)";
 
     # prepare statement
     if($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, 'sss', $_GET['boardid'], $_SESSION['userId'], $comment);
         
         if(mysqli_stmt_execute($stmt)) {
-            header("Location:../../pages/community/community_each.php?boardid=".$_GET['boardid']);
+            if($isMine) {
+                header("Location:../../pages/community/community_myPost.php?boardid=".$_GET['boardid']);
+            } else {
+                header("Location:../../pages/community/community_each.php?boardid=".$_GET['boardid']);
+            }
         } else {
             echo "<script>alert('댓글 작성 실패');</script>";
             exit();
