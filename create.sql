@@ -85,7 +85,7 @@ foreign key (typeid) references test (typeid)
 
 -- --------------------------------------------------------
 -- # 7
--- star Table Structure
+-- star_movie Table Structure
 --
 create table star_movie (
 		star_movie_id int not null auto_increment primary key,
@@ -95,6 +95,10 @@ create table star_movie (
 		foreign key (movie_cd) references movie (movie_cd)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+-- # 7
+-- star_movie Table Structure
+--
 create table star_people (
 		star_people_id int not null auto_increment primary key,
 		userid varchar(20) not null,
@@ -127,63 +131,31 @@ create table character_ranking (
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
--- # 10
--- board_information Table Structure
---
-create table board_information (
-		boardid_info int not null auto_increment primary key,
-		userid varchar(20) not null,
-		title varchar(50) not null,
-		content varchar(500) not null,
-		timestamps timestamp not null,
-		watch int default 0,
-		foreign key (userid) references users (userid)
-) ENGINE=InnoDB default CHARSET=utf8mb4;
-
--- --------------------------------------------------------
--- # 11
--- comment_information Table Structure
---
-create table comment_information (
-		commentid_info int not null auto_increment primary key,
-		boardid_info int not null,
-		userid varchar(20) not null,
-		content varchar(500) not null,
-		timestamps timestamp not null,
-		like_no int default 0,
-		hate int default 0,
-		foreign key (boardid_info) references board_information (boardid_info),
-		foreign key (userid) references users (userid)
-) ENGINE=InnoDB default CHARSET=utf8mb4;
-
--- --------------------------------------------------------
 -- # 12
--- board_free Table Structure
+-- board Table Structure
 --
-create table board_free (
-		boardid_free int not null auto_increment primary key,
+create table board (
+		boardid int not null auto_increment primary key,
 		userid varchar(20) not null,
 		title varchar(50) not null,
 		content varchar(500) not null,
-		timestamps timestamp not null,
-		watch int default 0,
+		timestamps timestamp not null DEFAULT CURRENT_TIMESTAMP,
+		type varchar(10) not null,
 		foreign key (userid) references users (userid)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 -- # 13
--- comment_free Table Structure
+-- comment Table Structure
 --
-create table comment_free (
-		commentid_free int not null auto_increment primary key,
-		boardid_free int not null,
+create table comment (
+		commentid int not null auto_increment primary key,
+		boardid int not null,
 		userid varchar(20) not null,
 		content varchar(500) not null,
-		timestamps timestamp not null,
+		timestamps timestamp not null DEFAULT CURRENT_TIMESTAMP,
 		like_no int default 0,
 		hate int default 0,
 		foreign key (userid) references users (userid),
-		foreign key (boardid_free) references board_free (boardid_free)
+		foreign key (boardid) references board (boardid)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
-
--- --------------------------------------------------------
