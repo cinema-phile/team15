@@ -54,7 +54,7 @@ if (mysqli_connect_errno()) {
             # insert user info
             if(mysqli_stmt_execute($stmt)) {
                 # page redirect
-                header("Location:../index.html");
+                header("Location:../../index.html");
                 exit();
             } else {
                 echo "<script>alert('Sign up fail');</script>";

@@ -46,7 +46,7 @@ if (mysqli_connect_errno()) {
         if ($success == 1) {
             # Success login
             $_SESSION['userId'] = $id_input;
-            header("Location:../pages/search/search.html");
+            header("Location:./pages/search/search.php");
         } else {
             echo "<script>alert('Log in fail');</script>";
             exit();

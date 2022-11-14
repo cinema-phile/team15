@@ -70,6 +70,7 @@
     width: 100%;
     height: max-content;
     padding: 3rem;
+    background-color: var(--color-white)
 }
 .eachProfile {
     display: grid;
@@ -139,13 +140,17 @@
     color: var(--color-gray-400);
     font-size: var(--font-small);
     text-align: left;
+    height: max-content;
+}
+.thumbNum {
+    width: 2rem;
 }
 .bestRepl_each {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
     background-color: #ebf7f1;
+    margin-bottom: 1rem;
 }
 .repl {
     margin: 1.8rem auto;
@@ -156,10 +161,38 @@
     align-items: center;
     justify-content: space-between;
 }
+#hiddenBtn {
+    width: 0.01rem;
+    height: 0.01rem;
+    z-index: -10;
+}
+.thumb {
+    display: flex;
+    flex-direction: row;
+}
+.thumbUp, .thumbDown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.thumbUp {
+    background-image: url("../../img/thumb_up.svg");
+}
+.thumbDown {
+    background-image: url("../../img/thumb_down.svg");
+}
+.replCount_2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 0;
+}
 .replCount {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 0.4rem;
 }
 .replButton {
     width: max-content;
