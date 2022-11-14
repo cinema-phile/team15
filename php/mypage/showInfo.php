@@ -206,8 +206,8 @@ function getRecentMovie($conn,$id){
                 $peopleCnt = getPeopleCount($conn, $id);
                 $watchCnt=getWatchCount($conn, $id);
                 $recentMovie=getRecentMovie($conn,$id);
-                echo $userInfo["userid"]; //에러 없음
-                echo $recentMovie;
+                //echo $userInfo["userid"]; //에러 없음
+                //echo $recentMovie;
         
             } else {
                 echo "<script>alert('Log in fail');</script>";

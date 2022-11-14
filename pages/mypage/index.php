@@ -1,3 +1,8 @@
+<?php
+
+include ("../../php/mypage/showInfo.php");
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +11,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../index.css">
+        <!--<link  rel="stylesheet" href="../../php/mypage/showInfo.php">-->
         <link rel="stylesheet" href="./index.css"/>
         <title>MyPage</title>
     </head>
@@ -18,18 +24,14 @@
             <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
             <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
             <a href="../community/index.html"><h4 class="eachMenu">COMMUNITY</h4></a>
-            <a href="../mypage/index.html"><h4 class="eachMenu">MYPAGE</h4></a>
+            <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </div>
-
-        <form action="../../php/mypage/showInfo.php" method="post">
-            <button class="filter-btn" type="submit" name="sex" value = "여자">여성</button>
-        </form>
         <section class="me">
             <div class="me-info">
                 <img src="../../img/profile-50.svg"/>
                 <div class="text-block">
                     <p>영화를 사랑하는</p>
-                    <p><? echo $value; ?>님</p>
+                    <p><?php echo $userInfo["userid"]; ?>님</p>
                 </div>
             </div>
 
@@ -41,14 +43,14 @@
             <section class="interest-movie">
                 <div class="text-block">
                     <p>관심 영화 모아보기</p>
-                    <p>0개</p>
+                    <p><?php echo $movieCnt; ?>개</p>
                 </div>
                 <img src="../../img/arrow-red.svg">
             </section>
             <section class="interest-actor">
                 <div class="text-block">
                     <p>관심 배우 모아보기</p>
-                    <p>0개</p>
+                    <p><?php echo $peopleCnt; ?>개</p>
                 </div>
                 <img src="../../img/arrow-red.svg">
             </section>
@@ -56,12 +58,12 @@
         <section class="watch">
             <div class="text-block">
                 <p>관람 내역</p>
-                <p>10개</p>
+                <p><?php echo $movieCnt; ?>개</p>
             </div>
 
             <div class="text-block">
                 <p>최근 관람 영화</p>
-                <p>꽃보다 남자</p>
+                <p><?php echo $recentMovie; ?></p>
             </div>
 
             <div class="text-block">

@@ -51,11 +51,12 @@ function getMovieTitle($conn, $id){
 
 
 function getActorImg($conn,$id){
+    //$sql="select profile from people where people_cd=(select people_cd from characters where character_id=(select character_id from character_ranking where character_id=".$id."));";
     $sql="select profile from people where people_cd=(select people_cd from characters where character_id=(select character_id from character_ranking where character_id=".$id."));";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    // echo '<h1>'.$row['vote'].'</h1>';
-    return $row['movie_nm'];
+    //echo '<h1>'.$row['profile'].'</h1>';
+    return $row['profile'];
 }
 
 # DB Connection
@@ -89,8 +90,9 @@ if (mysqli_connect_errno()) {
         $name = $row["cast_nm"]; // 배역 명 
         $rank=$row["rank() over (order by vote desc)"]; // 등수
         getVoteNum($conn, "153");
+        $imgUrl=getActorImg($conn,$id);
         echo '<div>';
-        echo  '<img  src="../../img/profile-50.svg" />';
+        echo      '<img class="bar-img" src="'.$imgUrl.'" />';
         echo ' <div class="bar-'.$rank.'">';
         echo '<span class="bar-name">'.$row["cast_nm"].'</span>';
         echo '<span class="bar-vote">'.$name.'</span>';
@@ -149,12 +151,13 @@ if (mysqli_connect_errno()) {
         // $voteNum=getVoteNum($conn, $id);
         $voteNum = getVoteNum($conn, $id);
         $movieTitle= getMovieTitle($conn, $id);
+        $imgUrl=getActorImg($conn,$id);
 
 
         echo  '<li class="rank-content">';
         echo '<div class = "rank-num">'.$rank.'</div>';
         echo    '<div class = "rank-profile">';
-        echo      '<img  src="../../img/profile-50.svg" />';
+        echo      '<img  src="'.$imgUrl.'" />';
         echo        '<div>';
         echo            '<span class = "profile-name">'.$name.'</span>';
         echo            '<span class = "profile-movie">'.$movieTitle.'</span>';
@@ -180,4 +183,3 @@ if (mysqli_connect_errno()) {
     
 </body>
 </html>
-

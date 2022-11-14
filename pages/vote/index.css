@@ -50,6 +50,9 @@ header{
 
 .rank-bar div img{
     padding-bottom: 1rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
 }
 .rank-bar div div{
     /*width:8rem;*/
@@ -72,6 +75,11 @@ header{
     font-size: var(--font-micro);
     font-weight: var(--weight-bold);
     color:var(--color-gray-500);
+}
+
+.bar-img{
+    width: 15rem;
+    height: 15rem;
 }
 
 .bar-3{
@@ -135,6 +143,9 @@ header{
 }
 .rank-profile img{
     padding-right: 1.3rem;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
 }
 .rank-profile div{
     display: flex;
