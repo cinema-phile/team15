@@ -160,10 +160,12 @@ if (mysqli_connect_errno()) {
         echo            '<span class = "profile-movie">'.$movieTitle.'</span>';
         echo        '</div>';  
         echo   '</div>';
+        echo   '<div class="rank-btn-block">';
         echo    '<div class = "rank-vote">'.$voteNum.'</div>';
         echo '<form action="makeVote.php" method="post">';
         echo    '<button class="rank-btn" name ="id" value='.$id.' >투표하기</button>';
         echo '</form>';
+        echo   '</div>';
         echo    '</li>';
 
        
