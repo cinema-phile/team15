@@ -10,6 +10,7 @@ $conn = mysqli_connect("localhost", "team15", "team15", "team15");
 $res = array();
 $bestComment = array();
 $executed = false;
+$userId = $_SESSION['userId'];
 
 if (mysqli_connect_errno()) {
     echo "<script>alert('Connection fail');</script>";
@@ -17,7 +18,7 @@ if (mysqli_connect_errno()) {
 } else {
     
     # 게시글 출력
-    $sql = "select f.boardid, f.title, f.content, f.timestamps, u.name, u.profile
+    $sql = "select f.boardid, f.title, f.content, f.timestamps, u.userid, u.name, u.profile
             from board as f
             inner join users as u on f.userid = u.userid
             where type='info'
@@ -28,13 +29,14 @@ if (mysqli_connect_errno()) {
 
         # run the query
         if(mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $boardid, $title, $content, $time, $writer, $writer_profile);
+            mysqli_stmt_bind_result($stmt, $boardid, $title, $content, $time, $writerId, $writer, $writer_profile);
             while(mysqli_stmt_fetch($stmt)) {
                 array_push($res, [
                     "boardid" => $boardid,
                     "title" => $title,
                     "content" => $content,
                     "time" => $time,
+                    "writerId" => $writerId,
                     "writer" => $writer,
                     "profile" => $writer_profile 
                 ]);
@@ -168,7 +170,11 @@ if (mysqli_connect_errno()) {
 
             <?php
             for ($i=0; $i < count($res); $i++) {
-                $url = "community_each.php?boardid=".$res[$i]['boardid'];
+                if($res[$i]['writerId'] == $userId) {
+                    $url = "community_myPost.php?boardid=".$res[$i]['boardid'];
+                } else {
+                    $url = "community_each.php?boardid=".$res[$i]['boardid'];
+                }
             ?>
             <div class="post" onclick="location.href='<?=$url?>'">
                 <div class="eachProfile">

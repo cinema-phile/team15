@@ -158,6 +158,7 @@ if (mysqli_connect_errno()) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -184,63 +185,48 @@ if (mysqli_connect_errno()) {
             <div class="post">
                 
                 <div class="eachPost">
-                <div class="eachProfile">
-                    <div class="profileImg">
-                        <!-- <img src=""> -->
-                    </div>
-                    <p class="nickName"><?=$res['writer']?></p>  
-                </div>
-                
-                <div class="each_eachPostTop">
-                    <h3 class="eachPostTitle"><?=$res['title']?></h3>
-                    <div class="timeStamp"><?=$res['time']?></div>
-                </div>
-                    <div class="postContents_each">
-                        <?=$res['content']?>
-                    </div>
-                    <div class="replIndex">BEST 댓글</div>
-                    <?php
-                    for ($i=0; $i < count($best_comment); $i++) {
-                    ?>
-                    <div class="bestRepl_each">
-                        <div class="text"><?=$best_comment[$i]['c_content']?></div>
-                        <div class="replCount_2">
-                            <div onclick="location.href='../../php/community/updateLike.php?boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
-                                <label for="hiddenBtn" class="thumb">
-                                    <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
-                                    <div class="thumbNum"><?=$best_comment[$i]['like']?></div>
-                                </label>
+                    <div class="myPostLayout">
+                        <div class="eachProfile">
+                            <div class="profileImg">
+                                <!-- <img src=""> -->
                             </div>
-                            <div onclick="location.href='../../php/community/updateHate.php?boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
-                                <label for="hiddenBtn" class="thumb">
-                                    <div class="thumbDown_2" type="submit"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
-                                    <div class="thumbNum"><?=$best_comment[$i]['hate']?></div>
-                                </label>
+                            <p class="nickName"><?=$res['writer']?></p>
+                        </div>
+                        <div class="postButtons">
+                            <div onclick="location.href='./community_edit.php?boardid=<?=$boardid?>'">
+                                <button class="postEdit">수정</button>
+                            </div>
+                            <div onclick="location.href='../../php/community/deletePost.php?boardid=<?=$boardid?>'">
+                                <button class="postDelete">삭제</button>
                             </div>
                         </div>
                     </div>
-                    <?php
-                    }
-                    ?>
 
-                    <div class="repl">
-                        <div class="replIndex">최신 댓글</div>
+               
+                    <div class="each_eachPostTop">
+                        <h3 class="eachPostTitle"><?=$res['title']?></h3>
+                        <div class="timeStamp"><?=$res['time']?></div>
+                    </div>
+                        <div class="postContents_each">
+                            <?=$res['content']?>
+                        </div>
+                        <div class="replIndex">BEST 댓글</div>
                         <?php
-                        for ($i=0; $i < count($comment); $i++) {
+                        for ($i=0; $i < count($best_comment); $i++) {
                         ?>
-                        <div class="repl_each">
-                            <div class="text"><?=$comment[$i]['c_content']?></div>
-                            <div class="replCount_2">
-                                <div onclick="location.href='../../php/community/updateLike.php?boardid=<?=$boardid?>&commentid=<?=$comment[$i]['c_id']?>'">
-                                    <label for="hiddenBtn" class="thumb"> 
-                                    <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
-                                    <div class="thumbNum"><?=$comment[$i]['c_like']?></div>
+                        <div class="bestRepl_each">
+                            <div class="text"><?=$best_comment[$i]['c_content']?></div>
+                            <div class="replCount">
+                                <div onclick="location.href='../../php/community/updateLike.php?isMine=true&boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
+                                    <label for="hiddenBtn" class="thumb">
+                                        <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
+                                        <div class="thumbNum"><?=$best_comment[$i]['like']?></div>
                                     </label>
                                 </div>
-                                <div onclick="location.href='../../php/community/updateHate.php?boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
+                                <div onclick="location.href='../../php/community/updateHate.php?isMine=true&boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
                                     <label for="hiddenBtn" class="thumb">
-                                    <div class="thumbDown_2" type="submit"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
-                                    <div class="thumbNum"><?=$comment[$i]['c_hate']?></div>
+                                        <div class="thumbDown_2" type="submit"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
+                                        <div class="thumbNum"><?=$best_comment[$i]['hate']?></div>
                                     </label>
                                 </div>
                             </div>
@@ -248,20 +234,46 @@ if (mysqli_connect_errno()) {
                         <?php
                         }
                         ?>
-                    </div>
-                    <form action="../../php/community/submitComment.php?boardid=<?=$boardid?>" method="post">
-                    <div class="replPost">
-                        <input class="replPostContents" name="comment">
-                        <button class="replButton" type=submit>댓글 작성</button>
-                    </div>
-                    </form>
-
-                </div>
-            </div>
-
-        </section>
-
-    </div>
     
-</body>
-</html>
+                        <div class="repl">
+                            <div class="replIndex">최신 댓글</div>
+                            <?php
+                            for ($i=0; $i < count($comment); $i++) {
+                            ?>
+                            <div class="repl_each">
+                                <div class="text"><?=$comment[$i]['c_content']?></div>
+                                <div class="replCount">
+                                    <div onclick="location.href='../../php/community/updateLike.php?isMine=true&boardid=<?=$boardid?>&commentid=<?=$comment[$i]['c_id']?>'">
+                                        <label for="hiddenBtn" class="thumb"> 
+                                        <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
+                                        <div class="thumbNum"><?=$comment[$i]['c_like']?></div>
+                                        </label>
+                                    </div>
+                                    <div onclick="location.href='../../php/community/updateHate.php?isMine=true&boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
+                                        <label for="hiddenBtn" class="thumb">
+                                        <div class="thumbDown_2" type="submit"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
+                                        <div class="thumbNum"><?=$comment[$i]['c_hate']?></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                        </div>
+                        <form action="../../php/community/submitComment.php?boardid=<?=$boardid?>&isMine=true" method="post">
+                        <div class="replPost">
+                            <input class="replPostContents" name="comment">
+                            <button class="replButton" type=submit>댓글 작성</button>
+                        </div>
+                        </form>
+    
+                    </div>
+                </div>
+    
+            </section>
+    
+        </div>
+        
+    </body>
+    </html>
