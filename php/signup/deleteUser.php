@@ -47,5 +47,6 @@ try{
 	$mysqli->rollback();
 	throw $exception;
 }
+header("Location:../../index.html");
 
 ?>

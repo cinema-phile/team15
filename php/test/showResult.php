@@ -114,8 +114,8 @@
     function getMoviesFromDirector($conn, $genre, $director){
         # prepare statement
         $res = array();
-        //$sql ="select movie_nm from movie where movie_cd IN ( SELECT recom_movie FROM test where type_nm=? and recom_director=( select people_cd from people where people_nm = ? and rep_role_nm = '감독') );";
-        echo "$director";
+        $sql ="select movie_nm from movie where movie_cd IN ( SELECT recom_movie FROM test where type_nm=? and recom_director=( select people_cd from people where people_nm = ? and rep_role_nm = '감독') );";
+        //echo "$director";
        /*if($stmt = mysqli_prepare($conn, $sql)) {
            //mysqli_stmt_bind_param($stmt, 's', $genre, $director);
            //mysqli_stmt_execute($stmt);
@@ -154,7 +154,7 @@
                 $typeTitle=getTypeTitle($conn, $genre);
                 $typeContent=getTypeContent($conn, $genre);
                 $typeDirectors=getDirectors($conn, $genre);
-                // getMoviesFromDirectors($conn, $genre,"쿠엔틴 타란티노" );
+                // getMoviesFromDirector($conn, $genre,$typeDirectors[0] );
                 /*for($i = 0;$i < count($typeDirectors);$i++){
                    
                     $director = $typeDirectors[$i];
