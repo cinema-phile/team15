@@ -12,10 +12,7 @@
             $sql = "update character_ranking set vote=vote+1 where character_id=".$id.";";
             $res = mysqli_query($conn, $sql);
             echo ".$id.";
-
-            echo "<script> document.location.href='../../pages/vote/index.html';</script>"; 
-
-
+            header("Location:../../pages/vote/index.html");
 
         }
 

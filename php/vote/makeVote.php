@@ -60,7 +60,7 @@
             echo '<form action="updateVote.php" method="post">';
             echo '   <button class="filter-btn" type="submit" name="id" value='.$id.'>투표하기</button>';
             echo '</form>';
-            echo '<button>다시 시작하기</button>';
+            echo '<button>다시 선택하기</button>';
             echo '</section>';
 
         }
