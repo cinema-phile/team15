@@ -14,7 +14,7 @@ window.onload = loadPage;
 
 
 function moveResultPage(genre) {
-    location.replace(`./result.html?genre=${genre}`);
+    location.replace(`./result.php?genre=${genre}`);
 }
 
 function showQuestion(qIdx){

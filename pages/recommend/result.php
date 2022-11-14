@@ -1,3 +1,10 @@
+<?php
+
+include ("../../php/mypage/showInfo.php");
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
