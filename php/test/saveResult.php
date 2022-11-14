@@ -11,9 +11,9 @@
         echo $_SESSION['userId'];
         $id = $_SESSION['userId'];
 
-        /*$id = $_SESSION['userId'];
+        /*$id = $_SESSION['userId'];*/
 
-        echo .$id.;*/
+        echo $type_nm;
         
 
 
@@ -33,24 +33,27 @@
                 mysqli_stmt_bind_param($stmt, "ss", $id, $type_nm);
                 # run the query
                 if(mysqli_stmt_execute($stmt)) {
-                    mysqli_stmt_bind_result($stmt, $res);
-                    while(mysqli_stmt_fetch($stmt)) {
+                    header("Location:../../pages/search/search.html");
+                    //mysqli_stmt_bind_result($stmt, $res);
+                    /*while(mysqli_stmt_fetch($stmt)) {
                         $success = $res;
                         echo $success;
-                    }
+                    }*/
+                   
                 } else {
                     echo "<script>alert('Log in fail');</script>";
                     exit();
                 }
+                
 
 
                 # verify register test result
-                if ($success == 1) {
+                /*if ($success == 1) {
                     header("Location:../pages/search/search.html");
                 } else {
                     echo "<script>alert('Log in fail');</script>";
                     exit();
-                }
+                }*/
                     }
 
 

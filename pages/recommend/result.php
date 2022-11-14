@@ -54,7 +54,7 @@ include ("../../php/test/showResult.php");
          <div class="btn">
             <button class="btn-main php">결과 저장하기
                 <form method="get"  action="../../php/test/saveResult.php">
-                    <input class="btn-main input" type="submit" name="genre" id="genre" value="" /><br/>
+                    <input class="btn-main input" type="submit" name="genre" id="genre" value=<?php echo $genre; ?> /><br/>
                 </form>
             </button>
 
