@@ -1,0 +1,128 @@
+.title {
+    color : var(--color-gray-500);
+    font-weight: var(--weight-bold);
+    font-size: var(--font-large);
+    text-align: center;
+    margin-top: 11rem;
+}
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 0.8rem;
+    width: 100%;
+    height: 6rem;
+    margin: 2.4rem auto;
+}
+.eachMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-blue-200);
+    height: 100%;
+    color: var(--color-gray-600);
+}
+.eachMenu:hover {
+    background-color: var(--color-blue-400);
+}
+.filmInfo {
+    padding: 5rem 5rem 8rem 5rem;
+    border: 2px solid var(--color-blue-400);
+    border-radius: var(--border-radius-regular);
+}
+.topLayout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.poster {
+    background-color: var(--color-blue-200);
+    width: 24rem;
+    height: 31.3rem;
+}
+.titleNtag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.filmTitle {
+    color: var(--color-gray-600);
+    font-size: var(--font-regular);
+    font-weight: var(--weight-bold);
+}
+.infoLayout {
+    width: 26rem;
+    height: 31.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+}
+.detailinfo {
+    color: var(--color-gray-500);
+    font-size: var(--font-regular);
+    text-align: left;
+}
+.watched {
+    color: var(--color-gray-600);
+    font-size: var(--font-semi-micro);
+    font-weight: var(--weight-bold);
+    margin-bottom: 1.2rem;
+}
+#span {
+    color: var(--color-blue-400);
+    font-size: var(--font-semi-micro);
+    font-weight: var(--weight-bold);
+}
+.watchedBtn {
+    width: 25.2rem;
+    height: 6rem;
+    background-color: var(--color-blue-400);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-regular);
+    font-weight: var(--weight-bold);
+    border-radius: var(--border-radius-regular);
+    border: none;
+}
+.actorList {
+    color: var(--color-gray-600);
+    font-size: var(--font-small);
+    font-weight: var(--weight-bold);
+}
+.listTitle {
+    text-align: left;
+    margin-top: 7rem;
+    font-size: var(--font-regular);
+}
+.actorProfile {
+    margin-top: 4.4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.individualActor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 11rem;
+}
+.actorImg {
+    width: 11rem;
+    height: 11rem;
+    background-color: var(--color-blue-200);
+    border-radius: 100%;
+}
+.actorName {
+    color: var(--color-gray-600);
+    font-size: var(--font-small);
+    font-weight: var(--weight-bold);
+}
+.actorChar {
+    color: var(--color-gray-600);
+    font-size: var(--font-micro);
+    font-weight: var(--weight-regular);
+}
