@@ -8,12 +8,12 @@
         }
         $type_nm = $_GET["genre"];
 
-        echo $_SESSION['userId'];
+        //echo $_SESSION['userId'];
         $id = $_SESSION['userId'];
 
         /*$id = $_SESSION['userId'];*/
 
-        echo $type_nm;
+        //echo $type_nm;
         
 
 
