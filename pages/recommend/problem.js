@@ -1,9 +1,12 @@
 const qnaBlock=document.querySelector(".test-qna");
 const statusBlock = document.querySelector(".qna-status");
-let genre = {"스릴러/액션":0, "코미디":0, "로맨스":0, "드라마":0,"SF/판타지":0,"애니메이션":0, "다큐멘터리":0, "호러":0}
+const menuBlock=document.querySelector(".menu");
+let genre = {"thriller/action":0, "comedy":0, "romance":0, "drama":0,"SF/fantasy":0,"animation":0, "documentary":0, "horror":0}
 
 
 function loadPage(){
+    console.log(menuBlock);
+    menuBlock.style.display="none";
     showQuestion(0);
 }
 
@@ -11,11 +14,12 @@ window.onload = loadPage;
 
 
 function moveResultPage(genre) {
-    location.replace(`./result.html?genre=${genre}`);
+    location.replace(`./result.php?genre=${genre}`);
 }
 
 function showQuestion(qIdx){
-    console.log("show Question")
+    console.log("show Question");
+
     // console.log(qIdx, qnaList.length)
 
 
