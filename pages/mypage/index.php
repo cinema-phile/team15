@@ -30,8 +30,8 @@ include ("../../php/mypage/showInfo.php");
             <div class="me-info">
                 <img src="../../img/profile-50.svg"/>
                 <div class="text-block">
-                    <p>영화를 사랑하는</p>
-                    <p><?php echo $userInfo["userid"]; ?>님</p>
+                    <p><?php echo $preferGenre; ?>를 사랑하는</p>
+                    <p><?php echo $name; ?>님</p>
                 </div>
             </div>
 

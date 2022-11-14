@@ -41,6 +41,7 @@
                 }
 
             }
+            mysqli_stmt_close($stmt);
             return $res["movieCount"];
         }
     }
@@ -79,8 +80,10 @@
                 }
 
                 }
-                return $res["peopleCount"];
+               
             }
+            mysqli_stmt_close($stmt);
+            return $res["peopleCount"];
     }
 
      
@@ -117,8 +120,10 @@
             }
 
             }
-            return $res["watchCount"];
+            
         }
+        mysqli_stmt_close($stmt);
+        return $res["watchCount"];
     }
 
 
@@ -156,25 +161,26 @@
             }
 
             }
-            return $res["movie_nm"];
+           
         }
-
+        mysqli_stmt_close($stmt);
+        return $res["movie_nm"];
     }
 
-    function getUserInfo($conn,$id){
-        $sql="select * from users where userid = ?";
+    function getUserInfo($conn, $id){
+        $sql ="select * from users where userid =?";
         if($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $id);
         }
-        if(mysqli_stmt_execute($stmt)){
 
-            # run the query
-            if(mysqli_stmt_execute($stmt)) {
+
+        # run the query
+        if(mysqli_stmt_execute($stmt)) {
 
             mysqli_stmt_store_result($stmt);
             // SELECT, SHOW, DESCRIBE를 성공적으로 실행한 모든 쿼리에 대해 호출해야 함
             // 생성된 레코드셋을 가져와 저장함
-            mysqli_stmt_bind_result($stmt, $movie_nm);
+            mysqli_stmt_bind_result($stmt, $userid,$password,$name,$profile);
             // 검색 결과로 반환되는 레코드셋의 필드를 php 변수에 바인딩
             // mysqli_stmt_fetch 호출 전, 모든 필드가 바인드되어야 함
 
@@ -187,17 +193,62 @@
             // 필드 정보 출력
             while(mysqli_stmt_fetch($stmt)){
 
-                $res["movie_nm"] = $movie_nm;
-                // echo $res["movie_nm"];
+                $res["userid"] = $userid;
+                $res["password"] = $password;
+                $res["name"] = $name;
+                $res["profile"] = $profile;
 
 
             }
 
-            }
-            return $res["movie_nm"];
+        }
+        mysqli_stmt_close($stmt);
+        return $res;
+    }
+
+
+    function getUserGenre($conn, $id){ 
+        $sql ="select type_title from test where typeid=(select typeid from test_result where userid=?)";
+        if($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, "s", $id);
         }
 
+
+        # run the query
+        if(mysqli_stmt_execute($stmt)) {
+
+            mysqli_stmt_store_result($stmt);
+            // SELECT, SHOW, DESCRIBE를 성공적으로 실행한 모든 쿼리에 대해 호출해야 함
+            // 생성된 레코드셋을 가져와 저장함
+            mysqli_stmt_bind_result($stmt, $type_title);
+            // 검색 결과로 반환되는 레코드셋의 필드를 php 변수에 바인딩
+            // mysqli_stmt_fetch 호출 전, 모든 필드가 바인드되어야 함
+
+            
+            $res = array();
+            // POST로 넘겨받은 정보를 이용, 데이터를 response 배열로..
+            $res["success"] = true;
+            // response["success"] 선언
+            
+            // 필드 정보 출력
+            while(mysqli_stmt_fetch($stmt)){
+
+                $res["type_title"] = $type_title;
+
+
+
+
+            }
+
+        }
+        mysqli_stmt_close($stmt);
+        return $res["type_title"];
+
     }
+        
+    
+
+
     
 
     # DB Connection
@@ -208,52 +259,19 @@
             echo "<script>alert('Log in fail');</script>";
             exit();
         } else {
-            $sql="select * from users where userid = ?";
- 
-            if($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "s", $id);
-            
-            }
-
-             # run the query
-            if(mysqli_stmt_execute($stmt)) {
-
-                mysqli_stmt_store_result($stmt);
-                // SELECT, SHOW, DESCRIBE를 성공적으로 실행한 모든 쿼리에 대해 호출해야 함
-                // 생성된 레코드셋을 가져와 저장함
-                mysqli_stmt_bind_result($stmt, $userid, $password, $name, $profile);
-                // 검색 결과로 반환되는 레코드셋의 필드를 php 변수에 바인딩
-                // mysqli_stmt_fetch 호출 전, 모든 필드가 바인드되어야 함
-
-                
-                $userInfo = array();
-                // POST로 넘겨받은 정보를 이용, 데이터를 response 배열로..
-                $userInfo["success"] = true;
-                // response["success"] 선언
-                
-                // 필드 정보 출력
-                while(mysqli_stmt_fetch($stmt)){
-
-                    $userInfo["userid"] = $userid;
-                    $userInfo["password"] = $password;
-                    $userInfo["name"] = $name;
-
-                }
+                $name=getUserInfo($conn, $id)["name"];
+                $preferGenre =getUserGenre($conn,$id)?getUserGenre($conn,$id):"영화";
                 $movieCnt = getMovieCount($conn, $id);
                 $peopleCnt = getPeopleCount($conn, $id);
                 $watchCnt=getWatchCount($conn, $id);
                 $recentMovie=getRecentMovie($conn,$id);
-                //echo $userInfo["userid"]; //에러 없음
-                //echo $recentMovie;
+
+            } 
+    
         
-            } else {
-                echo "<script>alert('Log in fail');</script>";
-                exit();
-            }
         
-        }
     # close connection
-    mysqli_stmt_close($stmt);
+    //mysqli_stmt_close($stmt);
     mysqli_close($conn);
 
 ?>
