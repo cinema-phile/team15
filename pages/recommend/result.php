@@ -50,14 +50,6 @@ include ("../../php/test/showResult.php");
                 <span class="title5 movie-title">컨저링</span>
                 <span class="title5 movie-title">인시디어스</span>
             </div>   
-            <div class="item">
-            <?php 
-                if ($typeDirectorsCount>1){
-                    echo '<span class="title4">'.$directorSecondName."</span>";
-                    echo '<div class="title4 line"></div>';
-                }
-            ?>
-            </div>  
         </section>
          <div class="btn">
             <button class="btn-main php">결과 저장하기
