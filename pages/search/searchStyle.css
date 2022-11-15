@@ -221,7 +221,7 @@ input[type="checkbox"] {
     text-align: left;
     color: var(--color-blue-600);
 }
-.trend2 {
+.trend2, .trend3 {
     margin-top: 16rem;
 }
 .genreImg {
@@ -230,15 +230,15 @@ input[type="checkbox"] {
     height: 30rem;
     background-color: var(--color-blue-200);
     border-radius: var(--border-radius-regular);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .genreTitle {
     color: var(--color-blue-400);
 }
 
 #defaultImg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 24rem;
     height: 24rem;
 }
