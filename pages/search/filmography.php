@@ -4,49 +4,95 @@ header('Content-Type: text/html; charset=utf-8');
 if (!session_id()) {
     session_start();
 }
-?>
+$filmoList = array();
+$code = $_GET['code'];
 
-<?php
-    $code = $_GET['code'];
+# DB Connection
+$conn = mysqli_connect("localhost", "team15", "team15", "team15");
+$userId = $_SESSION['userId'];
 
-    # DB Connection
-    $conn = mysqli_connect("localhost", "team15", "team15", "team15");
-    $userId = $_SESSION['userId'];
+if (mysqli_connect_errno()) {
+    echo "<script>alert('connect error');</script>";
+    exit();
+}
+else {
+    $sql = "select people_nm, people_nm_en, sex, profile from people where people_cd = ?;";
 
-    if (mysqli_connect_errno()) {
-        echo "<script>alert('connect error');</script>";
-        exit();
+    if($stmt = mysqli_prepare($conn, $sql)) {
+        if (mysqli_stmt_bind_param($stmt, "s", $code)) {
+            if (mysqli_stmt_execute($stmt)) {
+                if ($res = mysqli_stmt_get_result($stmt)) {
+                    while ($newArray = mysqli_fetch_array($res)) {
+
+                        $people_nm = $newArray['people_nm'];
+                        $people_nm_en = $newArray['people_nm_en'];
+
+                        if ($newArray['profile'] != NULL) {
+                            $profile = " src= 'https://".$newArray['profile']."'";
+                        }
+                        else if ($newArray['profile'] == NULL && $newArray['sex'] == "여자") {
+                            $profile = " src= '../../img/woman.png'";
+                        }
+                        else {
+                            $profile = " src= '../../img/man.png'";
+                        }
+
+                    }}}}}
+
+
+    $sql3 = "insert into star_people (userid, people_cd) values (?, ?);";
+
+    $sql2 = "select m.movie_cd, m.movie_nm, m.imgUrl, c.cast_nm
+            from characters as c
+            left join movie as m on m.movie_cd = c.movie_cd
+            left join people as p on c.people_cd = p.people_cd
+            where c.people_cd = ?;";
+
+    if($stmt = mysqli_prepare($conn, $sql2)) {
+        if (mysqli_stmt_bind_param($stmt, "s", $code)) {
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_bind_result($stmt, $movie_cd, $movie_nm, $imgUrl, $cast_nm);
+
+                while(mysqli_stmt_fetch($stmt)) {
+                    array_push($filmoList, [
+                        "movie_cd" => $movie_cd,
+                        "movie_nm" => $movie_nm,
+                        "imgUrl" => $imgUrl,
+                        "cast_nm" => $cast_nm
+                    ]);
+                }
+            }
+        }
     }
 
-    else {
-        $sql = "select people_nm, people_nm_en, sex, profile from people where people_cd = ?;";
+    # USER 팬지수 계산
+    $cnt = 0;
+    $sql = "select EXISTS (
+                select * from watch_movie where userid = ? and movie_cd = ?
+            )";
+    if($stmt = mysqli_prepare($conn, $sql)) {
+        for ($i=0; $i < count($filmoList); $i++) { 
+            $movie_cd = $filmoList[$i]['movie_cd'];
+            if(mysqli_stmt_bind_param($stmt, 'ss', $userId, $movie_cd)) {
+                if(mysqli_stmt_execute($stmt)) {
+                    mysqli_stmt_bind_result($stmt, $watched);
+                    while(mysqli_stmt_fetch($stmt)) {
+                        if($watched == 1) {
+                            $cnt = $cnt + 1;
+                        }
+                    }
+                }
+            }
+        }
 
-        if($stmt = mysqli_prepare($conn, $sql)) {
-            if (mysqli_stmt_bind_param($stmt, "s", $code)) {
-                if (mysqli_stmt_execute($stmt)) {
-                    if ($res = mysqli_stmt_get_result($stmt)) {
-                        while ($newArray = mysqli_fetch_array($res)) {
-
-                            $people_nm = $newArray['people_nm'];
-                            $people_nm_en = $newArray['people_nm_en'];
-
-                            if ($newArray['profile'] != NULL) {
-                                $profile = " src= 'https://".$newArray['profile']."'";
-                            }
-                            else if ($newArray['profile'] == NULL && $newArray['sex'] == "여자") {
-                                $profile = " src= '../../img/woman.png'";
-                            }
-                            else {
-                                $profile = " src= '../../img/man.png'";
-                            }
-
-                        }}}}}
-
-
-        $sql3 = "insert into star_people (userid, people_cd) values (?, ?);";
     }
 
+    $fanRate = $cnt / count($filmoList) * 100;
+    print($fanRate);
+
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,50 +125,34 @@ if (!session_id()) {
             </div>
         </section>
 
-
         <section class="filmolist">
             <div class="fanscore">
-                <div class="fanscore-L">나의 팬 지수 <span id="fanscorespan">%</span> | 평균 팬 지수 <span id="fanscorespan">%</span></div>
-                <p class="fanscore-R"><span id="span">23522</span> 작품 중 <span id="span">231</span> 개 관람</p>
+                <div class="fanscore-L">나의 팬 지수 <span id="fanscorespan"><?=$fanRate?>%</span> | 평균 팬 지수 <span id="fanscorespan">%</span></div>
+                <p class="fanscore-R"><span id="span"><?=count($filmoList)?></span> 작품 중 <span id="span"><?=$cnt?></span> 개 관람</p>
             </div>
             <progress class="fanGraph" min="0" max="100" value="22.8"></progress>
 
 
             <div class="characterList">
-<?php
-
-            $sql2 = "select m.movie_cd, m.movie_nm, m.imgUrl, c.cast_nm
-            from characters as c
-            left join movie as m on m.movie_cd = c.movie_cd
-            left join people as p on c.people_cd = p.people_cd
-            where c.people_cd = ?;";
-
-            if($stmt = mysqli_prepare($conn, $sql2)) {
-                if (mysqli_stmt_bind_param($stmt, "s", $code)) {
-                    if (mysqli_stmt_execute($stmt)) {
-                        if ($res = mysqli_stmt_get_result($stmt)) {
-                            while ($newArray = mysqli_fetch_array($res)) {
-                                
-                                $movie_nm = $newArray['movie_nm'];
-                                $cast_nm = $newArray['cast_nm'];
-                                $imgUrl = $newArray['imgUrl'];
-                                $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
-                                echo '
-                                <a href="'.$url.'">
-                                <div class="individualChar">
-                                <div class="charProfileImg">
-                                    <!-- <img class="tag" src="../../img/tag.svg"> -->
-                                    <img id="charPic" src="'.$imgUrl.'">
-                                </div>
-                                <div class="charText">
-                                    <p class="charName">'.$cast_nm.'</p>
-                                    <p class="charMovie">'.$movie_nm.'</p>
-                                </div>
-                                </div>
-                                </a>';
-                                
-            }}}}}
-?>
+                <?php
+                for ($i=0; $i < count($filmoList); $i++) { 
+                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$filmoList[$i]['movie_cd'];
+                ?>
+                <a href="'$url'">
+                <div class="individualChar">
+                    <div class="charProfileImg">
+                        <!-- <img class="tag" src="../../img/tag.svg"> -->
+                        <img id="charPic" src="<?=$filmoList[$i]['imgUrl']?>">
+                    </div>
+                    <div class="charText">
+                        <p class="charName"><?=$filmoList[$i]['cast_nm']?></p>
+                        <p class="charMovie"><?=$filmoList[$i]['movie_nm']?></p>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+                </a>
             </div>
         </section>
     </div>
@@ -138,5 +168,6 @@ if (!session_id()) {
             }
         }
     </script>
+    
 </body>
 </html>
