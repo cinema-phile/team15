@@ -85,10 +85,79 @@
     }
 
 
+    function getDirectors($conn, $genre){
+         # prepare statement
+         $res = array();
+         $sql ="select people_nm from people where people_cd IN (select recom_director from test where type_nm=?);";
+         //echo $sql;
+        if($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, 's', $genre);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $people_nm);
+            while(mysqli_stmt_fetch($stmt)) {
+                array_push($res,  $people_nm);
+            }
+
+            //print_r($res);
+
+
+        } 
+        else {
+                echo "<script>alert('fail execute the query');</script>";
+                exit();
+        }
     
+        mysqli_stmt_close($stmt);
+        return $res;
+    }
+
+    function getMoviesFromDirector($conn, $genre, $director){
+        //echo "$director";
+        //echo "$genre";
+        # prepare statement
+        $res = array();
+        $sql ="select movie_nm from movie where movie_cd IN (SELECT recom_movie FROM test where type_nm=? and recom_director=( select people_cd from people where people_nm = ? and rep_role_nm = '감독'));";
+        if($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, 'ss', $genre, $director);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $movie_nm);
+            while(mysqli_stmt_fetch($stmt)) {
+                array_push($res,  $movie_nm);
+            }
+
+            //print_r($res);
+
+
+        } 
+        else {
+                echo "<script>alert('fail execute the query');</script>";
+                exit();
+        }
+    
+        mysqli_stmt_close($stmt);
+        return $res;
+
+    }
 
 
 
+
+    function getMultiMovieArray($conn, $genre, $typeDirectors){
+        $res=array();
+
+        for($i = 0;$i < count($typeDirectors);$i++){
+                   
+            //$director = $typeDirectors[$i];
+            array_push($res, getMoviesFromDirector($conn, $genre,$typeDirectors[$i] ));
+
+            //$moviesPerDirector=getMoviesFromDirector($conn, $genre,$director );
+            //print_r($res[i]);
+            
+        }
+        return res;
+
+
+    }
  
 
 
@@ -103,8 +172,11 @@
 
                 $typeTitle=getTypeTitle($conn, $genre);
                 $typeContent=getTypeContent($conn, $genre);
- 
-                          
+                $typeDirectors=getDirectors($conn, $genre);
+                $typeMovies1=getMoviesFromDirector($conn, $genre,$typeDirectors[0] );
+                $typeMovies2=$typeDirectors[1]?getMoviesFromDirector($conn,  $genre, $typeDirectors[1]):NULL;
+
+                        
             } 
     
         

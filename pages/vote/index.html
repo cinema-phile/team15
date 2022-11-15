@@ -5,27 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../index.css"/>
-    <link rel="stylesheet" href="../../pages/vote/index.css"/> 
+    <link rel="stylesheet" href="../../pages/vote/index.css"/>
     <title>VOAT</title>
 </head>
 <body>
+    <div id="contents">
+        <header>
+            <h1 class="title">LEADER BOARD</h1>
+        </header>
 
-    <header>
-        <h1 class="title">LEADER BOARD</h1>
-    </header>
-    
+        <div class="menu">
+            <a href="../search/search.php"><h4 class="eachMenu">SEARCH</h4></a>
+            <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
+            <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
+            <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
+            <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
+        </div>
+
+
    
-    <section class = "filter-block">
-        <form action="../../php/vote/getOrder.php" method="post">
-            <button class="filter-btn" type="submit" name="sex" value = "남자&여자">전체보기</button>
-        </form>
-        <form action="../../php/vote/getOrder.php" method="post">
-            <button class="filter-btn" type="submit" name="sex" value = "여자">여성</button>
-        </form>
-        <form action="../../php/vote/getOrder.php" method="post">
-            <button class="filter-btn" type="submit" name="sex" value = "남자">남성</button>
-        </form>
-    </section>
+        <section class = "filter-block">
+            <form action="../../php/vote/getOrder.php" method="post">
+                <button class="filter-btn" type="submit" name="sex" value = "남자&여자">전체보기</button>
+            </form>
+            <form action="../../php/vote/getOrder.php" method="post">
+                <button class="filter-btn" type="submit" name="sex" value = "여자">여성</button>
+            </form>
+            <form action="../../php/vote/getOrder.php" method="post">
+                <button class="filter-btn" type="submit" name="sex" value = "남자">남성</button>
+            </form>
+        </section>
+    </div>
 
 <!--gk....-->
     

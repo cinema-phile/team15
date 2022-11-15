@@ -18,7 +18,7 @@
             <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
             <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
             <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
-            <a href="../mypage/index.html"><h4 class="eachMenu">MYPAGE</h4></a>
+            <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
         <form action="searchQuery.php" type="post"><section class="search">
             <select name="category" class="category" id="category" onchange="showCondition(this)">
@@ -64,11 +64,6 @@
                 <label><input type="checkbox" name="check" value="2022">2022</label>
             </div>
         </section></form>
-        <!--
-        <section class="filmInfo">
-
-        </section>
-        -->
     </div>
 
     <script src="search.js" charset="utf-8">

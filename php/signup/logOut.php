@@ -19,4 +19,5 @@ header('Content-Type: text/html; charset=utf-8');
     }
     
     session_destroy(); // 세션삭제
+    header("Location:../../index.html");
 ?>

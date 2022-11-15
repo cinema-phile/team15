@@ -1,5 +1,5 @@
 .title {
-    color : var(--color-gray-500);
+    color : var(--color-blue-400);
     font-weight: var(--weight-bold);
     font-size: var(--font-large);
     text-align: center;
@@ -25,7 +25,7 @@
     background-color: var(--color-blue-400);
 }
 .profile {
-    /*margin-top: 13rem;*/
+    margin-top: 6rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -35,10 +35,10 @@
     height: 30rem;
     border-radius: 100%;
     background-color: var(--color-blue-200);
+    border: 10px solid var(--color-blue-200);
 }
 .profiletitle {
     margin-top: 7rem;
-    width: 27.4rem;
     height: 3rem;
     display: flex;
     flex-direction: row;
@@ -49,6 +49,16 @@
     color: var(--color-blue-600);
     font-size: var(--font-large);
     font-weight: var(--weight-bold);
+    margin: 0;
+}
+.name_eng {
+    color: var(--color-blue-600);
+    font-size: var(--font-regular);
+    font-weight: var(--weight-bold);
+    margin: 0;
+}
+.nameLayout {
+
 }
 .filmolist {
     margin-top: 11rem;
@@ -60,6 +70,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+#fanscorespan {
+    color: var(--color-blue-400);
+    font-size: var(--font-regular);
+    font-weight: var(--weight-bold);
 }
 .fanscore-L {
     color: var(--color-gray-600);
@@ -94,9 +109,10 @@ progress {
   .characterList {
       width: 100%;
       margin: 6.4rem auto 8rem auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      column-gap: 5.4rem;
+      row-gap: 6rem;
   }
   .individualChar {
       display: flex;
@@ -111,6 +127,10 @@ progress {
       width: 11rem;
       height: 11rem;
       background-color: var(--color-blue-200);
+  }
+  #charPic {
+      width: 11rem;
+      height: 11rem;
   }
   .tag {
       width: 2.5rem;
@@ -137,4 +157,8 @@ progress {
     color: var(--color-gray-600);
     font-size: var(--font-small);
     font-weight: var(--weight-bold);
+}
+#star {
+    width: 7.4rem;
+    height: 7.4rem;
 }

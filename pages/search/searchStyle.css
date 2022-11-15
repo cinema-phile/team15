@@ -144,6 +144,12 @@ input[type="checkbox"] {
     height: 11rem;
     border-radius: 100%;
 }
+#pic_default {
+    width: 11rem;
+    height: 11rem;
+    border-radius: 100%;
+    border: 5px solid var(--color-blue-200);
+}
 .tag {
     width: 2.5rem;
     height: 2.5rem;
@@ -177,9 +183,7 @@ input[type="checkbox"] {
     font-weight: var(--weight-bold);
     margin-top: 1rem;
     width: 11rem;
-    height: 2.4rem;
     overflow: hidden;
-    text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
 #span {
