@@ -147,6 +147,38 @@ else {
                 <div class="genreImg"><img id="defaultImg" src="../../img/cinema.png"></div>
                 <h2 class="genreTitle"><?=$genre?></h2>
             </div>
+
+            <div class="trend3">
+            <h4 class="trendSubTitle">최신 개봉 영화 추천</h4>
+            <div class="resultList">
+                <?php
+                    $sql3 = "select * from (
+                        select movie_cd, movie_nm, imgUrl, open_dt
+                        from movie
+                        group by open_dt with rollup
+                    ) a order by a.open_dt desc limit 8";
+                
+                    if($stmt = mysqli_prepare($conn, $sql3)) {
+                
+                            if (mysqli_stmt_execute($stmt)) {
+                                if ($res = mysqli_stmt_get_result($stmt)) {
+                                    while ($newArray = mysqli_fetch_array($res)) {
+                                        $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                                        echo '
+                                        <a href="'.$url.'">
+                                    <div class="individual">
+                                        <div class="poster">
+                                            <img width="110px" height="110px" src="'.$newArray['imgUrl'].'">
+                                        </div>
+                                        <div class="resultText">
+                                            <p class="movieName">'.$newArray['movie_nm'].'</p>
+                                        </div>
+                                    </div> 
+                                    </a>';
+                    }}}}
+                ?>
+                </div>
+            </div>
             
 
         </section>
