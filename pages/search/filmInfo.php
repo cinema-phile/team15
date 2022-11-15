@@ -8,7 +8,7 @@ if (!session_id()) {
 $watch_rate = 0;
 $code = $_GET['code']; /*movie code from url*/
 $movie_info = array();
-$watched = false;
+$watched = 0;
 
 # DB Connection
 $conn = mysqli_connect("localhost", "team15", "team15", "team15");
@@ -21,20 +21,17 @@ if (mysqli_connect_errno()) {
 
 else {
 
-    $sql1 = "select EXISTS (select * from watch_movie where userid = ? and movie_cd = ?);";
+    $sql1 = "select EXISTS (select * from watch_movie where userid = ? and movie_cd = ?)";
 
     if($stmt = mysqli_prepare($conn, $sql1)) {
-        if (mysqli_stmt_bind_param($stmt, 'ss', $userId, $movie_cd)) {
-            if (mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_bind_result($stmt, $res);
+        mysqli_stmt_bind_param($stmt, 'ss', $userId, $movie_cd);
+        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_bind_result($stmt, $res);
 
-                while(mysqli_stmt_fetch($stmt)) {
-                    if ($res == 0) {
-                        $watched = true;
-                    }
-                    else {
-                        $watched = false;
-    }}}}}
+            while(mysqli_stmt_fetch($stmt)) {
+                $watched = $res;
+            
+    }}}
 
     $sql0 = "select cntMovie, cntUser from ( 
                 select movie_cd, count(movie_cd) as 'cntMovie'
@@ -82,6 +79,7 @@ else {
                         ]); 
     }}}}}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,18 +102,6 @@ else {
             <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
             <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
-
-        <?php
-        if(!$watched) {
-        ?>
-        <script>var index = -10;</script> <!-- $res == 0 -->
-        <?php
-        } else {
-        ?>
-        <script>var index = 10;</script>
-        <?php
-        }
-        ?>
         
         <section class="filmInfo">
             <div class="topLayout">
@@ -134,7 +120,17 @@ else {
                     </div>
                     <div class="watched">회원의 <span id="span"><?=$watch_rate?>%</span>가 이 영화를 관람했습니다</div>
                     <form action="../../php/search/watched_insert.php?movie_cd=<?=$code?>" method="post">
-                    <button class="watchedBtn" onclick=watchedBtnClicked() type="submit">봤어요!</button>
+                    <?php
+                    if($watched == 1) {
+                    ?>
+                    <button class="watchedBtn" type="submit">봤어요!</button>
+                    <?php
+                    } else {
+                    ?>
+                    <button class="watchedBtn" type="submit">아직 안 봤어요!</button>
+                    <?php
+                    }
+                    ?>
                     </form>
                 </div> 
             </div>
@@ -180,14 +176,6 @@ else {
                 </div>
             </section>
         </section>
-
     </div>
-    <script>
-        function watchedBtnClicked() {
-            index *= -1;
-            console.log(index);
-            document.getElementById('tag').style = "z-index: "+index;
-        }
-    </script>
 </body>
 </html>
