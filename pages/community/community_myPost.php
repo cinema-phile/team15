@@ -242,7 +242,7 @@ if (mysqli_connect_errno()) {
                             ?>
                             <div class="repl_each">
                                 <div class="text"><?=$comment[$i]['c_content']?></div>
-                                <div class="replCount">
+                                <div class="replCount_2">
                                     <div onclick="location.href='../../php/community/updateLike.php?isMine=true&boardid=<?=$boardid?>&commentid=<?=$comment[$i]['c_id']?>'">
                                         <label for="hiddenBtn" class="thumb"> 
                                         <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
