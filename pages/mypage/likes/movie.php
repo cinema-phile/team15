@@ -1,3 +1,78 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+
+if (!session_id()) {
+    session_start();
+}
+$id = $_SESSION['userId'];
+// echo "$id";
+
+
+function getUserLikedMovieArray($conn, $id){
+
+    $res = array();
+
+
+    #prepare statement
+    $sql="select movie_nm, imgUrl, rate,runtime, directors, open_yr, genre from movie where movie_cd IN (select movie_cd from star_movie where userid=?);";
+    
+    if($stmt = mysqli_prepare($conn, $sql)) {
+        mysqli_stmt_bind_param($stmt, 's', $id);
+
+        # run the query
+        if(mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_bind_result($stmt, $movie_nm, $imgUrl, $rate, $runtime, $directors, $open_yr,$genre);
+            while(mysqli_stmt_fetch($stmt)) {
+                $movie = [
+                    "movie_nm" => $movie_nm,
+                    "imgUrl" => $imgUrl,
+                    "rate" => $rate,
+                    "runtime" => $runtime,
+                    "directors" => $directors,
+                    "open_yr" => $open_yr,
+                    "genre"=>explode(",", $genre) 
+                ];
+                array_push( $res, $movie);
+
+            }
+            //print_r($res);
+        } else {
+            echo "<script>alert('fail execute the query');</script>";
+            exit();
+        }
+        
+    
+    }else {
+        echo "<script>alert('Fail prepare the statement');</script>";
+        exit();
+
+    }
+    # close connection
+    mysqli_stmt_close($stmt);
+
+    return $res;
+
+}
+
+# DB Connection
+$conn = mysqli_connect("localhost", "team15", "team15", "team15");
+
+
+if (mysqli_connect_errno()) {
+    echo "<script>alert('Log in fail');</script>";
+    exit();
+} else {
+
+
+    $userLikedMovies=getUserLikedMovieArray($conn, $id);
+    // print_r($userLikedMovies);
+    mysqli_close($conn);
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,46 +91,26 @@
     <section class="likes-block">
         <p class="likes-title">관심 영화 모아보기</p>
         <div class="likes-items">
+        <?php
+            for ($i=0; $i < count($userLikedMovies); $i++) {
+        ?>
             <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
+                <img class="item-img" src=<?=$userLikedMovies[$i]['imgUrl']?>/>
+                <p class="item-title"><?=$userLikedMovies[$i]['movie_nm']?></p>
+                <p class="item-description"><?=$userLikedMovies[$i]['directors']?></p>
+                <div>
+                    <span class="item-description"><?=$userLikedMovies[$i]['genre'][0]?></span>
+                    <span class="item-description"><?=$userLikedMovies[$i]['genre'][1]?></span>
+                </div>
+                <div>
+                    <span class="item-description"><?=$userLikedMovies[$i]['open_yr']?></span>
+                    <span class="item-description"><?=$userLikedMovies[$i]['runtime']?></span> 
+                </div>
             </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div>
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
+        <?php
+            }
+        ?>
+
 
         </div>
 
