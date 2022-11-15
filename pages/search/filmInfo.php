@@ -45,6 +45,21 @@ $num = 0;
 
     else {
 
+        $sql1 = "select EXISTS (select * from watch_movie where userid = ? and movie_cd = ?);";
+
+        if($stmt = mysqli_prepare($conn, $sql0)) {
+            if (mysqli_stmt_bind_param($stmt, 'ss', $userId, $movie_cd)) {
+                if (mysqli_stmt_execute($stmt)) {
+                    $res = mysqli_stmt_get_result($stmt));
+
+                    if ($res == 0) {
+                        echo '<script>var index = -10;</script>';
+                    }
+                    else {
+                        echo '<script>var index = 10;</script>';
+                    }
+                }}}
+
         $sql0 = "select cntMovie, cntUser from ( 
             select movie_cd, count(movie_cd) as 'cntMovie'
             from watch_movie
@@ -95,7 +110,7 @@ $num = 0;
                                             <p>장르 | '.$newArray['genre'].'</p>
                                         </div>
                                         <div class="watched">회원의 <span id="span">'.$num2.'%</span>가 이 영화를 관람했습니다</div>
-                                        <button class="watchedBtn" onclick="watchedBtnClicked();">봤어요!</button>
+                                        <button class="watchedBtn" onclick="watchedBtnClicked(); location.href="../../php/search/watched_insert.php?movie_cd='.$movie_cd.'">봤어요!</button>
                                         </div> 
                                     </div>
                                     <p class="listTitle">스토리</p>
@@ -137,34 +152,11 @@ $num = 0;
 
 </div>
 <script>
-    var index = -10;
+    
     function watchedBtnClicked() {
         index *= -1;
         console.log(index);
         document.getElementById('tag').style = "z-index: "+index;
-        
-        if (index == 10) {
-            /*< ?php
-                $sql4 = "insert into watch_movie (userid, movie_cd) values (?, ?)";
-
-                if($stmt = mysqli_prepare($conn, $sql4)) {
-                    if (mysqli_stmt_bind_param($stmt, "ss", $userId, $code)) {
-                        mysqli_stmt_execute($stmt);
-                }};
-
-            ?> */
-        }
-        else {
-            
-            /*< ?php
-                $sql5 = "delete from watch_movie where userid = ? and movie_cd = ?";
-
-                if($stmt = mysqli_prepare($conn, $sql5)) {
-                    if (mysqli_stmt_bind_param($stmt, "ss", $userId, $code)) {
-                        mysqli_stmt_execute($stmt);
-                }}; 
-            ?> */
-        } 
     }
 </script>
 </body>
