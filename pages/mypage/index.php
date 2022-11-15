@@ -42,22 +42,23 @@ include ("../../php/mypage/showInfo.php");
 
             <section class="interest-movie">
                 <div class="text-block">
-                    <p>관심 영화 모아보기</p>
+                <p>관심 영화 모아보기</p>
+               
                     <p><?php echo $movieCnt; ?>개</p>
                 </div>
-                <img src="../../img/arrow-red.svg">
+                <button onclick="window.location.href='./likes/movie.php'"><img src="../../img/arrow-red.svg"></button>
             </section>
             <section class="interest-actor">
                 <div class="text-block">
                     <p>관심 배우 모아보기</p>
                     <p><?php echo $peopleCnt; ?>개</p>
                 </div>
-                <img src="../../img/arrow-red.svg">
+                <button onclick="window.location.href='./likes/actor.php'"><img src="../../img/arrow-red.svg"></button>
             </section>
         </main>
         <section class="watch">
             <div class="text-block">
-                <p>관람 내역</p>
+                <p>관람 건수</p>
                 <p><?php echo $movieCnt; ?>개</p>
             </div>
 
@@ -67,8 +68,10 @@ include ("../../php/mypage/showInfo.php");
             </div>
 
             <div class="text-block">
-                <p>관람 목록</p>
-                <p>보러가기</p>
+                
+                <p>관람 내역</p>
+                <p onclick="window.location.href='./watch/index.php'">보러가기</p>
+               
             </div>
         </section>
         <div class = "btn-block">
