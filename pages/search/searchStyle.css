@@ -177,9 +177,7 @@ input[type="checkbox"] {
     font-weight: var(--weight-bold);
     margin-top: 1rem;
     width: 11rem;
-    height: 2.4rem;
     overflow: hidden;
-    text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
 #span {
