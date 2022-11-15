@@ -12,7 +12,7 @@ if (!session_id()) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../../index.css">
     <link rel="stylesheet" href="FILMstyle.css">
     <title>FILM</title>
 </head>
@@ -59,6 +59,7 @@ if (!session_id()) {
                     if ($res = mysqli_stmt_get_result($stmt)) {
                         while ($newArray = mysqli_fetch_array($res)) {
                             $num = $newArray['cntMovie'] / $newArray['cntUser'] * 100;
+                            $num2 = round($num, 2);
         }}}}};
 
         $sql = "select m.*, c.cast_nm, p.people_cd, p.people_nm, p.profile, p.sex
@@ -92,7 +93,7 @@ if (!session_id()) {
                                             <p>개봉연도 | '.$newArray['open_yr'].'</p>
                                             <p>장르 | '.$newArray['genre'].'</p>
                                         </div>
-                                        <div class="watched">회원의 <span id="span">'.$num.'%</span>가 이 영화를 관람했습니다</div>
+                                        <div class="watched">회원의 <span id="span">'.$num2.'%</span>가 이 영화를 관람했습니다</div>
                                         <button class="watchedBtn" onclick="watchedBtnClicked();">봤어요!</button>
                                         </div> 
                                     </div>
@@ -111,8 +112,11 @@ if (!session_id()) {
                                 if ($newArray['profile'] != NULL) {
                                     echo '<img id="pic" src="https://'.$newArray['profile'].'">';
                                 }
-                                else { 
-                                    echo '<img id="pic"> ';
+                                else if ($newArray['profile'] == NULL %% $newArray['sex'] == '여자'){ 
+                                    echo '<img id="pic" src="../../img/woman.png"> ';
+                                }
+                                else {
+                                    echo '<img id="pic" src="../../img/man.png"> ';
                                 }
                                 echo '
                                     </div>
@@ -140,7 +144,7 @@ if (!session_id()) {
         
         if (index == 10) {
             /*< ?php
-                $sq4l = "insert into star_people (userid, people_cd) values (?, ?);";
+                $sql4 = "insert into star_people (userid, people_cd) values (?, ?);";
 
                 if($stmt = mysqli_prepare($conn, $sql4)) {
                     if (mysqli_stmt_bind_param($stmt, "ss", $userId, $code)) {
