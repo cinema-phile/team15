@@ -204,3 +204,41 @@ input[type="checkbox"] {
     align-items: center;
     justify-content: center;
 }
+.cinemaTrend {
+    margin-top: 8rem;
+    border-radius: var(--border-radius-regular);
+    border: 2px solid var(--color-blue-400);
+    padding: 6rem;
+}
+.trendTitle {
+    color: var(--color-blue-400);
+    margin: 0;
+}
+.trend1 {
+    margin-top: 6rem;
+}
+.trendSubTitle {
+    text-align: left;
+    color: var(--color-blue-600);
+}
+.trend2 {
+    margin-top: 16rem;
+}
+.genreImg {
+    margin: 4.8rem auto;
+    width: 60rem;
+    height: 30rem;
+    background-color: var(--color-blue-200);
+    border-radius: var(--border-radius-regular);
+}
+.genreTitle {
+    color: var(--color-blue-400);
+}
+
+#defaultImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24rem;
+    height: 24rem;
+}
