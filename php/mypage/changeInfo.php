@@ -35,7 +35,7 @@ if($wantChange=="True"){
             mysqli_stmt_bind_param($stmt, "sss", $password, $name, $id);
             # run the query
             mysqli_stmt_execute($stmt);
-               header("Location:../../pages/mypage/index.php");
+            header("Location:../../pages/mypage/index.php");
 
                
         
@@ -43,6 +43,8 @@ if($wantChange=="True"){
 
 }
 }
+
+header("Location:../../pages/mypage/index.php");
 
 
 

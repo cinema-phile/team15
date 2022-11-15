@@ -159,7 +159,7 @@ if (mysqli_connect_errno()) {
         echo  '<li class="rank-content">';
         echo '<div class = "rank-num">'.$rank.'</div>';
         echo    '<div class = "rank-profile">';
-        echo      '<img  src="'.$imgUrl.'" />';
+        echo      '<img class="bar-img" src="'.$imgUrl.'" />';
         echo        '<div>';
         echo            '<span class = "profile-name">'.$name.'</span>';
         echo            '<span class = "profile-movie">'.$movieTitle.'</span>';
