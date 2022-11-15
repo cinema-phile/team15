@@ -41,9 +41,6 @@ if (!session_id()) {
                             }
 
                         }}}}}
-
-
-        $sql3 = "insert into star_people (userid, people_cd) values (?, ?);";
     }
 
 ?>
