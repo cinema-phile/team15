@@ -68,6 +68,7 @@ create table test (
 		type_content varchar(400) not null,
 		recom_director varchar(11),
 		recom_movie varchar(11),
+		url varchar(500),
 		foreign key (recom_director) references people (people_cd),
 		foreign key (recom_movie) references movie (movie_cd)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
@@ -109,8 +110,9 @@ create table star_people (
 --
 create table watch_movie (
 		watchid int not null auto_increment primary key,
-		movie_cd varchar(11) not null,
 		userid varchar(20) not null,
+		movie_cd varchar(11) not null,
+		timestamps timestamp not null,
 		foreign key (movie_cd) references movie (movie_cd),
 		foreign key (userid) references users (userid)
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
