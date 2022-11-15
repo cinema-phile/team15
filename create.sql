@@ -6,7 +6,7 @@ create table users (
 	userid varchar(20) not null primary key,
 	password varchar(40) not null,
 	name varchar(15) not null,
-	profile int not null
+	profile varchar(500) not null
 ) ENGINE=InnoDB default CHARSET=utf8mb4;
 
 -- index creation
