@@ -211,3 +211,9 @@ form div input{
     grid-template-columns: repeat(4, 1fr);
     gap: 4rem 6.4rem;
 }
+
+
+.item-img{
+    width:11rem;
+    height: 11rem;
+}
