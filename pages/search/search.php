@@ -64,11 +64,6 @@
                 <label><input type="checkbox" name="check" value="2022">2022</label>
             </div>
         </section></form>
-        <!--
-        <section class="filmInfo">
-
-        </section>
-        -->
     </div>
 
     <script src="search.js" charset="utf-8">

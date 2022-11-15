@@ -1,3 +1,12 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+
+if (!session_id()) {
+    session_start();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +20,7 @@
 <body>
     <div id="contents">
         <header class="title">
-            <p>SEARCH</p>
+            <h1>SEARCH</h1>
         </header>
         <section class="menu">
             <a href="../search/search.php"><h4 class="eachMenu">SEARCH</h4></a>
@@ -60,15 +69,20 @@ if ($category == "film") {
 
     if ($check == NULL) {
 
-        $sql = "select movie_nm, open_yr, imgUrl, movie_cd from movie where INSTR(movie_nm, ?);";
+        $sql = "select movie_cd, movie_nm, open_yr, imgUrl
+        from movie
+        where INSTR(movie_nm, ?)
+        order by open_yr desc;";
 
     if($stmt = mysqli_prepare($conn, $sql)) {
         if (mysqli_stmt_bind_param($stmt, "s", $searchKeyword)) {
             if (mysqli_stmt_execute($stmt)) {
                 if ($res = mysqli_stmt_get_result($stmt)) {
                     while ($newArray = mysqli_fetch_array($res)) {
+                        $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
                         echo '
-                        <div class="individual");">
+                        <a href='.$url.'>
+                        <div class="individual">
                             <div class="poster">
                                 <img src="'.$newArray["imgUrl"].'" width=110px height=110px>
                             </div>
@@ -76,8 +90,8 @@ if ($category == "film") {
                                 <p class="movieName">'.$newArray["movie_nm"].'</p>
                                 <p class="year">'.$newArray["open_yr"].'</p>
                             </div>
-                        </div>';
-                        
+                        </div>
+                        </a>';
         }}}}}
     }
 
@@ -85,14 +99,19 @@ if ($category == "film") {
 
             if ($check == "액션" || $check == "코미디" || $check == "로맨스" || $check == "드라마" || 
             $check == "SF" || $check == "애니메이션" || $check == "다큐멘터리" || $check == "공포" || $check == "스릴러") {
-                $sql2 = "select movie_nm, open_yr, imgUrl, movie_cd from movie where INSTR(movie_nm, ?) and INSTR(genre, ?);";
+                $sql2 = "select movie_cd, movie_nm, open_yr, imgUrl
+                from movie
+                where INSTR(movie_nm, ?) and INSTR(genre, ?)
+                order by open_yr desc;";
 
                 if($stmt = mysqli_prepare($conn, $sql2)) {
                     if (mysqli_stmt_bind_param($stmt, "ss", $searchKeyword, $check)) {
                         if (mysqli_stmt_execute($stmt)) {
                             if ($res = mysqli_stmt_get_result($stmt)) {
                                 while ($newArray = mysqli_fetch_array($res)) {
+                                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
                                     echo '
+                                    <a href='.$url.'>
                                     <div class="individual">
                                     <div class="poster">
                                     <img src="'.$newArray["imgUrl"].'" width=110px height=110px>
@@ -101,13 +120,15 @@ if ($category == "film") {
                                     <p class="movieName">'.$newArray["movie_nm"].'</p>
                                     <p class="year">'.$newArray["open_yr"].'</p>
                                     </div>
-                                    </div>';
+                                    </div>
+                                    </a>';
                                     
                 }
             }}}}
             }
 
             else if ($check == "전체" || $check == "청소년" || $check == "12" || $check == "15") {
+
                 $sql3 = "select * from (
                     select movie_cd, movie_nm, open_yr, imgUrl
                     from movie m
@@ -115,12 +136,15 @@ if ($category == "film") {
                     group by open_yr with rollup
                 ) a order by a.open_yr desc;";
 
+
                 if($stmt = mysqli_prepare($conn, $sql3)) {
                     if (mysqli_stmt_bind_param($stmt, "ss", $searchKeyword, $check)) {
                         if (mysqli_stmt_execute($stmt)) {
                             if ($res = mysqli_stmt_get_result($stmt)) {
                                 while ($newArray = mysqli_fetch_array($res)) {
+                                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
                                     echo '
+                                    <a href='.$url.'>
                                     <div class="individual">
                                     <div class="poster">
                                     <img src="'.$newArray["imgUrl"].'" width=110px height=110px>
@@ -129,7 +153,8 @@ if ($category == "film") {
                                     <p class="movieName">'.$newArray["movie_nm"].'</p>
                                     <p class="year">'.$newArray["open_yr"].'</p>
                                     </div>
-                                    </div>';
+                                    </div>
+                                    </a>';
                                     
                                 }
                             }}}}
@@ -145,7 +170,9 @@ else {
                 if (mysqli_stmt_execute($stmt)) {
                     if ($res = mysqli_stmt_get_result($stmt)) {
                         while ($newArray = mysqli_fetch_array($res)) {
+                            $url = 'http://localhost/team15/pages/search/filmography.php?code='.$newArray["people_cd"];
                             echo '
+                            <a href='.$url.'>
                             <div class="individual">
                             <div class="pic">';
                             if ($newArray["profile"] != NULL) {
@@ -156,7 +183,8 @@ else {
                             <p class="personName">'.$newArray["people_nm"].'</p>
                             <p class="role">'.$newArray["rep_role_nm"].'</p>
                             </div>
-                            </div>';
+                            </div>
+                            </a>';
         }
     }}}}
     }
@@ -168,8 +196,9 @@ else {
                 if (mysqli_stmt_execute($stmt)) {
                     if ($res = mysqli_stmt_get_result($stmt)) {
                         while ($newArray = mysqli_fetch_array($res)) {
-                            
+                            $url = 'http://localhost/team15/pages/search/filmography.php?code='.$newArray["people_cd"];
                             echo '
+                            <a href='.$url.'>
                             <div class="individual">
                             <div class="pic">';
                             if ($newArray["profile"] != NULL) {
@@ -180,7 +209,8 @@ else {
                             <p class="personName">'.$newArray["people_nm"].'</p>
                             <p class="role">'.$newArray["rep_role_nm"].'</p>
                             </div>
-                            </div>';
+                            </div>
+                            </a>';
         }}}}}}
     }
 }
@@ -191,12 +221,6 @@ else {
         </section>
 
 </div>
-<!--
-<script>
-    function post(code) {
-    var url = "http://localhost/filmInfo.php?code="+code;
-    location.href(url);
--->
 </script>
 </body>
 </html>
