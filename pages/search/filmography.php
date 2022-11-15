@@ -74,7 +74,7 @@ if (!session_id()) {
         <section class="profile">
             <img class="profileimg" <?=$profile?>>
             <div class="profiletitle">
-                <img id="star" src="star_empty.svg" onclick="starClicked();">
+                <img id="star" src="../../img/star_empty.svg" onclick="starClicked();">
                 <div class="nameLayout"><p class="name"><?=$people_nm?></p><br><p class="name_eng"><?=$people_nm_en?></p></div>
             </div>
         </section>
