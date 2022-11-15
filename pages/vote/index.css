@@ -125,7 +125,7 @@
 .rank-block li{
     width:64.5rem;
     height:5rem;
-    margin-bottom:3rem;
+    margin:3rem 0;
     display:flex;
     flex-direction: row;
     align-items: center;
@@ -175,7 +175,7 @@
 }
 
 .rank-vote{
-    padding:1.5rem;
+    padding:1rem;
     font-size: var(--font-small);
     font-weight: var(--weight-bold);
 }
