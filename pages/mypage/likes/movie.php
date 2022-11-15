@@ -15,6 +15,7 @@ function getUserLikedMovieArray($conn, $id){
 
     #prepare statement
     $sql="select movie_nm, imgUrl, rate,runtime, directors, open_yr, genre from movie where movie_cd IN (select movie_cd from star_movie where userid=?);";
+    
     if($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, 's', $id);
 
