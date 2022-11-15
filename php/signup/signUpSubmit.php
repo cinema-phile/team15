@@ -5,6 +5,38 @@ $id = $_POST["id_input"];
 $name = $_POST["name_input"];
 $pw = $_POST["pw_input"];
 $pw_confirm = $_POST["pw_confirm"];
+$randNm = rand(1, 8);
+# randNm에 따라서 switch문으로 img src 매핑
+switch ($randNm) {
+    case 1:
+        # $profile = "img src";
+        break;
+    case 2:
+        # $profile = "img src";
+        break;
+    case 3:
+        # $profile = "img src";
+        break;
+    case 4:
+        # $profile = "img src";
+        break;
+    case 5:
+        # $profile = "img src";
+        break;
+    case 6:
+        # $profile = "img src";
+        break;
+    case 7:
+        # $profile = "img src";
+        break;
+    case 8:
+        # $profile = "img src";
+        break;
+    
+    default:
+        # $profile = "img src";
+        break;
+}
 $profile = rand(1, 8);
 
 if ($pw != $pw_confirm) {

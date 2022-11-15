@@ -6,6 +6,7 @@ if (!session_id()) {
 }
 $filmoList = array();
 $code = $_GET['code'];
+$isStar = false;
 
 # DB Connection
 $conn = mysqli_connect("localhost", "team15", "team15", "team15");
@@ -88,6 +89,22 @@ else {
 
     $fanRate = round($cnt / count($filmoList) * 100, 2);
 
+    # 즐겨찾기 등록 / 해제
+    $sql1 = "select EXISTS (select * from star_people where userid = ? and people_cd = ?);";
+
+    if($stmt = mysqli_prepare($conn, $sql1)) {
+        if (mysqli_stmt_bind_param($stmt, 'ss', $userId, $code)) {
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_bind_result($stmt, $res);
+
+                while(mysqli_stmt_fetch($stmt)) {
+                    if ($res == 1) {
+                        $isStar = true;
+                    }
+                    else {
+                        $isStar = false;
+    }}}}}
+
     # close connection
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
@@ -122,8 +139,19 @@ else {
         <section class="profile">
             <img class="profileimg" <?=$profile?>>
             <div class="profiletitle">
-                <img id="star" src="../../img/star_empty.svg" onclick="starClicked();">
-                <div class="nameLayout"><p class="name"><?=$people_nm?></p><br><p class="name_eng"><?=$people_nm_en?></p></div>
+            <?php
+            $url = "../../php/search/star_insert.php?people_cd=".$code;
+            if(!$isStar) {
+            ?>
+                <img id="star" src="../../img/star_empty.svg" onclick="location.href='<?=$url?>'">
+            <?php
+            } else {
+            ?>
+                <img id="star" src="../../img/star_full.svg" onclick="location.href='<?=$url?>'">
+            <?php
+            }
+            ?>
+            <div class="nameLayout"><p class="name"><?=$people_nm?></p><br><p class="name_eng"><?=$people_nm_en?></p></div>
             </div>
         </section>
 
@@ -158,18 +186,5 @@ else {
             </div>
         </section>
     </div>
-    <script>
-        var index = 0;
-        function starClicked() {
-            index++;
-            if (index%2 == 0) {
-                document.getElementById('star').src="../../img/star_empty.svg";
-            }
-            else {
-                document.getElementById('star').src="../../img/star_full.svg";
-            }
-        }
-    </script>
-    
 </body>
 </html>

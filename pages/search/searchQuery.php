@@ -89,7 +89,7 @@ if ($category == "film") {
             if (mysqli_stmt_execute($stmt)) {
                 if ($res = mysqli_stmt_get_result($stmt)) {
                     while ($newArray = mysqli_fetch_array($res)) {
-                        $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                        $url = './filmInfo.php?code='.$newArray["movie_cd"];
                         echo '
                         <a href='.$url.'>
                         <div class="individual">
@@ -119,7 +119,7 @@ if ($category == "film") {
                         if (mysqli_stmt_execute($stmt)) {
                             if ($res = mysqli_stmt_get_result($stmt)) {
                                 while ($newArray = mysqli_fetch_array($res)) {
-                                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                                    $url = './filmInfo.php?code='.$newArray["movie_cd"];
                                     echo '
                                     <a href='.$url.'>
                                     <div class="individual">
@@ -152,7 +152,7 @@ if ($category == "film") {
                         if (mysqli_stmt_execute($stmt)) {
                             if ($res = mysqli_stmt_get_result($stmt)) {
                                 while ($newArray = mysqli_fetch_array($res)) {
-                                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                                    $url = './filmInfo.php?code='.$newArray["movie_cd"];
                                     echo '
                                     <a href='.$url.'>
                                     <div class="individual">
@@ -180,13 +180,13 @@ else {
                 if (mysqli_stmt_execute($stmt)) {
                     if ($res = mysqli_stmt_get_result($stmt)) {
                         while ($newArray = mysqli_fetch_array($res)) {
-                            $url = 'http://localhost/team15/pages/search/filmography.php?code='.$newArray["people_cd"];
+                            $url = './filmography.php?code='.$newArray["people_cd"];
                             echo '
                             <a href='.$url.'>
                             <div class="individual">
                             <div class="pic">';
                             if ($newArray["profile"] != NULL) {
-                                echo '<img id="pic" src="https://'.$newArray["profile"].'">';
+                                echo '<img id="pic" src="'.$newArray["profile"].'">';
                             }
                             else if ($newArray["profile"] == NULL && $newArray["sex"] == "여자") {
                                 echo '<img id="pic_default" src="woman.png">';
