@@ -135,6 +135,7 @@ else {
                 if ($res = mysqli_stmt_get_result($stmt)) {
                     while ($newArray = mysqli_fetch_array($res)) {
                         $genre = $newArray['genre'];
+}}}}}
 }
 
 ?>
