@@ -28,7 +28,7 @@ else {
                         $people_nm_en = $newArray['people_nm_en'];
 
                         if ($newArray['profile'] != NULL) {
-                            $profile = " src= 'https://".$newArray['profile']."'";
+                            $profile = " src= '".$newArray['profile']."'";
                         }
                         else if ($newArray['profile'] == NULL && $newArray['sex'] == "여자") {
                             $profile = " src= '../../img/woman.png'";
@@ -135,9 +135,9 @@ else {
             <div class="characterList">
                 <?php
                 for ($i=0; $i < count($filmoList); $i++) { 
-                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$filmoList[$i]['movie_cd'];
+                    $url = './filmInfo.php?code='.$filmoList[$i]['movie_cd'];
                 ?>
-                <a href="'$url'">
+                <a href="<?=$url?>">
                 <div class="individualChar">
                     <div class="charProfileImg">
                         <!-- <img class="tag" src="../../img/tag.svg"> -->
