@@ -221,7 +221,7 @@ input[type="checkbox"] {
     text-align: left;
     color: var(--color-blue-600);
 }
-.trend2 {
+.trend2, .trend3 {
     margin-top: 16rem;
 }
 .genreImg {
@@ -239,7 +239,6 @@ input[type="checkbox"] {
 }
 
 #defaultImg {
-    
     width: 24rem;
     height: 24rem;
 }
