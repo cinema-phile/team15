@@ -140,7 +140,18 @@
     color: var(--color-gray-400);
     font-size: var(--font-small);
     text-align: left;
-    height: max-content;
+}
+.text {
+    display: flex;
+    flex-direction: row;
+}
+.repl_index {
+    margin:0;
+    font-size: var(--font-small);
+    color: var(--color-gray-400);
+    display: none; /*이부분!!*/
+    flex-direction: row;
+    line-height: 2rem;
 }
 .thumbNum {
     width: 2rem;

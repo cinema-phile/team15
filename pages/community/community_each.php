@@ -229,7 +229,8 @@ if (mysqli_connect_errno()) {
                         for ($i=0; $i < count($comment); $i++) {
                         ?>
                         <div class="repl_each">
-                            <div class="text"><?=$comment[$i]['c_content']?></div>
+                            <div class="text"><?=$comment[$i]['c_content']?><div class="repl_index"><div onclick="'">　수정　|</div><div onclick="'">　삭제　</div></div></div>
+                            <!--class="repl_index" 기본 스타일은 display:none이고 자신의 댓글일때만 display:flex 해주면 될 것 같아요!!-->
                             <div class="replCount_2">
                                 <div onclick="location.href='../../php/community/updateLike.php?boardid=<?=$boardid?>&commentid=<?=$comment[$i]['c_id']?>'">
                                     <label for="hiddenBtn" class="thumb"> 
