@@ -10,6 +10,7 @@ $code = $_GET['code']; /*movie code from url*/
 $movie_info = array();
 $watched = false;
 $txt = "안 봤어요!";
+$isStar = false;
 
 # DB Connection
 $conn = mysqli_connect("localhost", "team15", "team15", "team15");
@@ -84,6 +85,26 @@ else {
                             "sex" => $sex
                         ]); 
     }}}}}
+
+    # 즐겨찾기 등록 / 해제
+    $sql1 = "select EXISTS (select * from star_movie where userid = ? and movie_cd = ?);";
+
+    if($stmt = mysqli_prepare($conn, $sql1)) {
+        if (mysqli_stmt_bind_param($stmt, 'ss', $userId, $code)) {
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_bind_result($stmt, $res);
+
+                while(mysqli_stmt_fetch($stmt)) {
+                    if ($res == 1) {
+                        $isStar = true;
+                    }
+                    else {
+                        $isStar = false;
+    }}}}}
+
+    # close connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -138,8 +159,20 @@ else {
                     <form action="../../php/search/watched_insert.php?movie_cd=<?=$code?>" method="post">
                     <button class="watchedBtn" type="submit"><?=$txt?></button>
                     </form>
-                </div> 
+                </div>
             </div>
+            <?php
+            $url = "../../php/search/star_movie_insert.php?movie_cd=".$code;
+            if(!$isStar) {
+            ?>
+                <img id="star" src="../../img/star_empty.svg" onclick="location.href='<?=$url?>'">
+            <?php
+            } else {
+            ?>
+                <img id="star" src="../../img/star_full.svg" onclick="location.href='<?=$url?>'">
+            <?php
+            }
+            ?>
             <p class="listTitle">스토리</p>
             <h5 class="story"><?=$movie_info[0]['story']?></h5>
             <section class="actorList">
