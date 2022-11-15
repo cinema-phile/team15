@@ -4,6 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 if (!session_id()) {
     session_start();
 }
+$num = 0;
 ?>
 
 <!DOCTYPE html>
@@ -22,11 +23,11 @@ if (!session_id()) {
             <h1>FILM</h1>
         </header>
         <section class="menu">
-            <a href="../search/index.html"><h4 class="eachMenu">SEARCH</h4></a>
+            <a href="../search/search.php"><h4 class="eachMenu">SEARCH</h4></a>
             <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
             <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
-            <a href="../community/index.html"><h4 class="eachMenu">COMMUNITY</h4></a>
-            <a href="../mypage/index.html"><h4 class="eachMenu">MYPAGE</h4></a>
+            <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
+            <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
 
 <?php 
@@ -141,7 +142,29 @@ if (!session_id()) {
         index *= -1;
         console.log(index);
         document.getElementById('tag').style = "z-index: "+index;
-    
+        
+        if (index == 10) {
+            /*< ?php
+                $sql4 = "insert into watch_movie (userid, movie_cd) values (?, ?)";
+
+                if($stmt = mysqli_prepare($conn, $sql4)) {
+                    if (mysqli_stmt_bind_param($stmt, "ss", $userId, $code)) {
+                        mysqli_stmt_execute($stmt);
+                }};
+
+            ?> */
+        }
+        else {
+            
+            /*< ?php
+                $sql5 = "delete from watch_movie where userid = ? and movie_cd = ?";
+
+                if($stmt = mysqli_prepare($conn, $sql5)) {
+                    if (mysqli_stmt_bind_param($stmt, "ss", $userId, $code)) {
+                        mysqli_stmt_execute($stmt);
+                }}; 
+            ?> */
+        } 
     }
 </script>
 </body>
