@@ -4,6 +4,12 @@ header('Content-Type: text/html; charset=utf-8');
 if (!session_id()) {
     session_start();
 }
+
+if(isset($_GET['check'])) {
+    $check = $_GET['check'];
+} else {
+    $check = NULL;
+}
 ?>
 
 
@@ -27,7 +33,7 @@ if (!session_id()) {
             <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
             <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
             <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
-            <a href="../mypage/index.html"><h4 class="eachMenu">MYPAGE</h4></a>
+            <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
         
         <section class="result">
@@ -35,9 +41,9 @@ if (!session_id()) {
             if ($_GET['category'] == "film") {
             echo '
             <h3 class="resultText">검색하신 단어 <span id="span">'.$_GET['searchKeyword'].'</span>이 제목에 포함된 ';
-                if ($_GET['check'] == "액션" || $_GET['check'] == "코미디" || $_GET['check'] == "로맨스" || $_GET['check'] == "드라마" || 
-                $_GET['check'] == "SF" || $_GET['check'] == "애니메이션" || $_GET['check'] == "다큐멘터리" || $_GET['check'] == "공포" || $_GET['check'] == "스릴러") {
-                    echo ' '.$_GET['check'].' 장르의 영화입니다.</h3>';
+                if ($check == "액션" || $check == "코미디" || $check == "로맨스" || $check == "드라마" || 
+                $check == "SF" || $check == "애니메이션" || $check == "다큐멘터리" || $check == "공포" || $check == "스릴러") {
+                    echo ' '.$check.' 장르의 영화입니다.</h3>';
                 }
                 else {
                     echo '영화입니다.</h3>';
@@ -54,7 +60,11 @@ if (!session_id()) {
 $searchKeyword = $_GET['searchKeyword'];
 $category = $_GET['category'];
 $condition = $_GET['condition'];
-$check = $_GET['check'];
+if(isset($_GET['check'])) {
+    $check = $_GET['check'];
+} else {
+    $check = NULL;
+}
 
 # DB Connection
 $conn = mysqli_connect("localhost", "team15", "team15", "team15");
