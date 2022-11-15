@@ -33,6 +33,12 @@ if (!session_id()) {
                             if ($newArray['profile'] != NULL) {
                                 $profile = " src= 'https://".$newArray['profile']."'";
                             }
+                            else if ($newArray['profile'] == NULL && $newArray['sex'] == "여자") {
+                                $profile = " src= '../../img/woman.png'";
+                            }
+                            else {
+                                $profile = " src= '../../img/man.png'";
+                            }
 
                         }}}}}
 
@@ -125,10 +131,10 @@ if (!session_id()) {
         function starClicked() {
             index++;
             if (index%2 == 0) {
-                document.getElementById('star').src="star_empty.svg";
+                document.getElementById('star').src="../../img/star_empty.svg";
             }
             else {
-                document.getElementById('star').src="star_full.svg";
+                document.getElementById('star').src="../../img/star_full.svg";
             }
         }
     </script>

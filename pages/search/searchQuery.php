@@ -178,6 +178,12 @@ else {
                             if ($newArray["profile"] != NULL) {
                                 echo '<img id="pic" src="https://'.$newArray["profile"].'">';
                             }
+                            else if ($newArray["profile"] == NULL && $newArray["sex"] == "여자") {
+                                echo '<img id="pic_default" src="woman.png">';
+                            }
+                            else {
+                                echo '<img id="pic_default" src="man.png">';
+                            }
                             echo '</div>
                             <div class="resultText">
                             <p class="personName">'.$newArray["people_nm"].'</p>
@@ -203,6 +209,12 @@ else {
                             <div class="pic">';
                             if ($newArray["profile"] != NULL) {
                                 echo '<img id="pic" src="https://'.$newArray["profile"].'">';
+                            }
+                            else if ($newArray["profile"] == NULL && $newArray["sex"] == "여자") {
+                                echo '<img id="pic_default" src="woman.png">';
+                            }
+                            else {
+                                echo '<img id="pic_default" src="man.png">';
                             }
                             echo '</div>
                             <div class="resultText">
