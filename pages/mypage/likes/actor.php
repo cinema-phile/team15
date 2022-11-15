@@ -1,3 +1,73 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+
+if (!session_id()) {
+    session_start();
+}
+$id = $_SESSION['userId'];
+// echo "$id";
+
+function getUserLikedActorArray($conn, $id){
+    $res=array();
+
+    #prepare statement
+    $sql="select people_nm_en, profile, filmo_names from people where people_cd IN (select people_cd from star_people where userid=?);";
+
+
+    if($stmt = mysqli_prepare($conn, $sql)) {
+        mysqli_stmt_bind_param($stmt, 's', $id);
+
+       # run the query
+       if(mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_bind_result($stmt, $people_nm_en, $profile, $filmo_names);
+                while(mysqli_stmt_fetch($stmt)){
+                    $actor = [
+                        "people_nm_en"=>$people_nm_en,
+                        "profile"=>$profile,
+                        "filmo_names"=>explode("|",$filmo_names)
+
+
+                    ];
+                    array_push($res, $actor);
+
+                }
+            }else {
+                echo "<script>alert('fail execute the query');</script>";
+                exit();
+            }
+    }
+    
+    else {
+        echo "<script>alert('Fail prepare the statement');</script>";
+        exit();
+
+    }
+    # close connection
+    mysqli_stmt_close($stmt);
+
+    return $res;
+
+
+}
+
+# DB Connection
+$conn = mysqli_connect("localhost", "team15", "team15", "team15");
+
+
+if (mysqli_connect_errno()) {
+    echo "<script>alert('Log in fail');</script>";
+    exit();
+} else {
+
+    $userLikedActor=getUserLikedActorArray($conn, $id);
+    // print_r($userLikedMovies);
+    mysqli_close($conn);
+
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,46 +86,20 @@
     <section class="likes-block">
         <p class="likes-title">관심 배우 모아보기</p>
         <div class="likes-items">
+
+        <?php
+            for ($i=0; $i < count($userLikedActor); $i++) {
+        ?>
             <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
+                <img class ="item-img" src=<?=$userLikedActor[$i]['profile']?> />
+                <p class="item-title"><?=$userLikedActor[$i]['people_nm_en']?></p>
+                <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][2]?></span>
+                <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][3]?></span>
             </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div>
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
-            <div class="likes-item">
-                <img src="../../../img/rect-110.svg"/>
-                <p class="item-title">꽃보다 남자</p>
-                <p class="item-description">김영수 감독</p>
-            </div>
+        <?php
+            }
+        ?>
+
 
         </div>
 

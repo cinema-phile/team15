@@ -5,7 +5,7 @@ if (!session_id()) {
     session_start();
 }
 $id = $_SESSION['userId'];
-echo "$id";
+// echo "$id";
 
 
 function getUserLikedMovieArray($conn, $id){
@@ -13,43 +13,43 @@ function getUserLikedMovieArray($conn, $id){
     $res = array();
 
 
-        #prepare statement
-        $sql="select movie_nm, imgUrl, rate,runtime, directors, open_yr, genre from movie where movie_cd IN (select movie_cd from star_movie where userid=?);";
-        if($stmt = mysqli_prepare($conn, $sql)) {
-            mysqli_stmt_bind_param($stmt, 's', $id);
-    
-            # run the query
-           if(mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_bind_result($stmt, $movie_nm, $imgUrl, $rate, $runtime, $directors, $open_yr,$genre);
-                while(mysqli_stmt_fetch($stmt)) {
-                    $movie = [
-                        "movie_nm" => $movie_nm,
-                        "imgUrl" => $imgUrl,
-                        "rate" => $rate,
-                        "runtime" => $runtime,
-                        "directors" => $directors,
-                        "open_yr" => $open_yr,
-                        "genre"=>explode(",", $genre) 
-                    ];
-                    array_push( $res, $movie);
-    
-                }
-                //print_r($res);
-            } else {
-                echo "<script>alert('fail execute the query');</script>";
-                exit();
-            }
-            
-        
-        }else {
-            echo "<script>alert('Fail prepare the statement');</script>";
-            exit();
-    
-        }
-        # close connection
-        mysqli_stmt_close($stmt);
+    #prepare statement
+    $sql="select movie_nm, imgUrl, rate,runtime, directors, open_yr, genre from movie where movie_cd IN (select movie_cd from star_movie where userid=?);";
+    if($stmt = mysqli_prepare($conn, $sql)) {
+        mysqli_stmt_bind_param($stmt, 's', $id);
 
-        return $res;
+        # run the query
+        if(mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_bind_result($stmt, $movie_nm, $imgUrl, $rate, $runtime, $directors, $open_yr,$genre);
+            while(mysqli_stmt_fetch($stmt)) {
+                $movie = [
+                    "movie_nm" => $movie_nm,
+                    "imgUrl" => $imgUrl,
+                    "rate" => $rate,
+                    "runtime" => $runtime,
+                    "directors" => $directors,
+                    "open_yr" => $open_yr,
+                    "genre"=>explode(",", $genre) 
+                ];
+                array_push( $res, $movie);
+
+            }
+            //print_r($res);
+        } else {
+            echo "<script>alert('fail execute the query');</script>";
+            exit();
+        }
+        
+    
+    }else {
+        echo "<script>alert('Fail prepare the statement');</script>";
+        exit();
+
+    }
+    # close connection
+    mysqli_stmt_close($stmt);
+
+    return $res;
 
 }
 
@@ -103,7 +103,7 @@ if (mysqli_connect_errno()) {
                 </div>
                 <div>
                     <span class="item-description"><?=$userLikedMovies[$i]['open_yr']?></span>
-                    <span class="item-description"><?=$userLikedMovies[$i]['runtime']?></span>
+                    <span class="item-description"><?=$userLikedMovies[$i]['runtime']?></span> 
                 </div>
             </div>
         <?php
