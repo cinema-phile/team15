@@ -100,7 +100,7 @@ else {
             if (mysqli_stmt_execute($stmt)) {
                 if ($res = mysqli_stmt_get_result($stmt)) {
                     while ($newArray = mysqli_fetch_array($res)) {
-                        $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                        $url = './filmInfo.php?code='.$newArray["movie_cd"];
                         echo '
                         <a href="'.$url.'">
                     <div class="individual">
@@ -142,11 +142,6 @@ else {
 ?>
                 </div>
             </div>
-            <div class="trend2">
-                <h4 class="trendSubTitle">내가 가장 많이 감상한 영화 장르</h4>
-                <div class="genreImg"><img id="defaultImg" src="../../img/cinema.png"></div>
-                <h2 class="genreTitle"><?=$genre?></h2>
-            </div>
 
             <div class="trend3">
             <h4 class="trendSubTitle">최신 개봉 영화 추천</h4>
@@ -163,7 +158,7 @@ else {
                             if (mysqli_stmt_execute($stmt)) {
                                 if ($res = mysqli_stmt_get_result($stmt)) {
                                     while ($newArray = mysqli_fetch_array($res)) {
-                                        $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                                        $url = './filmInfo.php?code='.$newArray["movie_cd"];
                                         echo '
                                         <a href="'.$url.'">
                                     <div class="individual">
@@ -178,6 +173,13 @@ else {
                     }}}}
                 ?>
                 </div>
+            </div>
+
+            
+            <div class="trend2">
+                <h4 class="trendSubTitle">내가 가장 많이 감상한 영화 장르</h4>
+                <div class="genreImg"><img id="defaultImg" src="../../img/cinema.png"></div>
+                <h2 class="genreTitle"><?=$genre?></h2>
             </div>
             
 
