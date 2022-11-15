@@ -146,3 +146,10 @@
     z-index: 10;
     border: none;
 }
+#star {
+    position: relative;
+    top: -30.5rem;
+    left: -28.5rem;
+    width: 2.8rem;
+    height: 2.8rem;
+}
