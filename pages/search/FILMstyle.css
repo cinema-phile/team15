@@ -143,5 +143,6 @@
 #tag {
     width: 3.2rem;
     height: 3.2rem;
-    z-index: -10;
+    z-index: 10;
+    border: none;
 }

@@ -86,8 +86,11 @@ else {
 
     }
 
-    $fanRate = $cnt / count($filmoList) * 100;
-    print($fanRate);
+    $fanRate = round($cnt / count($filmoList) * 100, 2);
+
+    # close connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 
 }
 ?>
@@ -126,10 +129,10 @@ else {
 
         <section class="filmolist">
             <div class="fanscore">
-                <div class="fanscore-L">나의 팬 지수 <span id="fanscorespan"><?=$fanRate?>%</span> | 평균 팬 지수 <span id="fanscorespan">%</span></div>
+                <div class="fanscore-L">나의 팬 지수 <span id="fanscorespan"><?=$fanRate?>%</span></div>
                 <p class="fanscore-R"><span id="span"><?=count($filmoList)?></span> 작품 중 <span id="span"><?=$cnt?></span> 개 관람</p>
             </div>
-            <progress class="fanGraph" min="0" max="100" value="22.8"></progress>
+            <progress class="fanGraph" min="0" max="100" value="<?=$fanRate?>"></progress>
 
 
             <div class="characterList">

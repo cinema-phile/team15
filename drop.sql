@@ -1,6 +1,4 @@
 SET FOREIGN_KEY_CHECKS = 0;
-select users, movie, people, characters, test, test_result, star_movie, star_people, watch_movie, character_ranking, board, comment
-from information_schema.tables where table_schema = team15;
 drop table if exists users;
 drop table if exists movie;
 drop table if exists people;
