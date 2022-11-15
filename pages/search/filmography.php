@@ -39,7 +39,6 @@ else {
 
                     }}}}}
 
-
     $sql3 = "insert into star_people (userid, people_cd) values (?, ?);";
 
     $sql2 = "select m.movie_cd, m.movie_nm, m.imgUrl, c.cast_nm
