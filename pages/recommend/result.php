@@ -43,20 +43,30 @@ include ("../../php/test/showResult.php");
 
          <section class="result list">
             <p class="title3 list-title">탕탕! 취향 저격</p>
+
             <div class="item">
                 <span class="title4"><?php echo $typeDirectors[0]; ?></span> 
                 <div class="title4 line"></div>
-                <span class="title5 movie-title">쏘우</span>
-                <span class="title5 movie-title">컨저링</span>
-                <span class="title5 movie-title">인시디어스</span>
+                <?php
+                    foreach ($typeMovies1 as $val){
+                        echo '<span class="title5 movie-title">'.$val.'</span>';
+                    }
+                ?>
+
             </div>   
-            <div class="item">
-                <span class="title4"><?php echo $typeDirectors[1]; ?></span> 
-                <div class="title4 line"></div>
-                <span class="title5 movie-title">쏘우</span>
-                <span class="title5 movie-title">컨저링</span>
-                <span class="title5 movie-title">인시디어스</span>
-            </div>   
+
+            <?php
+                if($typeMovies2!=NULL){
+                   echo '<div class="item">';
+                    echo '<span class="title4">'.$typeDirectors[1].'</span>'; 
+                    echo '<div class="title4 line"></div>';
+                    foreach ($typeMovies2 as $val){
+                        echo '<span class="title5 movie-title">'.$val.'</span>';
+                    }
+                    echo '</div>';  
+
+                }
+            ?>
         </section>
          <div class="btn">
             <button class="btn-main php">결과 저장하기
