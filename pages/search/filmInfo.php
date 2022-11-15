@@ -4,9 +4,84 @@ header('Content-Type: text/html; charset=utf-8');
 if (!session_id()) {
     session_start();
 }
-$num = 0;
-?>
 
+$watch_rate = 0;
+$code = $_GET['code']; /*movie code from url*/
+$movie_info = array();
+$watched = false;
+
+# DB Connection
+$conn = mysqli_connect("localhost", "team15", "team15", "team15");
+$userId = $_SESSION['userId'];
+
+if (mysqli_connect_errno()) {
+    echo "<script>alert('connect error');</script>";
+    exit();
+}
+
+else {
+
+    $sql1 = "select EXISTS (select * from watch_movie where userid = ? and movie_cd = ?);";
+
+    if($stmt = mysqli_prepare($conn, $sql1)) {
+        if (mysqli_stmt_bind_param($stmt, 'ss', $userId, $movie_cd)) {
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_bind_result($stmt, $res);
+
+                while(mysqli_stmt_fetch($stmt)) {
+                    if ($res == 0) {
+                        $watched = true;
+                    }
+                    else {
+                        $watched = false;
+    }}}}}
+
+    $sql0 = "select cntMovie, cntUser from ( 
+                select movie_cd, count(movie_cd) as 'cntMovie'
+                from watch_movie
+                group by movie_cd
+            ) c, (
+                select count(*) as 'cntUser'
+                from users
+            ) u where c.movie_cd = ?;";
+
+    if($stmt = mysqli_prepare($conn, $sql0)) {
+        if (mysqli_stmt_bind_param($stmt, "s", $code)) {
+            if (mysqli_stmt_execute($stmt)) {
+                if ($res = mysqli_stmt_get_result($stmt)) {
+                    while ($newArray = mysqli_fetch_array($res)) {
+                        $num = $newArray['cntMovie'] / $newArray['cntUser'] * 100;
+                        $watch_rate = round($num, 2);
+    }}}}};
+
+    $sql = "select m.imgUrl, m.movie_nm, m.directors, m.open_yr, m.genre, m.story,
+            c.cast_nm, p.people_cd, p.people_nm, p.profile, p.sex
+            from movie as m
+            left join characters as c on m.movie_cd = c.movie_cd
+            left join people as p on c.people_cd = p.people_cd
+            where m.movie_cd = ?";
+
+    if($stmt = mysqli_prepare($conn, $sql)) {
+        if (mysqli_stmt_bind_param($stmt, "s", $code)) {
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_bind_result($stmt, $imgUrl, $movie_nm, $directors, $open_yr, $genre, $story, 
+                                        $cast_nm, $people_cd, $people_nm, $profile, $sex);
+                    while (mysqli_stmt_fetch($stmt)) {
+                        array_push($movie_info, [
+                            "imgUrl" => $imgUrl,
+                            "movie_nm" => $movie_nm,
+                            "directors" => $directors,
+                            "open_yr" => $open_yr,
+                            "genre" => $genre,
+                            "story" => $story,
+                            "cast_nm" => $cast_nm,
+                            "people_cd" => $people_cd,
+                            "people_nm" => $people_nm,
+                            "profile" => $profile,
+                            "sex" => $sex
+                        ]); 
+    }}}}}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,134 +105,89 @@ $num = 0;
             <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
 
-<?php 
-    $code = $_GET['code']; /*movie code from url*/
-    $i = 0;
+        <?php
+        if(!$watched) {
+        ?>
+        <script>var index = -10;</script> <!-- $res == 0 -->
+        <?php
+        } else {
+        ?>
+        <script>var index = 10;</script>
+        <?php
+        }
+        ?>
+        
+        <section class="filmInfo">
+            <div class="topLayout">
+                <div class="poster">
+                    <img src="<?=$movie_info[0]['imgUrl']?>" width="240px" height="313px">
+                </div>
+                <div class="infoLayout">
+                    <div class="titleNtag">
+                        <p class="filmTitle"><?=$movie_info[0]['movie_nm']?></p>
+                        <img id="tag" src="../../img/tag.svg">
+                    </div>
+                    <div class="detailinfo">
+                        <p>감독 | <?=$movie_info[0]['directors']?></p>
+                        <p>개봉연도 | <?=$movie_info[0]['open_yr']?></p>
+                        <p>장르 | <?=$movie_info[0]['genre']?></p>
+                    </div>
+                    <div class="watched">회원의 <span id="span"><?=$watch_rate?>%</span>가 이 영화를 관람했습니다</div>
+                    <form action="../../php/search/watched_insert.php?movie_cd=<?=$code?>" method="post">
+                    <button class="watchedBtn" onclick=watchedBtnClicked() type="submit">봤어요!</button>
+                    </form>
+                </div> 
+            </div>
+            <p class="listTitle">스토리</p>
+            <h5 class="story"><?=$movie_info[0]['story']?></h5>
+            <section class="actorList">
+                <p class="listTitle">출연 배우</p>
+                <div class="actorProfile">
+                    <?php
+                    for ($i=0; $i < count($movie_info); $i++) { 
+                        $url = './filmography.php?code='.$movie_info[$i]["people_cd"];
+                    ?>
+                    <a href="<?=$url?>">
+                        <div class="individualActor">
+                            <div class="actorImg">
 
-    # DB Connection
-    $conn = mysqli_connect("localhost", "team15", "team15", "team15");
-    $userId = $_SESSION['userId'];
-
-    if (mysqli_connect_errno()) {
-        echo "<script>alert('connect error');</script>";
-        exit();
-    }
-
-    else {
-
-        $sql1 = "select EXISTS (select * from watch_movie where userid = ? and movie_cd = ?);";
-
-        if($stmt = mysqli_prepare($conn, $sql0)) {
-            if (mysqli_stmt_bind_param($stmt, 'ss', $userId, $movie_cd)) {
-                if (mysqli_stmt_execute($stmt)) {
-                    $res = mysqli_stmt_get_result($stmt));
-
-                    if ($res == 0) {
-                        echo '<script>var index = -10;</script>';
+                                <?php
+                                if($movie_info[$i]['profile'] != null) {
+                                ?>
+                                <img id="pic" src="<?=$movie_info[$i]['profile']?>"> <!-- profile != null -->
+                                <?php
+                                } else if ($movie_info[$i]['profile'] != null && $movie_info[$i]['sex'] == '여자') {
+                                ?>
+                                <img id="pic" src="../../img/woman.png"> <!-- profile == null && 여자 -->
+                                <?php
+                                } else {
+                                ?>
+                                <img id="pic" src="../../img/man.png"> <!-- else -->
+                                <?php
+                                }
+                                ?>
+                    
+                            </div>
+                            <div class="actorText">
+                                <p class="actorName"><?=$movie_info[$i]['people_nm']?></p>
+                                <p class="actorChar"><?=$movie_info[$i]['cast_nm']?></p>
+                            </div>
+                        </div>
+                    </a>
+                    <?php
                     }
-                    else {
-                        echo '<script>var index = 10;</script>';
-                    }
-                }}}
+                    ?>
+                </div>
+            </section>
+        </section>
 
-        $sql0 = "select cntMovie, cntUser from ( 
-            select movie_cd, count(movie_cd) as 'cntMovie'
-            from watch_movie
-            group by movie_cd
-        ) c, (
-            select count(*) as 'cntUser'
-            from users
-        ) u where c.movie_cd = ?;";
-
-        if($stmt = mysqli_prepare($conn, $sql0)) {
-            if (mysqli_stmt_bind_param($stmt, "s", $code)) {
-                if (mysqli_stmt_execute($stmt)) {
-                    if ($res = mysqli_stmt_get_result($stmt)) {
-                        while ($newArray = mysqli_fetch_array($res)) {
-                            $num = $newArray['cntMovie'] / $newArray['cntUser'] * 100;
-                            $num2 = round($num, 2);
-        }}}}};
-
-        $sql = "select m.*, c.cast_nm, p.people_cd, p.people_nm, p.profile, p.sex
-        from movie as m
-        left join characters as c on m.movie_cd = c.movie_cd
-        left join people as p on c.people_cd = p.people_cd
-        where m.movie_cd = ?";
-
-        if($stmt = mysqli_prepare($conn, $sql)) {
-            if (mysqli_stmt_bind_param($stmt, "s", $code)) {
-                if (mysqli_stmt_execute($stmt)) {
-                    if ($res = mysqli_stmt_get_result($stmt)) {
-                        while ($newArray = mysqli_fetch_array($res)) {
-
-                            $url = 'http://localhost/filmography.php?code='.$newArray["people_cd"];
-
-                            if ($i<1) {
-                                echo '
-                                <section class="filmInfo">
-                                    <div class="topLayout">
-                                        <div class="poster">
-                                            <img src="'.$newArray['imgUrl'].'" width="240px" height="313px">
-                                        </div>
-                                        <div class="infoLayout">
-                                            <div class="titleNtag">
-                                                <p class="filmTitle">'.$newArray['movie_nm'].'</p>
-                                                <img id="tag" src="../../img/tag.svg">
-                                            </div>
-                                        <div class="detailinfo">
-                                            <p>감독 | '.$newArray['directors'].'</p>
-                                            <p>개봉연도 | '.$newArray['open_yr'].'</p>
-                                            <p>장르 | '.$newArray['genre'].'</p>
-                                        </div>
-                                        <div class="watched">회원의 <span id="span">'.$num2.'%</span>가 이 영화를 관람했습니다</div>
-                                        <button class="watchedBtn" onclick="watchedBtnClicked(); location.href="../../php/search/watched_insert.php?movie_cd='.$movie_cd.'">봤어요!</button>
-                                        </div> 
-                                    </div>
-                                    <p class="listTitle">스토리</p>
-                                    <h5 class="story">'.$newArray['story'].'</h5>
-                                    <section class="actorList">
-                                        <p class="listTitle">출연 배우</p>
-                                        <div class="actorProfile">';
-                            }$i++;
-                            if (1) {
-                            echo '
-                            <a href="'.$url.'">
-                            <div class="individualActor">
-                            <div class="actorImg">'; 
-
-                                if ($newArray['profile'] != NULL) {
-                                    echo '<img id="pic" src="https://'.$newArray['profile'].'">';
-                                }
-                                else if ($newArray['profile'] == NULL && $newArray['sex'] == '여자'){ 
-                                    echo '<img id="pic" src="../../img/woman.png"> ';
-                                }
-                                else {
-                                    echo '<img id="pic" src="../../img/man.png"> ';
-                                }
-                                echo '
-                                    </div>
-                                    <div class="actorText">
-                                    <p class="actorName">'.$newArray['people_nm'].'</p>
-                                    <p class="actorChar">'.$newArray['cast_nm'].'</p>
-                                    </div>
-                                    </div>
-                                    </a>';
-                                }
-    }}}}}}
-?>
-</div>
-
-</section>
-</section>
-
-</div>
-<script>
-    
-    function watchedBtnClicked() {
-        index *= -1;
-        console.log(index);
-        document.getElementById('tag').style = "z-index: "+index;
-    }
-</script>
+    </div>
+    <script>
+        function watchedBtnClicked() {
+            index *= -1;
+            console.log(index);
+            document.getElementById('tag').style = "z-index: "+index;
+        }
+    </script>
 </body>
 </html>
