@@ -27,7 +27,7 @@ $isNew=true;
             <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
             <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
             <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
-            <a href="../mypage/index.html"><h4 class="eachMenu">MYPAGE</h4></a>
+            <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </section>
         <section class="board">
             <div class="post">
