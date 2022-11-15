@@ -4,6 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 if (!session_id()) {
     session_start();
 }
+$num = 0;
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +87,7 @@ if (!session_id()) {
                                         <div class="infoLayout">
                                             <div class="titleNtag">
                                                 <p class="filmTitle">'.$newArray['movie_nm'].'</p>
-                                                <img id="tag" src="team15/img/tag.svg">
+                                                <img id="tag" src="../../img/tag.svg">
                                             </div>
                                         <div class="detailinfo">
                                             <p>감독 | '.$newArray['directors'].'</p>
@@ -112,7 +113,7 @@ if (!session_id()) {
                                 if ($newArray['profile'] != NULL) {
                                     echo '<img id="pic" src="https://'.$newArray['profile'].'">';
                                 }
-                                else if ($newArray['profile'] == NULL %% $newArray['sex'] == '여자'){ 
+                                else if ($newArray['profile'] == NULL && $newArray['sex'] == '여자'){ 
                                     echo '<img id="pic" src="../../img/woman.png"> ';
                                 }
                                 else {
@@ -144,7 +145,7 @@ if (!session_id()) {
         
         if (index == 10) {
             /*< ?php
-                $sql4 = "insert into star_people (userid, people_cd) values (?, ?);";
+                $sql4 = "insert into watch_movie (userid, movie_cd) values (?, ?)";
 
                 if($stmt = mysqli_prepare($conn, $sql4)) {
                     if (mysqli_stmt_bind_param($stmt, "ss", $userId, $code)) {
@@ -156,7 +157,7 @@ if (!session_id()) {
         else {
             
             /*< ?php
-                $sql5 = "delete from star_people where userid = ? and people_cd = ?;";
+                $sql5 = "delete from watch_movie where userid = ? and movie_cd = ?";
 
                 if($stmt = mysqli_prepare($conn, $sql5)) {
                     if (mysqli_stmt_bind_param($stmt, "ss", $userId, $code)) {
