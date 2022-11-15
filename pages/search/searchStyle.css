@@ -230,15 +230,16 @@ input[type="checkbox"] {
     height: 30rem;
     background-color: var(--color-blue-200);
     border-radius: var(--border-radius-regular);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .genreTitle {
     color: var(--color-blue-400);
 }
 
 #defaultImg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    
     width: 24rem;
     height: 24rem;
 }
