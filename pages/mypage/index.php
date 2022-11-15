@@ -72,7 +72,9 @@ include ("../../php/mypage/showInfo.php");
             </div>
         </section>
         <div class = "btn-block">
-                    <button type="submit">로그 아웃</button>
+        <form action="../../php/signup/logOut.php" method="post">
+            <button type="submit">로그 아웃</button>
+        </form>
                 <button>회원 탈퇴</button>
             </div>
 
