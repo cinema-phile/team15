@@ -12,7 +12,7 @@ if (!session_id()) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../index.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="FILMstyle.css">
     <title>FILM</title>
 </head>
@@ -73,7 +73,7 @@ if (!session_id()) {
                     if ($res = mysqli_stmt_get_result($stmt)) {
                         while ($newArray = mysqli_fetch_array($res)) {
 
-                            $url = 'http://localhost/team15/pages/search/filmography.php?code='.$newArray["people_cd"];
+                            $url = 'http://localhost/filmography.php?code='.$newArray["people_cd"];
 
                             if ($i<1) {
                                 echo '
@@ -101,25 +101,29 @@ if (!session_id()) {
                                     <section class="actorList">
                                         <p class="listTitle">출연 배우</p>
                                         <div class="actorProfile">';
-                            }
-                            if ($newArray['cast_nm'] != NULL) {
+                            }$i++;
+                            if (1) {
                             echo '
                             <a href="'.$url.'">
                             <div class="individualActor">
-                            <div class="actorImg">';
-                            if ($newArray["profile"] != NULL) echo '<img id="pic" src="https://'.$newArray['profile'].'">';
-                            echo '
-                            </div>
-                            <div class="actorText">
-                            <p class="actorName">'.$newArray['people_nm'].'</p>
-                            <p class="actorChar">'.$newArray['cast_nm'].'</p>
-                            </div>
-                            </div>
-                            </a>';
-                            $i++;
-                            }
-    }}}}}
-    }
+                            <div class="actorImg">'; 
+
+                                if ($newArray['profile'] != NULL) {
+                                    echo '<img id="pic" src="https://'.$newArray['profile'].'">';
+                                }
+                                else { 
+                                    echo '<img id="pic"> ';
+                                }
+                                echo '
+                                    </div>
+                                    <div class="actorText">
+                                    <p class="actorName">'.$newArray['people_nm'].'</p>
+                                    <p class="actorChar">'.$newArray['cast_nm'].'</p>
+                                    </div>
+                                    </div>
+                                    </a>';
+                                }
+    }}}}}}
 ?>
 </div>
 
