@@ -78,7 +78,9 @@ include ("../../php/mypage/showInfo.php");
         <form action="../../php/signup/logOut.php" method="post">
             <button type="submit">로그아웃</button>
         </form>
-                <button>회원 탈퇴</button>
+        <form action="../../php/signup/deleteUser.php" method="post">
+            <button type="submit">회원탈퇴</button>
+        </form>
             </div>
 
     </body>
