@@ -17,10 +17,9 @@ if (mysqli_connect_errno()) {
 } else {
     
     # 게시글 상세 출력
-    $sql = "select f.title, f.content, f.type, u.name, u.profile
-            from board as f
-            inner join users as u on f.userid = u.userid
-            where f.boardid = ?";
+    $sql = "select title, content
+            from board
+            where boardid = ?";
 
     # prepare statement
     if($stmt = mysqli_prepare($conn, $sql)) {
@@ -28,14 +27,11 @@ if (mysqli_connect_errno()) {
 
         # run the query
         if(mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $title, $content, $type, $writer, $writer_profile);
+            mysqli_stmt_bind_result($stmt, $title, $content, $type);
             while(mysqli_stmt_fetch($stmt)) {
                 $res = [
                     "title" => $title,
-                    "content" => $content,
-                    "type" => $type,
-                    "writer" => $writer,
-                    "profile" => $writer_profile 
+                    "content" => $content
                 ];
             }
         } else {
@@ -81,7 +77,7 @@ if (mysqli_connect_errno()) {
                 
                 <div class="eachPost">
                     <div class="eachProfile">
-                        <img class="profileImg" src="<?=$res['profile']?>">
+                        <img class="profileImg" src="<?=$_SESSION['profile']?>">
                         <p class="nickName"><?=$_SESSION['userName']?></p>  
                     </div>
                     <form action="../../php/community/submitPost.php?isNew=<?=$isNew?>&boardid=<?=$boardid?>" method="post">
