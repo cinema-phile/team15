@@ -165,11 +165,11 @@ else {
             $url = "../../php/search/star_movie_insert.php?movie_cd=".$code;
             if(!$isStar) {
             ?>
-                <img id="star" src="../../img/star_empty.svg" onclick="location.href='<?=$url?>'">
+                <img id="star" src="../../img/mini_star_empty.svg" onclick="location.href='<?=$url?>'">
             <?php
             } else {
             ?>
-                <img id="star" src="../../img/star_full.svg" onclick="location.href='<?=$url?>'">
+                <img id="star" src="../../img/mini_star_full.svg" onclick="location.href='<?=$url?>'">
             <?php
             }
             ?>
