@@ -179,7 +179,7 @@ if (mysqli_connect_errno()) {
             <div class="post" onclick="location.href='<?=$url?>'">
                 <div class="eachProfile">
                     <div class="profileImg">
-                        <!-- <img src=""> -->
+                        <img src="<?=$res['profile']?>">
                     </div>
                     <p class="nickName"><?=$res[$i]['writer']?></p>  
                 </div>

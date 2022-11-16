@@ -14,14 +14,14 @@ function getUserLikedMovieArray($conn, $id){
 
 
     #prepare statement
-    $sql="select movie_nm, imgUrl, rate,runtime, directors, open_yr, genre from movie where movie_cd IN (select movie_cd from star_movie where userid=?);";
+    $sql="select movie_nm, imgUrl, rate,runtime, directors, open_yr, rep_genre from movie where movie_cd IN (select movie_cd from star_movie where userid=?);";
     
     if($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, 's', $id);
 
         # run the query
         if(mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $movie_nm, $imgUrl, $rate, $runtime, $directors, $open_yr,$genre);
+            mysqli_stmt_bind_result($stmt, $movie_nm, $imgUrl, $rate, $runtime, $directors, $open_yr,$rep_genre);
             while(mysqli_stmt_fetch($stmt)) {
                 $movie = [
                     "movie_nm" => $movie_nm,
@@ -30,7 +30,7 @@ function getUserLikedMovieArray($conn, $id){
                     "runtime" => $runtime,
                     "directors" => $directors,
                     "open_yr" => $open_yr,
-                    "genre"=>explode(",", $genre) 
+                    "genre"=> $rep_genre
                 ];
                 array_push( $res, $movie);
 
@@ -99,8 +99,7 @@ if (mysqli_connect_errno()) {
                 <p class="item-title"><?=$userLikedMovies[$i]['movie_nm']?></p>
                 <p class="item-description"><?=$userLikedMovies[$i]['directors']?></p>
                 <div>
-                    <span class="item-description"><?=$userLikedMovies[$i]['genre'][0]?></span>
-                    <span class="item-description"><?=$userLikedMovies[$i]['genre'][1]?></span>
+                    <span class="item-description"><?=$userLikedMovies[$i]['genre']?></span>
                 </div>
                 <div>
                     <span class="item-description"><?=$userLikedMovies[$i]['open_yr']?></span>

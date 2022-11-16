@@ -204,7 +204,10 @@ if (mysqli_connect_errno()) {
             ?>
             <div class="post" onclick="location.href='<?=$url?>'">
                 <div class="eachProfile">
-                    <img class="profileImg" src="<?=$profile?>">
+                    <div class="profileImg">
+                        <img src=<?=$res[$i]['profile']?>>
+                    </div>
+
                     <p class="nickName"><?=$res[$i]['writer']?></p>  
                 </div>
                 <div class="eachPost">
