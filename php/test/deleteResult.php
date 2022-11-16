@@ -6,7 +6,7 @@
         // id가 없을 경우 세션 시작
             session_start();
         }
-        $type_nm = $_GET["genre"];
+
         $id = $_SESSION['userId'];
 
 
@@ -41,16 +41,16 @@
             return $res;
         }
 
-        function insertResult($conn, $id, $type_nm){
+        function deleteResult($conn, $id){
 
-            $sql="insert into test_result values (? , (select typeid from test where type_nm=? limit 1));";
+            $sql="delete from test_result where userid=?;";
  
             if($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ss", $id, $type_nm);
+                mysqli_stmt_bind_param($stmt, "s", $id);
                 # run the query
                 if(mysqli_stmt_execute($stmt)) {
+                   
                     header("Location:../../pages/search/search.php");
- 
                    
                 } else {
                     echo "<script>alert('Log in fail');</script>";
@@ -62,26 +62,7 @@
 
         }
 
-        function updateResult($conn, $id, $type_nm){
 
-            $sql="update test_result set typeid=(select typeid from test where type_nm=? limit 1) where userid=?;";
- 
-            if($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ss", $type_nm,$id);
-                # run the query
-                if(mysqli_stmt_execute($stmt)) {
-                    header("Location:../../pages/search/search.php");
- 
-                   
-                } else {
-                    echo "<script>alert('Log in fail');</script>";
-                    exit();
-                }
-                
-
-                    }
-
-        }
 
        if (mysqli_connect_errno()) {
             echo "<script>alert('Log in fail');</script>";
@@ -89,15 +70,16 @@
         } else {
 
             $isRecord=checkResultExist($conn, $id);
+            echo $isRecord;
             if ($isRecord==0){
 
-                insertResult($conn, $id, $type_nm);
+                header("Location:../../pages/search/search.php");
 
             }
             else{
-                updateResult($conn, $id, $type_nm);
+                deleteResult($conn, $id);
 
-            }
+              }  
 
 
 

@@ -164,7 +164,11 @@
            
         }
         mysqli_stmt_close($stmt);
-        return $res["movie_nm"];
+        if(isset($res["movie_nm"])) {
+            return $res["movie_nm"];
+        } else {
+            return "없음";
+        }
     }
 
     function getUserInfo($conn, $id){
@@ -242,8 +246,11 @@
 
         }
         mysqli_stmt_close($stmt);
-        return $res["type_title"];
-
+        if(isset($res['type_title'])) {
+            return $res["type_title"];
+        } else {
+            return "영화";
+        }
     }
         
     
@@ -262,6 +269,7 @@
                 $name=getUserInfo($conn, $id)["name"];
                 $userid=getUserInfo($conn, $id)["userid"];
                 $password=getUserInfo($conn, $id)["password"];
+                $profile=getUserInfo($conn, $id)["profile"];
                 $preferGenre =getUserGenre($conn,$id)?getUserGenre($conn,$id):"영화";
                 $movieCnt = getMovieCount($conn, $id);
                 $peopleCnt = getPeopleCount($conn, $id);

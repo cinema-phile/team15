@@ -11,7 +11,7 @@ function getUserLikedActorArray($conn, $id){
     $res=array();
 
     #prepare statement
-    $sql="select people_nm_en, profile, filmo_names from people where people_cd IN (select people_cd from star_people where userid=?);";
+    $sql="select people_nm_en, profile, filmo_names, sex from people where people_cd IN (select people_cd from star_people where userid=?);";
 
 
     if($stmt = mysqli_prepare($conn, $sql)) {
@@ -19,12 +19,13 @@ function getUserLikedActorArray($conn, $id){
 
        # run the query
        if(mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $people_nm_en, $profile, $filmo_names);
+            mysqli_stmt_bind_result($stmt, $people_nm_en, $profile, $filmo_names, $sex);
                 while(mysqli_stmt_fetch($stmt)){
                     $actor = [
                         "people_nm_en"=>$people_nm_en,
                         "profile"=>$profile,
-                        "filmo_names"=>explode("|",$filmo_names)
+                        "filmo_names"=>explode("|",$filmo_names),
+                        "sex"=>$sex
 
 
                     ];
@@ -91,7 +92,22 @@ if (mysqli_connect_errno()) {
             for ($i=0; $i < count($userLikedActor); $i++) {
         ?>
             <div class="likes-item">
-                <img class ="item-img" src=<?=$userLikedActor[$i]['profile']?> />
+                <?php
+                if($userLikedActor[$i]['profile'] != NULL) {
+                    $profile = $userLikedActor[$i]['profile'];
+                ?>
+                    <img class ="item-img" src=<?=$profile?> />
+                <?php
+                } else if ($userLikedActor[$i]['sex'] == '여자'){
+                ?>
+                    <img class ="item-img" src='../../../img/woman.png' />
+                <?php
+                } else {
+                ?>
+                    <img class ="item-img" src='../../../img/man.png' />
+                <?php
+                }
+                ?>
                 <p class="item-title"><?=$userLikedActor[$i]['people_nm_en']?></p>
                 <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][2]?></span>
                 <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][3]?></span>

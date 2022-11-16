@@ -21,14 +21,14 @@ include ("../../php/mypage/showInfo.php");
         </header>
         <div class="menu">
             <a href="../search/search.php"><h4 class="eachMenu">SEARCH</h4></a>
-            <a href="../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
+            <a href="'../vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
             <a href="../recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
             <a href="../community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
             <a href="../mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
         </div>
         <section class="me">
             <div class="me-info">
-                <img src="../../img/profile-50.svg"/>
+                <img src=<?php echo $profile; ?> />
                 <div class="text-block">
                     <p><?php echo $preferGenre; ?>를 사랑하는</p>
                     <p><?php echo $name; ?>님</p>
@@ -59,7 +59,7 @@ include ("../../php/mypage/showInfo.php");
         <section class="watch">
             <div class="text-block">
                 <p>관람 건수</p>
-                <p><?php echo $movieCnt; ?>개</p>
+                <p><?php echo $watchCnt; ?>개</p>
             </div>
 
             <div class="text-block">

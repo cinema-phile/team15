@@ -182,3 +182,7 @@
 .eachMenu:hover {
     background-color: var(--color-green-300);
 }
+
+.start-block img{
+   height:25rem;
+}

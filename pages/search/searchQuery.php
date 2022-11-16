@@ -89,7 +89,7 @@ if ($category == "film") {
             if (mysqli_stmt_execute($stmt)) {
                 if ($res = mysqli_stmt_get_result($stmt)) {
                     while ($newArray = mysqli_fetch_array($res)) {
-                        $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                        $url = './filmInfo.php?code='.$newArray["movie_cd"];
                         echo '
                         <a href='.$url.'>
                         <div class="individual">
@@ -107,7 +107,7 @@ if ($category == "film") {
 
     else {
 
-            if ($check == "액션" || $check == "코미디" || $check == "로맨스" || $check == "드라마" || 
+            if ($check == "액션" || $check == "코미디" || $check == "멜로/로맨스" || $check == "드라마" || 
             $check == "SF" || $check == "애니메이션" || $check == "다큐멘터리" || $check == "공포" || $check == "스릴러") {
                 $sql2 = "select movie_cd, movie_nm, open_yr, imgUrl
                 from movie
@@ -119,7 +119,7 @@ if ($category == "film") {
                         if (mysqli_stmt_execute($stmt)) {
                             if ($res = mysqli_stmt_get_result($stmt)) {
                                 while ($newArray = mysqli_fetch_array($res)) {
-                                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                                    $url = './filmInfo.php?code='.$newArray["movie_cd"];
                                     echo '
                                     <a href='.$url.'>
                                     <div class="individual">
@@ -152,7 +152,7 @@ if ($category == "film") {
                         if (mysqli_stmt_execute($stmt)) {
                             if ($res = mysqli_stmt_get_result($stmt)) {
                                 while ($newArray = mysqli_fetch_array($res)) {
-                                    $url = 'http://localhost/team15/pages/search/filmInfo.php?code='.$newArray["movie_cd"];
+                                    $url = './filmInfo.php?code='.$newArray["movie_cd"];
                                     echo '
                                     <a href='.$url.'>
                                     <div class="individual">
@@ -180,13 +180,13 @@ else {
                 if (mysqli_stmt_execute($stmt)) {
                     if ($res = mysqli_stmt_get_result($stmt)) {
                         while ($newArray = mysqli_fetch_array($res)) {
-                            $url = 'http://localhost/team15/pages/search/filmography.php?code='.$newArray["people_cd"];
+                            $url = './filmography.php?code='.$newArray["people_cd"];
                             echo '
                             <a href='.$url.'>
                             <div class="individual">
                             <div class="pic">';
                             if ($newArray["profile"] != NULL) {
-                                echo '<img id="pic" src="https://'.$newArray["profile"].'">';
+                                echo '<img id="pic" src="'.$newArray["profile"].'">';
                             }
                             else if ($newArray["profile"] == NULL && $newArray["sex"] == "여자") {
                                 echo '<img id="pic_default" src="../../img/woman.png">';
@@ -235,6 +235,10 @@ else {
                             </a>';
         }}}}}}
     }
+
+    # close connection
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 }
 
 
