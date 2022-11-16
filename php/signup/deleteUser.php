@@ -17,10 +17,8 @@ $mysqli->begin_transaction();
 
 
 try{
-	$mysqli->query("delete from comment_free where userid ='".$_SESSION['userId']."'");
-	$mysqli->query("delete from comment_information where userid='".$_SESSION['userId']."'");
-	$mysqli->query("delete from board_free where userid='".$_SESSION['userId']."'");
-	$mysqli->query("delete from board_information where userid='".$_SESSION['userId']."'");
+	$mysqli->query("delete from comment where userid ='".$_SESSION['userId']."'");
+	$mysqli->query("delete from board where userid='".$_SESSION['userId']."'");
 	$mysqli->query("delete from test_result where userid='".$_SESSION['userId']."'");
 	$mysqli->query("delete from star_movie where userid='".$_SESSION['userId']."'");
 	$mysqli->query("delete from star_people where userid='".$_SESSION['userId']."'");
