@@ -78,8 +78,11 @@ function getActorImg($conn,$id){
 # DB Connection
 $conn = mysqli_connect("localhost", "team15", "team15", "team15");
 
-
-$sex = $_POST['sex'];
+if(isset($_POST['sex'])) {
+    $sex = $_POST['sex'];
+} else {
+    $sex = null;
+}
 
 if ($sex=="남자"){
     $sql="select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='남자' limit 3;";
@@ -142,7 +145,11 @@ $conn = mysqli_connect("localhost", "team15", "team15", "team15");
 
 $cnt=1;
 
-$sex = $_POST['sex'];
+if(isset($_POST['sex'])) {
+    $sex = $_POST['sex'];
+} else {
+    $sex = null;
+}
 
 if ($sex=="남자"){
     $sql = "select rank() over (order by vote desc), cast_nm, a.character_id from characters a inner join character_ranking b on a.character_id=b.character_id where cast_nm!='' and sex='남자';";
