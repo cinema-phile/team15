@@ -19,6 +19,7 @@ create index idx_users_name on users(name);
 create table movie (
 	movie_cd varchar(11) not null primary key,
 	movie_nm varchar(50) not null,
+	rep_genre varchar(20) not null,
 	genre varchar(40) not null,
 	runtime varchar(30) not null,
 	age varchar(40) not null,
