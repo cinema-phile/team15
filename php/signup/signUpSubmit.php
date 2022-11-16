@@ -9,32 +9,32 @@ $randNm = rand(1, 8);
 # randNm에 따라서 switch문으로 img src 매핑
 switch ($randNm) {
     case 1:
-        # $profile = "img src";
+        $profile = "../../img/1.png";
         break;
     case 2:
-        # $profile = "img src";
+        $profile = "../../img/2.png";
         break;
     case 3:
-        # $profile = "img src";
+        $profile = "../../img/3.png";
         break;
     case 4:
-        # $profile = "img src";
+        $profile ="../../img/4.png";
         break;
     case 5:
-        # $profile = "img src";
+        $profile ="../../img/5.png";
         break;
     case 6:
-        # $profile = "img src";
+        $profile = "../../img/6.png";
         break;
     case 7:
-        # $profile = "img src";
+        $profile ="../../img/7.png";
         break;
     case 8:
-        # $profile = "img src";
+        $profile = "../../img/8.png";
         break;
     
     default:
-        # $profile = "img src";
+        $profile = "../../img/1.png";
         break;
 }
 $profile = rand(1, 8);
