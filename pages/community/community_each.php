@@ -186,7 +186,7 @@ if (mysqli_connect_errno()) {
                 <div class="eachPost">
                 <div class="eachProfile">
                     <div class="profileImg">
-                        <!-- <img src=""> -->
+                        <img src="<?=$res['profile']?>">
                     </div>
                     <p class="nickName"><?=$res['writer']?></p>  
                 </div>
