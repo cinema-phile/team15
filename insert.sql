@@ -5937,19 +5937,19 @@ INSERT INTO `characters` (`character_id`, `movie_cd`, `people_cd`, `cast_nm`, `s
 --
 
 INSERT INTO `users` (`userid`, `password`, `name`, `profile`) VALUES
-('catlover', 'cat11', '고양이', '1'),
-('doglover', 'dog11', '강아지', '6'),
-('dongwon', 'god1212', '강동원', '4'),
-('duckduck', 'quak1212', '오리', '5'),
-('ewha', '1886', '이화연', '2'),
-('goeun0702', 'gogo0702', '김고은', '4'),
-('jooyoung', 'joojoo1212', '이주영', '5'),
-('orange', '1234', '귤', '3'),
-('potato', 'ptt1029', '감자', '8'),
-('potato_ossu', '0922', '오수현', '3'),
-('sweetPotato', 'sweety1', '고구마', '1'),
-('teddy1234', 'bear1', '곰돌이', '7'),
-('zanmangLoopy', 'loopy36', '루피', '7');
+('catlover', 'cat11', '고양이', '../../img/6.png'),
+('doglover', 'dog11', '강아지', '../../img/3.png'),
+('dongwon', 'god1212', '강동원', '../../img/5.png'),
+('duckduck', 'quak1212', '오리', '../../img/8.png'),
+('ewha', '1886', '이화연', '../../img/1.png'),
+('goeun0702', 'gogo0702', '김고은', '../../img/3.png'),
+('jooyoung', 'joojoo1212', '이주영', '../../img/6.png'),
+('orange', '1234', '귤', '../../img/7.png'),
+('potato', 'ptt1029', '감자', '../../img/8.png'),
+('potato_ossu', '0922', '오수현', '../../img/8.png'),
+('sweetPotato', 'sweety1', '고구마', '../../img/1.png'),
+('teddy1234', 'bear1', '곰돌이', '../../img/1.png'),
+('zanmangLoopy', 'loopy36', '루피', '../../img/2.png');
 
 
 -- ----------------------------------------------------------------------------------------------------------------
