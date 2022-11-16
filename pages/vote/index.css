@@ -201,7 +201,8 @@
 
 .vote-block{
     width:72rem;
-    height:46rem;
+    padding:8rem;
+
     margin: 2.4rem auto 3rem;
     display: flex;
     flex-direction: column;
@@ -211,12 +212,12 @@
     border:2px solid var(--color-blue-400);
 }
 .vote-block img{
-    padding-bottom: 1.8rem;
+    height:75rem;
 }
 .profile-info{
     display: flex;
     flex-direction: column;
-    margin-bottom:3rem;
+    margin-bottom:1.5rem;
 }
 
 
@@ -235,8 +236,8 @@
 }
 
 .profile-description{
-    width:43rem;
-    font-size: var(--font-semi-micro);
+    width:50rem;
+    font-size: var(--font-regular);
     font-weight: var(--weight-light);
     color:var(--color-gray-500);
 

@@ -90,19 +90,20 @@ if (mysqli_connect_errno()) {
     // echo '<p >'.$sex.'</p>';
     $result = mysqli_query( $conn, $sql );
     echo '<section class = "rank-bar">';
+    $rank = 1;
 
     while( $row = mysqli_fetch_array( $result ) ) {
 
         $id = $row["character_id"]; // id
         $name = $row["cast_nm"]; // 배역 명 
         $rank=$row["rank() over (order by vote desc)"]; // 등수
-        getVoteNum($conn, "153");
+        $voteNum = getVoteNum($conn, $id);
         $imgUrl=getActorImg($conn,$id);
         echo '<div>';
         echo      '<img class="bar-img" src="'.$imgUrl.'" />';
         echo ' <div class="bar-'.$rank.'">';
-        echo '<span class="bar-name">'.$row["cast_nm"].'</span>';
-        echo '<span class="bar-vote">'.$name.'</span>';
+        echo '<span class="bar-name">'.$name.'</span>';
+        echo '<span class="bar-vote">'.$voteNum.'</span>';
         echo '</div>';
         echo '</div>';
 
