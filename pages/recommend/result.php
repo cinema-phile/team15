@@ -30,8 +30,8 @@ include ("../../php/test/showResult.php");
 
          <!--테스트 결과-->
          <section class="result genre">
-            <div class = "genre-img">
-                <img src="../../img/horror.svg"/>
+            <div >
+                <img  class = "genre-img" src="<?php echo $typeImgUrl; ?>"/>
             </div>
             <div class="genre-text">
                 <span class="title3 text-main"><?php echo $typeTitle; ?></span>
