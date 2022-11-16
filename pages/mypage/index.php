@@ -59,7 +59,7 @@ include ("../../php/mypage/showInfo.php");
         <section class="watch">
             <div class="text-block">
                 <p>관람 건수</p>
-                <p><?php echo $movieCnt; ?>개</p>
+                <p><?php echo $watchCnt; ?>개</p>
             </div>
 
             <div class="text-block">
