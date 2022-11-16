@@ -10,6 +10,7 @@
     <title>Board</title>
 </head>
 <body>
+<div id="contents">
     <header>
         <h1 class="title">LEADER BOARD</h1>
     </header>        
@@ -204,6 +205,6 @@ if (mysqli_connect_errno()) {
 }
 
 ?>
-    
+    </div>
 </body>
 </html>
