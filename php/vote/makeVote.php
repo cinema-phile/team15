@@ -22,20 +22,23 @@
         
         
         $id = $_POST['id'];
-        echo ".$id.";
         # DB Connection
         $conn = mysqli_connect("localhost", "team15", "team15", "team15");
 
 
         if (mysqli_connect_errno()) {
-            echo "<script>alert('Log in fail');</script>";
+            echo "<script>alert('Connection fail');</script>";
             exit();
         } else {
-            $sql1 = "select * from characters where character_id=".$id.";";
+            $sql1 = "select c.*, p.profile from characters c 
+                    inner join people p
+                    on p.people_cd = c.people_cd
+                    where character_id=".$id.";";
             $result = mysqli_query($conn, $sql1);
             $row = mysqli_fetch_array($result);
             $movie_id = $row["movie_cd"];
             $name=$row["cast_nm"];
+            $profile=$row["profile"];
 
 
             $sql2="select * from movie where movie_cd=".$movie_id.";";
@@ -46,7 +49,8 @@
 
 
             echo '<section class="vote-block">';
-            echo '<img  src="../../img/profile-150.svg" />';
+            printf("<img src=\"%s\"/>;", $profile);
+            # echo '<img  src="../../img/profile-150.svg" />';
             echo '<div class="profile-info">';
             echo    '<span class = "profile-name">'.$name.'</span>';
             echo    '<span class = "profile-movie">'.$movieTitle.'</span>';
@@ -60,7 +64,7 @@
             echo '<form action="updateVote.php" method="post">';
             echo '   <button class="filter-btn" type="submit" name="id" value='.$id.'>투표하기</button>';
             echo '</form>';
-            echo '<button  onclick="location.href='.$index.html.'">다시 선택하기</button>';
+            echo '<button  onclick="location.href=\'../../pages/vote/index.html\'">다시 선택하기</button>';
             echo '</section>';
 
         }

@@ -37,7 +37,12 @@ function getVoteNum( $conn, $id) {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     // echo '<h1>'.$row['vote'].'</h1>';
-    return $row['vote'];
+    if(isset($row['vote'])) {
+        return $row['vote'];
+    } else {
+        return 0;
+    }
+    
 }
 
 
