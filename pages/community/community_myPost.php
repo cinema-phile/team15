@@ -187,9 +187,7 @@ if (mysqli_connect_errno()) {
                 <div class="eachPost">
                     <div class="myPostLayout">
                         <div class="eachProfile">
-                            <div class="profileImg">
-                                <img src="<?=$res['profile']?>">
-                            </div>
+                            <img class="profileImg" src="<?=$res['profile']?>">
                             <p class="nickName"><?=$res['writer']?></p>
                         </div>
                         <div class="postButtons">
@@ -216,7 +214,7 @@ if (mysqli_connect_errno()) {
                         ?>
                         <div class="bestRepl_each">
                             <div class="text"><?=$best_comment[$i]['c_content']?></div>
-                            <div class="replCount">
+                            <div class="replCount_2">
                                 <div onclick="location.href='../../php/community/updateLike.php?isMine=true&boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
                                     <label for="hiddenBtn" class="thumb">
                                         <div class="thumbUp_2" type="submit"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>

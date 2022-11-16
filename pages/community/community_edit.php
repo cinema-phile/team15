@@ -81,9 +81,7 @@ if (mysqli_connect_errno()) {
                 
                 <div class="eachPost">
                     <div class="eachProfile">
-                        <div class="profileImg">
-                            <img src="<?=$res['profile']?>">
-                        </div>
+                        <img class="profileImg" src="<?=$res['profile']?>">
                         <p class="nickName"><?=$_SESSION['userName']?></p>  
                     </div>
                     <form action="../../php/community/submitPost.php?isNew=<?=$isNew?>&boardid=<?=$boardid?>" method="post">
@@ -91,7 +89,7 @@ if (mysqli_connect_errno()) {
                             <h4 class="postTitle">제목</h4>
                             <input class="titleInput" name="titleInput" value="<?=$res['title']?>">
                         </div>
-                        <input class="newPostContents" name="postContent" value="<?=$res['content']?>">
+                        <textarea class="newPostContents" name="postContent"><?=$res['content']?></textarea>
                         <button class="button" type=submit>작성 완료</button>
                     </form>
                 </div>

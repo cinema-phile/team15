@@ -113,9 +113,10 @@ if (mysqli_connect_errno()) {
                     from (
                         select commentid, (a.like_no - a.hate) as diff
                         from comment as a
+                        where boardid = ?
                     ) b where b.diff >= 1
                 ) r
-            ) and boardid = ? limit 1";
+            ) limit 1";
 
     # 베댓 있는지 확인
     for ($i=0; $i < count($bestComment); $i++) {
@@ -204,9 +205,7 @@ if (mysqli_connect_errno()) {
             ?>
             <div class="post" onclick="location.href='<?=$url?>'">
                 <div class="eachProfile">
-                    <div class="profileImg">
-                        <img src=<?=$res[$i]['profile']?>>
-                    </div>
+                    <img class="profileImg" src=<?=$res[$i]['profile']?>>
                     <p class="nickName"><?=$res[$i]['writer']?></p>  
                 </div>
                 <div class="eachPost">
@@ -227,7 +226,7 @@ if (mysqli_connect_errno()) {
                         <div class="replCount">
                         <div class="thumbUp"><img src="../../img/thumb_up.svg" width="16px" height="16px"></div>
                         <div class="thumbNum"><?=$res[$i]['like']?></div>
-                        <div class="thumbUp"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
+                        <div class="thumbDown"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
                         <div class="thumbNum"><?=$res[$i]['hate']?></div>
                     </div>
                     </div>
