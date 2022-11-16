@@ -34,9 +34,7 @@ $isNew=true;
                 
                 <div class="eachPost">
                     <div class="eachProfile">
-                        <div class="profileImg">
-                            <!-- <img src=""> -->
-                        </div>
+                        <img class="profileImg" src="<?=$_SESSION['profile']?>">
                         <p class="nickName"><?=$_SESSION['userName']?></p>  
                     </div>
                     <form action="../../php/community/submitPost.php?isNew=<?=$isNew?>&type=<?=$_GET['type']?>" method="post">

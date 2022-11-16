@@ -269,6 +269,7 @@
                 $name=getUserInfo($conn, $id)["name"];
                 $userid=getUserInfo($conn, $id)["userid"];
                 $password=getUserInfo($conn, $id)["password"];
+                $profile=getUserInfo($conn, $id)["profile"];
                 $preferGenre =getUserGenre($conn,$id)?getUserGenre($conn,$id):"영화";
                 $movieCnt = getMovieCount($conn, $id);
                 $peopleCnt = getPeopleCount($conn, $id);
