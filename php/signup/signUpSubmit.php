@@ -37,7 +37,6 @@ switch ($randNm) {
         $profile = "../../img/1.png";
         break;
 }
-$profile = rand(1, 8);
 
 if ($pw != $pw_confirm) {
     echo "<script>alert('비밀번호를 확인해 주세요');</script>";
