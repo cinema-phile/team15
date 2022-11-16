@@ -22,7 +22,7 @@ include ("../../php/mypage/showInfo.php");
     <section class = "info-block">
 
         <form action="../../php/mypage/changeInfo.php" method="POST">
-            <img src="../../img/profile-150.svg"/>
+            <img src="<?php echo $profile; ?>"/>
             <div class="info-profile">
                 <div>
                     <label>이름</label>

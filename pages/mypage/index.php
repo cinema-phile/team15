@@ -28,7 +28,7 @@ include ("../../php/mypage/showInfo.php");
         </div>
         <section class="me">
             <div class="me-info">
-                <img src="../../img/profile-50.svg"/>
+                <img src="<?php echo $profile; ?>"/>
                 <div class="text-block">
                     <p><?php echo $preferGenre; ?>를 사랑하는</p>
                     <p><?php echo $name; ?>님</p>
