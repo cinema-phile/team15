@@ -212,7 +212,8 @@
     border:2px solid var(--color-blue-400);
 }
 .vote-block img{
-    height:75rem;
+   
+    object-fit: cover;
 }
 .profile-info{
     display: flex;

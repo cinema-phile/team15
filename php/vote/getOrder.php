@@ -12,7 +12,16 @@
 <body>
     <header>
         <h1 class="title">LEADER BOARD</h1>
-    </header>
+    </header>        
+    <div class="menu">
+            <a href="../../pages/search/search.php"><h4 class="eachMenu">SEARCH</h4></a>
+            <a href="../../pages/vote/index.html"><h4 class="eachMenu">VOTE</h4></a>
+            <a href="../../pages/recommend/index.html"><h4 class="eachMenu">RECOMMEND</h4></a>
+            <a href="../../pages/community/index.php"><h4 class="eachMenu">COMMUNITY</h4></a>
+            <a href="../../pages/mypage/index.php"><h4 class="eachMenu">MYPAGE</h4></a>
+        </div>
+
+
     <section class = "filter-block">
         <form action="../../php/vote/getOrder.php" method="post">
             <button class="filter-btn" type="submit" name="sex" value = "남성&여성">전체보기</button>
