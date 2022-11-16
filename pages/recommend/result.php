@@ -75,12 +75,15 @@ include ("../../php/test/showResult.php");
                 </form>
             </button>
 
-       
-            <button class="btn-optional" onclick="location.href='../../pages/recommend/index.html'">다시 검사하기</button>
+            <button class="btn-optional php">다시 검사하기
+                <form method="get"  action="../../php/test/deleteResult.php">
+                <input class="btn-main input" type="submit" name="genre" id="genre" value=<?php echo $genre; ?> /><br/>
+                </form>
+            </button>
+
         </div>
 
     </div>
-    <!--<script src="./genreData.js" charset="utf-8"></script>
-    <script src="./result.js" charset="utf-8"></script>-->
+
 </body>
 </html>
