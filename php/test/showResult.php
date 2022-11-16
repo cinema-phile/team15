@@ -140,7 +140,7 @@
                 $typeImgUrl=getTypeInfo($conn, $genre)["imgUrl"];
                 $typeDirectors=getDirectors($conn, $genre);
                 $typeMovies1=getMoviesFromDirector($conn, $genre,$typeDirectors[0] );
-                $typeMovies2=$typeDirectors[1]?getMoviesFromDirector($conn,  $genre, $typeDirectors[1]):NULL;
+                $typeMovies2=isset($typeDirectors[1])?getMoviesFromDirector($conn,  $genre, $typeDirectors[1]):NULL;
 
                         
             } 
