@@ -107,7 +107,7 @@ if ($category == "film") {
 
     else {
 
-            if ($check == "액션" || $check == "코미디" || $check == "로맨스" || $check == "드라마" || 
+            if ($check == "액션" || $check == "코미디" || $check == "멜로/로맨스" || $check == "드라마" || 
             $check == "SF" || $check == "애니메이션" || $check == "다큐멘터리" || $check == "공포" || $check == "스릴러") {
                 $sql2 = "select movie_cd, movie_nm, open_yr, imgUrl
                 from movie
