@@ -179,6 +179,43 @@ else {
                 ?>
                 </div>
             </div>
+<<<<<<< Updated upstream
+=======
+
+            
+            <div class="trend2">
+                <h4 class="trendSubTitle">내가 가장 많이 감상한 영화 장르</h4>
+                <div class="genreImg"><img id="defaultImg" src="../../img/cinema.png"></div>
+                <h2 class="genreTitle"><?=$genre?></h2>
+            </div>
+
+            <div class="trend4">
+                <h4 class="trendSubTitle">연도별 장르 평점</h4>
+                <div class="resultList_genre">
+                    <?php
+                        $sql4 = "SELECT open_yr, rep_genre, avg(rate) from movie where open_yr >= 2018 GROUP BY open_yr, rep_genre with ROLLUP;";
+
+                        if($stmt = mysqli_prepare($conn, $sql4)) {
+                            if (mysqli_stmt_execute($stmt)) {
+                                if ($res = mysqli_stmt_get_result($stmt)) {
+                                    while ($newArray = mysqli_fetch_array($res)) {
+                                        $rate = round($newArray['avg(rate)'],2);
+                                        if ($newArray['rep_genre'] != NULL) {
+                                            echo '
+                                            <div class="rateTxt">
+                                                <p>'.$newArray['rep_genre'].'</p>
+                                                <p>'.$rate.'</p>
+                                                <p>'.$newArray['open_yr'].'</p>
+                                            </div>
+                                            ';
+                                        }}}}}
+
+                                    # close connection
+                                    mysqli_stmt_close($stmt);
+                                    mysqli_close($conn);
+                    ?>
+                </div>
+>>>>>>> Stashed changes
             
 
         </section>
