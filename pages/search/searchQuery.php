@@ -139,12 +139,10 @@ if ($category == "film") {
 
             else if ($check == "전체" || $check == "청소년" || $check == "12" || $check == "15") {
 
-                $sql3 = "select * from (
-                    select movie_cd, movie_nm, open_yr, imgUrl
-                    from movie m
-                    where INSTR(movie_nm, ?) and INSTR(age, ?)
-                    group by open_yr with rollup
-                ) a order by a.open_yr desc;";
+                $sql3 = "select movie_cd, movie_nm, open_yr, imgUrl
+                        from movie
+                        where INSTR(movie_nm, ?) and INSTR(age, ?)
+                        order by movie_nm desc";
 
 
                 if($stmt = mysqli_prepare($conn, $sql3)) {
