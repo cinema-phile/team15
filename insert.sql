@@ -5935,10 +5935,10 @@ INSERT INTO `characters` (`character_id`, `movie_cd`, `people_cd`, `cast_nm`, `s
 --
 
 INSERT INTO `users` (`userid`, `password`, `name`, `profile`) VALUES
-('catlove', 'cat11', '고양이', '../../img/6.png'),
-('catlov', 'cat11', '고양이1', '../../img/5.png'),
-('catlo', 'cat11', '고양이2', '../../img/4.png'),
-('catl', 'cat11', '고양이3', '../../img/3.png'),
+('catlover', 'cat11', '고양이', '../../img/6.png'),
+('catlove', 'cat11', '고양이1', '../../img/5.png'),
+('catlov', 'cat11', '고양이2', '../../img/4.png'),
+('catlo', 'cat11', '고양이3', '../../img/3.png'),
 ('cat1231r', 'cat11', '고양이4', '../../img/2.png'),
 ('catwerflover', 'cat11', '고양이5', '../../img/1.png'),
 ('catlwee32rover', 'cat11', '고양이6', '../../img/8.png'),
