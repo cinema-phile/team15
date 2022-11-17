@@ -85,7 +85,11 @@ else {
 
     }
 
-    $fanRate = round($cnt / count($filmoList) * 100, 2);
+    if(count($filmoList) != 0) {
+        $fanRate = round($cnt / count($filmoList) * 100, 2);
+    } else {
+        $fanRate = 0;
+    }
 
     # 즐겨찾기 등록 / 해제
     $sql1 = "select EXISTS (select * from star_people where userid = ? and people_cd = ?);";
