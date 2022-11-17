@@ -14,7 +14,7 @@ function getUserWatchedMovieArray($conn, $id){
 
 
     #prepare statement
-    $sql="select movie_nm, imgUrl, directors, runtime, open_yr, genre from movie where movie_cd IN (select movie_cd from watch_movie where userid=?);";
+    $sql="select movie_nm, imgUrl, directors, runtime, open_yr, rep_genre from movie where movie_cd IN (select movie_cd from watch_movie where userid=?);";
     
     if($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, 's', $id);
@@ -29,7 +29,7 @@ function getUserWatchedMovieArray($conn, $id){
                     "directors" => $directors,
                     "runtime"=>$runtime,
                     "open_yr" => $open_yr,
-                    "genre"=>explode(",", $genre) 
+                    "genre"=> $genre
                 ];
                 array_push( $res, $movie);
 
@@ -102,8 +102,7 @@ if (mysqli_connect_errno()) {
                 <p class="item-title"><?=$userWatchedMovies[$i]['movie_nm']?></p>
                 <p class="item-description"><?=$userWatchedMovies[$i]['directors']?></p>
                 <div>
-                    <span class="item-description"><?=$userWatchedMovies[$i]['genre'][0]?></span>
-                    <span class="item-description"><?=$userWatchedMovies[$i]['genre'][1]?></span>
+                    <span class="item-description"><?=$userWatchedMovies[$i]['genre']?></span>
                 </div>
                 <div>
                     <span class="item-description"><?=$userWatchedMovies[$i]['open_yr']?></span>
