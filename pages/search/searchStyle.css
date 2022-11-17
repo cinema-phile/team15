@@ -242,3 +242,16 @@ input[type="checkbox"] {
     width: 24rem;
     height: 24rem;
 }
+.resultList_genre {
+    width: 100%;
+    margin: 6.4rem auto 8rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 0.4rem;
+    row-gap: 2rem;
+}
+.rateTxt {
+    color: var(--color-blue-600);
+    font-size: var(--font-regular);
+    font-weight: var(--weight-bold);
+}

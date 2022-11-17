@@ -189,10 +189,10 @@ else {
                                 echo '<img id="pic" src="'.$newArray["profile"].'">';
                             }
                             else if ($newArray["profile"] == NULL && $newArray["sex"] == "여자") {
-                                echo '<img id="pic_default" src="woman.png">';
+                                echo '<img id="pic_default" src="../../img/woman.png">';
                             }
                             else {
-                                echo '<img id="pic_default" src="man.png">';
+                                echo '<img id="pic_default" src="../../img/man.png">';
                             }
                             echo '</div>
                             <div class="resultText">
@@ -218,13 +218,13 @@ else {
                             <div class="individual">
                             <div class="pic">';
                             if ($newArray["profile"] != NULL) {
-                                echo '<img id="pic" src="https://'.$newArray["profile"].'">';
+                                echo '<img id="pic" src="'.$newArray["profile"].'">';
                             }
                             else if ($newArray["profile"] == NULL && $newArray["sex"] == "여자") {
-                                echo '<img id="pic_default" src="woman.png">';
+                                echo '<img id="pic_default" src="../../img/woman.png">';
                             }
                             else {
-                                echo '<img id="pic_default" src="man.png">';
+                                echo '<img id="pic_default" src="../../img/man.png">';
                             }
                             echo '</div>
                             <div class="resultText">
