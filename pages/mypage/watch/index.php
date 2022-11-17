@@ -92,7 +92,7 @@ if (mysqli_connect_errno()) {
     </header>
 
     <section class="likes-block">
-        <p class="likes-title">관심 표시한 영화 모아보기</p>
+        <p class="likes-title">관람한 영화 모아보기</p>
         <div class="likes-items">
         <?php
             for ($i=0; $i < count($userWatchedMovies); $i++) {
