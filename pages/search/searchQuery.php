@@ -107,7 +107,7 @@ if ($category == "film") {
 
     else {
 
-            if ($check == "액션" || $check == "코미디" || $check == "멜로/로맨스" || $check == "드라마" || 
+            if ($check == "액션" || $check == "코미디" || $check == "로맨스" || $check == "드라마" || 
             $check == "SF" || $check == "애니메이션" || $check == "다큐멘터리" || $check == "공포" || $check == "스릴러") {
                 $sql2 = "select movie_cd, movie_nm, open_yr, imgUrl
                 from movie
@@ -139,15 +139,46 @@ if ($category == "film") {
 
             else if ($check == "전체" || $check == "청소년" || $check == "12" || $check == "15") {
 
-                $sql3 = "select * from (
-                    select movie_cd, movie_nm, open_yr, imgUrl
-                    from movie m
-                    where INSTR(movie_nm, ?) and INSTR(age, ?)
-                    group by open_yr with rollup
-                ) a order by a.open_yr desc;";
+                $sql3 = "select movie_cd, movie_nm, open_yr, imgUrl
+                        from movie
+                        where INSTR(movie_nm, ?) and INSTR(age, ?)
+                        order by movie_nm desc";
 
 
                 if($stmt = mysqli_prepare($conn, $sql3)) {
+                    if (mysqli_stmt_bind_param($stmt, "ss", $searchKeyword, $check)) {
+                        if (mysqli_stmt_execute($stmt)) {
+                            if ($res = mysqli_stmt_get_result($stmt)) {
+                                while ($newArray = mysqli_fetch_array($res)) {
+                                    $url = './filmInfo.php?code='.$newArray["movie_cd"];
+                                    echo '
+                                    <a href='.$url.'>
+                                    <div class="individual">
+                                    <div class="poster">
+                                    <img src="'.$newArray["imgUrl"].'" width=110px height=110px>
+                                    </div>
+                                    <div class="resultText">
+                                    <p class="movieName">'.$newArray["movie_nm"].'</p>
+                                    <p class="year">'.$newArray["open_yr"].'</p>
+                                    </div>
+                                    </div>
+                                    </a>';
+                                    
+                                }
+                            }}}}
+            }
+
+
+
+            else if ($check == "2018" || $check == "2019" || $check == "2020" || $check == "2021" || $check == "2022") {
+
+                $sql6 = "select movie_cd, movie_nm, open_yr, imgUrl
+                from movie
+                where INSTR(movie_nm, ?) and INSTR(open_yr, ?)
+                order by movie_nm desc";
+
+
+                if($stmt = mysqli_prepare($conn, $sql6)) {
                     if (mysqli_stmt_bind_param($stmt, "ss", $searchKeyword, $check)) {
                         if (mysqli_stmt_execute($stmt)) {
                             if ($res = mysqli_stmt_get_result($stmt)) {
