@@ -83,7 +83,6 @@
     width: 6rem;
     height: 6rem;
     border-radius: 100%;
-    background-color: var(--color-green-100);
 }
 .nickName {
     color: var(--color-gray-600);
