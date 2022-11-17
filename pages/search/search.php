@@ -41,6 +41,7 @@ if (!session_id()) {
                 <option value="default">전체</option>
                 <option value="genre">장르</option>
                 <option value="rate">관람등급</option>
+                <option value="year">개봉연도</option>
             </select>
             <div class="conditions" id="person">
                 <label><input type="checkbox" name="check" value="감독">영화감독</label>
