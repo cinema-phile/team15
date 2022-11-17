@@ -236,6 +236,7 @@ input[type="checkbox"] {
 }
 .genreTitle {
     color: var(--color-blue-400);
+    margin-bottom: 6rem;
 }
 
 #defaultImg {

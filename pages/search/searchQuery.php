@@ -77,7 +77,7 @@ else {
 
 if ($category == "film") {
 
-    if ($check == NULL) {
+    if ($check == NULL || $condition == "default") {
 
         $sql = "select movie_cd, movie_nm, open_yr, imgUrl
         from movie
