@@ -42,7 +42,7 @@ $isNew=true;
                             <h4 class="postTitle">제목</h4>
                             <input class="titleInput" name="titleInput">
                         </div>
-                        <input class="newPostContents" name="postContent">
+                        <textarea class="newPostContents" name="postContent"></textarea>
                         
                         <button class="button" type=submit>작성 완료</button>
                     </form>

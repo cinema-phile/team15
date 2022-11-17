@@ -27,7 +27,7 @@ if (mysqli_connect_errno()) {
 
         # run the query
         if(mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $title, $content, $type);
+            mysqli_stmt_bind_result($stmt, $title, $content);
             while(mysqli_stmt_fetch($stmt)) {
                 $res = [
                     "title" => $title,
