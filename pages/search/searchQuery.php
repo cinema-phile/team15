@@ -236,7 +236,8 @@ else {
     }}}}
     }
     else {
-        $sql5 = "select people_cd, people_nm, rep_role_nm, sex, profile from people where INSTR(people_nm, ?) and INSTR(rep_role_nm, ?);";
+        $sql5 = "select people_cd, people_nm, rep_role_nm, sex, profile
+                from people where INSTR(people_nm, ?) and INSTR(rep_role_nm, ?);";
 
         if($stmt = mysqli_prepare($conn, $sql5)) {
             if (mysqli_stmt_bind_param($stmt, "ss", $searchKeyword, $check)) {
