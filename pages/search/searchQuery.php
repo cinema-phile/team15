@@ -172,12 +172,10 @@ if ($category == "film") {
 
             else if ($check == "2018" || $check == "2019" || $check == "2020" || $check == "2021" || $check == "2022") {
 
-                $sql6 = "select * from (
-                    select movie_cd, movie_nm, open_yr, imgUrl
-                    from movie m
-                    where INSTR(movie_nm, ?) and INSTR(open_yr, ?)
-                    group by open_yr
-                ) a order by a.open_yr desc;";
+                $sql6 = "select movie_cd, movie_nm, open_yr, imgUrl
+                from movie
+                where INSTR(movie_nm, ?) and INSTR(open_yr, ?)
+                order by movie_nm desc";
 
 
                 if($stmt = mysqli_prepare($conn, $sql6)) {
