@@ -11,7 +11,7 @@ function getUserLikedActorArray($conn, $id){
     $res=array();
 
     #prepare statement
-    $sql="select people_nm_en, profile, filmo_names, sex from people where people_cd IN (select people_cd from star_people where userid=?);";
+    $sql="select people_nm, people_nm_en, profile, filmo_names, sex from people where people_cd IN (select people_cd from star_people where userid=?);";
 
 
     if($stmt = mysqli_prepare($conn, $sql)) {
@@ -19,9 +19,10 @@ function getUserLikedActorArray($conn, $id){
 
        # run the query
        if(mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $people_nm_en, $profile, $filmo_names, $sex);
+            mysqli_stmt_bind_result($stmt, $people_nm, $people_nm_en, $profile, $filmo_names, $sex);
                 while(mysqli_stmt_fetch($stmt)){
                     $actor = [
+                        "people_nm"=>$people_nm, 
                         "people_nm_en"=>$people_nm_en,
                         "profile"=>$profile,
                         "filmo_names"=>explode("|",$filmo_names),
@@ -107,10 +108,20 @@ if (mysqli_connect_errno()) {
                     <img class ="item-img" src='../../../img/man.png' />
                 <?php
                 }
+                $name = ($userLikedActor[$i]['people_nm_en'] != NULL) ? $userLikedActor[$i]['people_nm_en'] : $userLikedActor[$i]['people_nm'];
                 ?>
-                <p class="item-title"><?=$userLikedActor[$i]['people_nm_en']?></p>
-                <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][2]?></span>
-                <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][3]?></span>
+                <p class="item-title"><?=$name?></p>
+                <?php
+                if(isset($userLikedActor[$i]['filmo_names'][0])) {
+                ?>
+                <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][0]?></span>
+                <?php
+                } if(isset($userLikedActor[$i]['filmo_names'][1])) {
+                ?>
+                <span class="item-description"><?=$userLikedActor[$i]['filmo_names'][1]?></span>
+                <?php
+                }
+                ?>
             </div>
         <?php
             }

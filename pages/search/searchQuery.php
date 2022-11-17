@@ -107,7 +107,7 @@ if ($category == "film") {
 
     else {
 
-            if ($check == "액션" || $check == "코미디" || $check == "멜로/로맨스" || $check == "드라마" || 
+            if ($check == "액션" || $check == "코미디" || $check == "로맨스" || $check == "드라마" || 
             $check == "SF" || $check == "애니메이션" || $check == "다큐멘터리" || $check == "공포" || $check == "스릴러") {
                 $sql2 = "select movie_cd, movie_nm, open_yr, imgUrl
                 from movie
@@ -140,9 +140,9 @@ if ($category == "film") {
             else if ($check == "전체" || $check == "청소년" || $check == "12" || $check == "15") {
 
                 $sql3 = "select movie_cd, movie_nm, open_yr, imgUrl
-                from movie
-                where INSTR(movie_nm, ?) and INSTR(age, ?)
-                order by open_yr desc;";
+                        from movie
+                        where INSTR(movie_nm, ?) and INSTR(age, ?)
+                        order by movie_nm desc";
 
 
                 if($stmt = mysqli_prepare($conn, $sql3)) {
@@ -175,7 +175,7 @@ if ($category == "film") {
                 $sql6 = "select movie_cd, movie_nm, open_yr, imgUrl
                 from movie
                 where INSTR(movie_nm, ?) and INSTR(open_yr, ?)
-                order by movie_nm desc;";
+                order by movie_nm desc";
 
 
                 if($stmt = mysqli_prepare($conn, $sql6)) {
