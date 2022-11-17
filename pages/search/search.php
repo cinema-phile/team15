@@ -54,7 +54,7 @@ if (!session_id()) {
                 <label><input type="radio" name="check" value="드라마">드라마</label>
                 <label><input type="radio" name="check" value="SF">SF/판타지</label>
                 <label><input type="radio" name="check" value="애니메이션">애니메이션</label>
-                <label><input type="radio" name="check" value="다큐멘터리">다큐멘터리</label>
+                <label><input type="radio" name="check" value="다큐멘터리">다큐</label>
                 <label><input type="radio" name="check" value="공포">호러</label>
                 <label><input type="radio" name="check" value="스릴러">스릴러</label>
             </div>
