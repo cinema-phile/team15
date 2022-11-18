@@ -235,7 +235,7 @@ if (mysqli_connect_errno()) {
                                     <div class="thumbNum"><?=$comment[$i]['c_like']?></div>
                                     </label>
                                 </div>
-                                <div onclick="location.href='../../php/community/updateHate.php?boardid=<?=$boardid?>&commentid=<?=$best_comment[$i]['c_id']?>'">
+                                <div onclick="location.href='../../php/community/updateHate.php?boardid=<?=$boardid?>&commentid=<?=$comment[$i]['c_id']?>'">
                                     <label for="hiddenBtn" class="thumb">
                                     <div class="thumbDown_2" type="submit"><img src="../../img/thumb_down.svg" width="16px" height="16px"></div>
                                     <div class="thumbNum"><?=$comment[$i]['c_hate']?></div>
