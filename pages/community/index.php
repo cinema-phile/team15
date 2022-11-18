@@ -105,18 +105,13 @@ if (mysqli_connect_errno()) {
     mysqli_stmt_close($stmt);
 
     # 베댓 출력 쿼리
-    $sql = "select c.content, c.like_no, c.hate
-            from comment as c
-            where c.commentid = (
-                select r.best from (
-                    select b.commentid as best, max(b.diff) 
-                    from (
-                        select commentid, (a.like_no - a.hate) as diff
-                        from comment as a
-                        where boardid = ?
-                    ) b where b.diff >= 1
-                ) r
-            ) limit 1";
+    $sql = "select c.content, c.like_no, c.hate from comment as c join (
+                select commentid, (a.like_no - a.hate) as diff
+                from comment as a
+                where a.boardid = ?
+            ) b on c.commentid = b.commentid
+            where b.diff >= 1
+            order by b.diff desc limit 1";
 
     # 베댓 있는지 확인
     for ($i=0; $i < count($bestComment); $i++) {
